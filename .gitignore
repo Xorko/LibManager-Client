@@ -47,5 +47,6 @@ gradle-app.setting
 
 ### IntelliJ ###
 .idea/
+out/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle
