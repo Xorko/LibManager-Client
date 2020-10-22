@@ -1,6 +1,6 @@
 # LibManager
 ### A software to manage a library
-##### INF1503
+##### Université de Bretagne-Sud - INF1503 - 2020
 
 #### How to run ?
 * Windows: `gradlew.bat run`
