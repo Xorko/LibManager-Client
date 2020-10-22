@@ -7,10 +7,17 @@ plugins {
 group 'org.xorko'
 version '1.0-SNAPSHOT'
 
+mainClassName = "org.xorko.libmanager.App"
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
+
+javafx {
+    version = '14'
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
