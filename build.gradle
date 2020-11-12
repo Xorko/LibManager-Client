@@ -7,7 +7,7 @@ plugins {
 group 'org.xorko'
 version '1.0-SNAPSHOT'
 
-mainClassName = "org.xorko.libmanager.App"
+mainClassName = "org.libmanager.client.App"
 
 repositories {
     mavenCentral()
