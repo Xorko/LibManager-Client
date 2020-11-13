@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +27,7 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("LibManager");
         initRootView();
-        showReservationView();
+        showAdminPanelView();
         primaryStage.show();
     }
 
@@ -50,6 +51,20 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("/view/ReservationView.fxml"));
             GridPane reservation = loader.load();
+
+            rootView.setCenter(reservation);
+
+            //TODO Controller
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showAdminPanelView() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("/view/AdminPanelView.fxml"));
+            TabPane reservation = loader.load();
 
             rootView.setCenter(reservation);
 
