@@ -7,28 +7,34 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="org.libmanager.client.controller.RootController" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <MenuBar BorderPane.alignment="CENTER">
+      <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Quit">
+              <MenuItem fx:id="quitMenuItem" onAction="#handleQuit" mnemonicParsing="false" text="Quit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Account">
+          <Menu fx:id="accountMenu" mnemonicParsing="false" text="Account">
             <items>
-              <MenuItem mnemonicParsing="false" text="Login" />
-                  <MenuItem mnemonicParsing="false" text="Logout" />
+              <MenuItem fx:id="loginMenuItem" onAction="#handleLogin" mnemonicParsing="false" text="Login" />
+                  <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" text="Logout" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+            <Menu fx:id="adminMenu" mnemonicParsing="false" text="Admin" visible="false">
+                <items>
+                    <MenuItem fx:id="adminPanelMenuItem" mnemonicParsing="false" text="Go to admin panel" />
+                    <MenuItem fx:id="reservationMenuItem" mnemonicParsing="false" text="Go to reservation" />
+                </items>
+            </Menu>
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="aboutMenuItem" onAction="#handleAbout" mnemonicParsing="false" text="About" />
             </items>
           </Menu>
         </menus>
