@@ -214,7 +214,7 @@
                               <TableColumn prefWidth="75.0" text="Last name" />
                               <TableColumn prefWidth="75.0" text="Address" />
                               <TableColumn prefWidth="75.0" text="Birthday" />
-                              <TableColumn prefWidth="88.0" text="Mail address" />
+                              <TableColumn prefWidth="88.0" text="Email address" />
                           </columns>
                         </TableView>
                         <GridPane>
@@ -307,7 +307,7 @@
                                           <Insets right="10.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <Label text="Mail address" GridPane.rowIndex="6">
+                                    <Label text="Email address" GridPane.rowIndex="6">
                                        <GridPane.margin>
                                           <Insets left="10.0" />
                                        </GridPane.margin>
