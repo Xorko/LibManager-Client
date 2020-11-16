@@ -26,8 +26,6 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -67,7 +65,7 @@
             <Insets right="10.0" />
          </GridPane.margin></TextField>
       <DatePicker prefWidth="125.0" promptText="dd/mm/yyyy" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="6">
         <buttons>
           <Button mnemonicParsing="false" text="Cancel" />
             <Button mnemonicParsing="false" text="Confirm" />
@@ -76,17 +74,10 @@
             <Insets right="15.0" />
          </GridPane.margin>
       </ButtonBar>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Edit user" GridPane.columnSpan="2147483647">
+      <Label text="Title" GridPane.columnIndex="2">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="6">
-         <GridPane.margin>
-            <Insets right="10.0" />
-         </GridPane.margin>
-      </TextField>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" textFill="RED" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
    </children>
 </GridPane>

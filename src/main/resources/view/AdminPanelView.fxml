@@ -214,7 +214,6 @@
                               <TableColumn prefWidth="75.0" text="Last name" />
                               <TableColumn prefWidth="75.0" text="Address" />
                               <TableColumn prefWidth="75.0" text="Birthday" />
-                              <TableColumn prefWidth="88.0" text="Mail address" />
                           </columns>
                         </TableView>
                         <GridPane>
@@ -241,10 +240,9 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Search User" GridPane.columnSpan="2147483647">
+                                    <Label text="Search User" GridPane.columnIndex="2">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
@@ -288,7 +286,7 @@
                                        </GridPane.margin>
                                     </TextField>
                                     <DatePicker GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
-                                    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                                    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                                        <buttons>
                                           <Button mnemonicParsing="false" text="Reset" />
                                           <Button mnemonicParsing="false" text="Search" />
@@ -303,16 +301,6 @@
                                        </GridPane.margin>
                                     </TextField>
                                     <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
-                                       <GridPane.margin>
-                                          <Insets right="10.0" />
-                                       </GridPane.margin>
-                                    </TextField>
-                                    <Label text="Mail address" GridPane.rowIndex="6">
-                                       <GridPane.margin>
-                                          <Insets left="10.0" />
-                                       </GridPane.margin>
-                                    </Label>
-                                    <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                                        <GridPane.margin>
                                           <Insets right="10.0" />
                                        </GridPane.margin>
