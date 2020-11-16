@@ -27,7 +27,7 @@
             <Insets left="10.0" />
          </GridPane.margin>
          <font>
-            <Font size="24.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Label text="Username" GridPane.rowIndex="1">
