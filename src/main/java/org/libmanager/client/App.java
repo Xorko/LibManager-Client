@@ -31,7 +31,7 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("LibManager");
         initRootView();
-        showAdminPanelView();
+        showReservationView();
         primaryStage.show();
     }
 
