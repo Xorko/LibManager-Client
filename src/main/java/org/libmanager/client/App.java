@@ -10,12 +10,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.libmanager.client.controller.RootController;
-import org.libmanager.client.model.DVD;
 import org.libmanager.client.model.Item;
 import org.libmanager.client.model.User;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class App extends Application {
 
@@ -25,8 +23,6 @@ public class App extends Application {
     private ObservableList<Item> itemList;
 
     public static void main(String[] args) {
-        DVD d = new DVD("Interstellar", "Je sais plus", "Science-Fiction", LocalDate.of(2014, 1, 1), false, "2h15");
-        System.out.println(d.getAuthor());
         launch(args);
     }
 
@@ -35,7 +31,7 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("LibManager");
         initRootView();
-        showLoginDialog();
+        showAdminPanelView();
         primaryStage.show();
     }
 
