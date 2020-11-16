@@ -31,11 +31,8 @@ public class App extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("LibManager");
         initRootView();
-<<<<<<< HEAD
         showReservationView();
-=======
         showAdminPanelView();
->>>>>>> 892f8f9eb5b8f3efefa23f1ad94958a6ce736bf3
         primaryStage.show();
     }
 
