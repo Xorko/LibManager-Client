@@ -75,7 +75,7 @@
             <Insets right="15.0" />
          </GridPane.margin>
       </ButtonBar>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Item data" GridPane.columnSpan="2147483647">
+      <Label text="Title" GridPane.columnIndex="2">
          <font>
             <Font size="17.0" />
          </font>
