@@ -32,7 +32,7 @@
             <TableColumn prefWidth="85.0" text="Release date" />
             <TableColumn prefWidth="65.0" text="Publisher" />
             <TableColumn prefWidth="75.0" text="ISBN" />
-            <TableColumn prefWidth="75.0" text="Issued ?" />
+            <TableColumn prefWidth="75.0" text="State ?" />
         </columns>
       </TableView>
       <GridPane>
