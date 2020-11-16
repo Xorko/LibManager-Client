@@ -14,7 +14,6 @@ repositories {
 }
 
 dependencies {
-    compile 'com.jfoenix:jfoenix:9.0.10'
     implementation 'org.mindrot:jbcrypt:0.4'
     testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
