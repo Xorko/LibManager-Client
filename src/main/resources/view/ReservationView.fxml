@@ -29,8 +29,8 @@
           <TableColumn prefWidth="75.0" text="Author" />
             <TableColumn prefWidth="75.0" text="Genre" />
             <TableColumn prefWidth="75.0" text="Type" />
-            <TableColumn prefWidth="85.0" text="Release date" />
-            <TableColumn prefWidth="65.0" text="Publisher" />
+            <TableColumn prefWidth="75.0" text="Release date" />
+            <TableColumn prefWidth="75.0" text="Publisher" />
             <TableColumn prefWidth="75.0" text="ISBN" />
             <TableColumn prefWidth="75.0" text="Issued ?" />
         </columns>
@@ -38,6 +38,7 @@
       <GridPane>
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -80,7 +81,20 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Search" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+            <DatePicker promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" text="Filters" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -88,7 +102,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
+            <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
               <buttons>
                 <Button mnemonicParsing="false" text="Reset" />
                   <Button mnemonicParsing="false" text="Search" />
@@ -105,46 +119,21 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
             <Label text="Publisher" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </TextField>
-            <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </ComboBox>
-            <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </ComboBox>
-            <DatePicker maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
-               <GridPane.margin>
-                  <Insets right="10.0" />
-               </GridPane.margin>
-            </DatePicker>
          </children>
       </GridPane>
    </children>
