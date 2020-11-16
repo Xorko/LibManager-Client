@@ -29,8 +29,13 @@
           <TableColumn prefWidth="75.0" text="Author" />
             <TableColumn prefWidth="75.0" text="Genre" />
             <TableColumn prefWidth="75.0" text="Type" />
+<<<<<<< HEAD
             <TableColumn prefWidth="85.0" text="Release date" />
             <TableColumn prefWidth="65.0" text="Publisher" />
+=======
+            <TableColumn prefWidth="75.0" text="Release date" />
+            <TableColumn prefWidth="75.0" text="Publisher" />
+>>>>>>> parent of 5123411... Remade all view with jfoenix
             <TableColumn prefWidth="75.0" text="ISBN" />
             <TableColumn prefWidth="75.0" text="Issued ?" />
         </columns>
@@ -38,6 +43,10 @@
       <GridPane>
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+<<<<<<< HEAD
+=======
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+>>>>>>> parent of 5123411... Remade all view with jfoenix
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -62,6 +71,7 @@
             </Label>
             <Label text="Author" GridPane.rowIndex="3">
                <GridPane.margin>
+<<<<<<< HEAD
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
@@ -71,15 +81,26 @@
                </GridPane.margin>
             </Label>
             <Label text="Type" GridPane.rowIndex="6">
+=======
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Release date" GridPane.rowIndex="7">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+<<<<<<< HEAD
             <Label text="Genre" GridPane.rowIndex="5">
+=======
+            <Label text="Type" GridPane.rowIndex="6">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+<<<<<<< HEAD
             <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Search" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets />
@@ -101,34 +122,74 @@
                </padding>
             </ButtonBar>
             <Label text="ISBN" GridPane.rowIndex="8">
+=======
+            <Label text="Genre" GridPane.rowIndex="5">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
+<<<<<<< HEAD
             <Label text="Publisher" GridPane.rowIndex="4">
+=======
+            <DatePicker promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
+<<<<<<< HEAD
             </Label>
             <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+=======
+            </TextField>
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
+<<<<<<< HEAD
             <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+=======
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+            <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+            <Label alignment="CENTER" text="Filters" GridPane.columnIndex="2" GridPane.rowIndex="1">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets />
                </GridPane.margin>
+<<<<<<< HEAD
             </TextField>
             <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+=======
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
+              <buttons>
+                <Button mnemonicParsing="false" text="Reset" />
+                  <Button mnemonicParsing="false" text="Search" />
+              </buttons>
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets right="20.0" />
                </GridPane.margin>
+<<<<<<< HEAD
             </TextField>
             <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+=======
+               <padding>
+                  <Insets left="-20.0" />
+               </padding>
+            </ButtonBar>
+            <Label text="ISBN" GridPane.rowIndex="8">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" />
                </GridPane.margin>
+<<<<<<< HEAD
             </TextField>
             <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
                <GridPane.margin>
@@ -136,15 +197,33 @@
                </GridPane.margin>
             </ComboBox>
             <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" styleClass="text-field" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+=======
+            </Label>
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
+            </TextField>
+            <Label text="Publisher" GridPane.rowIndex="4">
+>>>>>>> parent of 5123411... Remade all view with jfoenix
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+<<<<<<< HEAD
             </ComboBox>
             <DatePicker maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </DatePicker>
+=======
+            </Label>
+            <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </TextField>
+>>>>>>> parent of 5123411... Remade all view with jfoenix
          </children>
       </GridPane>
    </children>
