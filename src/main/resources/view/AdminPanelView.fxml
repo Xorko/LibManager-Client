@@ -74,7 +74,7 @@
                                           <Insets />
                                        </GridPane.margin>
                                        <font>
-                                          <Font size="17.0" />
+                                          <Font size="18.0" />
                                        </font>
                                     </Label>
                                     <Label text="Title" GridPane.rowIndex="1">
@@ -169,7 +169,7 @@
                                  <children>
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Edit List" GridPane.rowIndex="1">
                                        <font>
-                                          <Font size="17.0" />
+                                          <Font size="18.0" />
                                        </font>
                                     </Label>
                                     <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
@@ -330,7 +330,7 @@
                                  <children>
                                     <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Edit List" GridPane.rowIndex="1">
                                        <font>
-                                          <Font size="17.0" />
+                                          <Font size="18.0" />
                                        </font>
                                     </Label>
                                     <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">

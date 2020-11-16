@@ -77,7 +77,7 @@
       </ButtonBar>
       <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Item data" GridPane.columnSpan="2147483647">
          <font>
-            <Font size="17.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <Label text="ISBN" GridPane.columnIndex="1" GridPane.rowIndex="6" />
