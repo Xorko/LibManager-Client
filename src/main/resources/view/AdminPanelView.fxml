@@ -54,7 +54,6 @@
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
@@ -70,12 +69,12 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Search item" GridPane.columnIndex="2">
+                                    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Search item" GridPane.columnSpan="2147483647">
                                        <GridPane.margin>
                                           <Insets />
                                        </GridPane.margin>
                                        <font>
-                                          <Font size="18.0" />
+                                          <Font size="17.0" />
                                        </font>
                                     </Label>
                                     <Label text="Title" GridPane.rowIndex="1">
@@ -126,7 +125,7 @@
                                           <Insets right="10.0" />
                                        </GridPane.margin>
                                     </TextField>
-                                    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+                                    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                                        <buttons>
                                           <Button mnemonicParsing="false" text="Reset" />
                                           <Button mnemonicParsing="false" text="Search" />
@@ -164,27 +163,13 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <GridPane GridPane.rowIndex="2">
-                                      <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2">
-                                            <buttons>
-                                              <Button mnemonicParsing="false" text="Add" />
-                                                <Button mnemonicParsing="false" text="Edit" />
-                                                <Button mnemonicParsing="false" text="Delete" />
-                                            </buttons>
-                                          </ButtonBar>
-                                       </children>
-                                    </GridPane>
+                                    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                      <buttons>
+                                        <Button mnemonicParsing="false" text="Add" ButtonBar.buttonData="LEFT" />
+                                          <Button mnemonicParsing="false" text="Edit" ButtonBar.buttonData="LEFT" />
+                                          <Button mnemonicParsing="false" text="Delete" ButtonBar.buttonData="LEFT" />
+                                      </buttons>
+                                    </ButtonBar>
                                  </children>
                               </GridPane>
                            </children>
@@ -336,27 +321,13 @@
                                           <Font size="17.0" />
                                        </font>
                                     </Label>
-                                    <GridPane GridPane.rowIndex="2">
-                                      <columnConstraints>
-                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="15.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                       <children>
-                                          <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2">
-                                            <buttons>
-                                              <Button mnemonicParsing="false" text="Add" />
-                                                <Button mnemonicParsing="false" text="Edit" />
-                                                <Button mnemonicParsing="false" text="Delete" />
-                                            </buttons>
-                                          </ButtonBar>
-                                       </children>
-                                    </GridPane>
+                                    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                      <buttons>
+                                        <Button mnemonicParsing="false" text="Add" ButtonBar.buttonData="LEFT"/>
+                                          <Button mnemonicParsing="false" text="Edit" ButtonBar.buttonData="LEFT"/>
+                                          <Button mnemonicParsing="false" text="Delete" ButtonBar.buttonData="LEFT"/>
+                                      </buttons>
+                                    </ButtonBar>
                                  </children>
                               </GridPane>
                            </children>
