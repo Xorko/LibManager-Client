@@ -32,15 +32,16 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                <TableView fx:id="itemsTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                     <columns>
-                                        <TableColumn prefWidth="75.0" text="Title" />
-                                        <TableColumn prefWidth="75.0" text="Author" />
-                                        <TableColumn prefWidth="75.0" text="Genre" />
-                                        <TableColumn prefWidth="75.0" text="Type" />
-                                        <TableColumn prefWidth="75.0" text="Release date" />
-                                        <TableColumn prefWidth="75.0" text="ISBN" />
-                                        <TableColumn prefWidth="75.0" text="State" />
+                                        <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+                                        <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Author" />
+                                        <TableColumn fx:id="genreColumn" prefWidth="75.0" text="Genre" />
+                                        <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+                                        <TableColumn fx:id="releaseDateColumn" prefWidth="75.0" text="Release date" />
+                                        <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="ISBN" />
+                                        <TableColumn fx:id="stateColumn" prefWidth="75.0" text="State" />
+                                        <TableColumn fx:id="durationColumn" prefWidth="75.0" text="Duration" />
                                     </columns>
                                 </TableView>
                                 <GridPane>
@@ -109,29 +110,29 @@
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                                <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                                <TextField fx:id="authorField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                                                <ComboBox fx:id="genreCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin></ComboBox>
-                                                <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                                <ComboBox fx:id="typeCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin></ComboBox>
-                                                <DatePicker maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                <DatePicker fx:id="releaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin></DatePicker>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                                                <TextField fx:id="isbnField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
@@ -150,12 +151,12 @@
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                                                <TextField fx:id="publisherField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+                                                <ComboBox fx:id="stateCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
@@ -213,14 +214,14 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
-                                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                     <columns>
-                                        <TableColumn prefWidth="75.0" text="Username" />
-                                        <TableColumn prefWidth="75.0" text="First name" />
-                                        <TableColumn prefWidth="75.0" text="Last name" />
-                                        <TableColumn prefWidth="75.0" text="Address" />
-                                        <TableColumn prefWidth="75.0" text="Birthday" />
-                                        <TableColumn prefWidth="88.0" text="Email address" />
+                                        <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username" />
+                                        <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First name" />
+                                        <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last name" />
+                                        <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Address" />
+                                        <TableColumn fx:id="birthdayColumn" prefWidth="75.0" text="Birthday" />
+                                        <TableColumn fx:id="emailAddressColumn" prefWidth="88.0" text="Email address" />
                                     </columns>
                                 </TableView>
                                 <GridPane>
@@ -283,17 +284,17 @@
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                                <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                                <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <DatePicker maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                                <DatePicker fx:id="birthdayDPicker" maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin></DatePicker>
@@ -306,12 +307,12 @@
                                                         <Insets right="20.0" />
                                                     </GridPane.margin>
                                                 </ButtonBar>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                                                <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                                                <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
@@ -321,7 +322,7 @@
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <TextField GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                <TextField fx:id="emailAddressField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>

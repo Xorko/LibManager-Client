@@ -27,6 +27,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <Label text="Title" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -45,7 +46,7 @@
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <TextField editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <TextField fx:id="titleField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
@@ -53,20 +54,26 @@
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <TextField fx:id="authorField" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <TextField fx:id="genreField" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <TextField fx:id="typeField" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <DatePicker prefWidth="125.0" promptText="dd/mm/yyyy" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <DatePicker fx:id="releaseDateDPicker" maxWidth="1.7976931348623157E308" prefWidth="125.0" promptText="dd/mm/yyyy" GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></DatePicker>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
         <buttons>
           <Button mnemonicParsing="false" text="Cancel" />
             <Button mnemonicParsing="false" text="Confirm" />
@@ -81,6 +88,15 @@
          </font>
       </Label>
       <Label text="ISBN" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <TextField fx:id="isbnField" GridPane.columnIndex="2" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></TextField>
+      <Label text="Duration" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <TextField fx:id="durationField" GridPane.columnIndex="2" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin>
+      </TextField>
    </children>
 </GridPane>

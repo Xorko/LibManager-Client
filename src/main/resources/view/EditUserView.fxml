@@ -45,7 +45,7 @@
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <TextField editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+      <TextField fx:id="usernameField" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
@@ -53,22 +53,25 @@
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <TextField fx:id="firstNameField" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <TextField fx:id="lastNameField" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <TextField fx:id="addressField" GridPane.columnIndex="2" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <DatePicker prefWidth="125.0" promptText="dd/mm/yyyy" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <DatePicker fx:id="birthdayDPicker" maxWidth="1.7976931348623157E308" prefWidth="125.0" promptText="dd/mm/yyyy" GridPane.columnIndex="2" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets right="10.0" />
+         </GridPane.margin></DatePicker>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="7">
         <buttons>
-          <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" text="Cancel" />
             <Button mnemonicParsing="false" text="Confirm" />
         </buttons>
          <GridPane.margin>
@@ -81,7 +84,7 @@
          </font>
       </Label>
       <Label text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <TextField GridPane.columnIndex="2" GridPane.rowIndex="6">
+      <TextField fx:id="emailAddressField" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>

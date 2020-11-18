@@ -7,9 +7,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import org.libmanager.client.App;
-import org.libmanager.client.model.Item;
 
-public class ReservationController {
+public class AdminPanelController {
 
     @FXML
     private TextField titleField;
@@ -18,12 +17,14 @@ public class ReservationController {
     @FXML
     private TextField publisherField;
     /*
-    TODO Enum for ComboBox
+    TODO enum
     @FXML
     private ComboBox genreCBox;
     @FXML
     private ComboBox typeCBox;
-    */
+    @FXML
+    private ComboBox stateCBox;
+     */
     @FXML
     private DatePicker releaseDateDPicker;
     @FXML
@@ -31,7 +32,7 @@ public class ReservationController {
     /*
     TODO types
     @FXML
-    private TableColumn titleColumn;
+    private  TableColumn titleColumn;
     @FXML
     private TableColumn authorColumn;
     @FXML
@@ -41,8 +42,6 @@ public class ReservationController {
     @FXML
     private TableColumn releaseDateColumn;
     @FXML
-    private TableColumn publisherColumn;
-    @FXML
     private TableColumn isbnColumn;
     @FXML
     private TableColumn stateColumn;
@@ -50,6 +49,35 @@ public class ReservationController {
     private TableColumn durationColumn;
     @FXML
     private TableView itemsTable;
+    */
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private TextField firstNameField;
+    @FXML
+    private TextField lastNameField;
+    @FXML
+    private TextField addressField;
+    @FXML
+    private DatePicker birthdayDPicker;
+    @FXML
+    private TextField emailAddressField;
+    /*
+    TODO types
+    @FXML
+    private TableColumn usernameColumn;
+    @FXML
+    private TableColumn firstNameColumn;
+    @FXML
+    private TableColumn lastNameColumn;
+    @FXML
+    private TableColumn addressColumn;
+    @FXML
+    private TableColumn birthdayColumn;
+    @FXML
+    private TableColumn emailAddressColumn;
+    @FXML
+    private TableView usersTable;
     */
 
     App app;
