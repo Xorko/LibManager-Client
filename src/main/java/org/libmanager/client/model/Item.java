@@ -13,6 +13,7 @@ public abstract class Item {
     private SimpleStringProperty genre;
     private SimpleObjectProperty<LocalDate> releaseDate;
     private SimpleBooleanProperty state;
+    private SimpleStringProperty isbn;
 
     public Item() {
         title = new SimpleStringProperty(null);
@@ -20,14 +21,16 @@ public abstract class Item {
         genre = new SimpleStringProperty(null);
         releaseDate = new SimpleObjectProperty<>(null);
         state = new SimpleBooleanProperty(false);
+        isbn = new SimpleStringProperty(null);
     }
 
-    public Item(String title, String author, String genre, LocalDate releaseDate, boolean state) {
+    public Item(String title, String author, String genre, LocalDate releaseDate, boolean state, String isbn) {
         this.title = new SimpleStringProperty(null);
         this.author = new SimpleStringProperty(null);
         this.genre = new SimpleStringProperty(null);
         this.releaseDate = new SimpleObjectProperty<>(null);
         this.state = new SimpleBooleanProperty(false);
+        this.isbn = new SimpleStringProperty(null);
     }
 
     public SimpleStringProperty titleProperty() {
@@ -86,7 +89,13 @@ public abstract class Item {
         return state.get();
     }
 
-    public void setstate(boolean state) {
-        this.state.set(state);
-    }
+    public boolean isState() {return state.get();}
+
+    public void setState(boolean state) {this.state.set(state);}
+
+    public String getIsbn() {return isbn.get();}
+
+    public SimpleStringProperty isbnProperty() {return isbn;}
+
+    public void setIsbn(String isbn) {this.isbn.set(isbn);}
 }

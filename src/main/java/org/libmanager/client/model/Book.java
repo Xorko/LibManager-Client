@@ -12,8 +12,8 @@ public class Book extends Item {
         publisher = new SimpleStringProperty(null);
     }
 
-    public Book(String title, String author, String genre, LocalDate releaseDate, boolean issued, String publisher) {
-        super(title, author, genre, releaseDate, issued);
+    public Book(String title, String author, String genre, LocalDate releaseDate, boolean state, String publisher, String isbn) {
+        super(title, author, genre, releaseDate, state, isbn);
         this.publisher = new SimpleStringProperty(publisher);
     }
 

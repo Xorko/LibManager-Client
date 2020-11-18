@@ -12,14 +12,16 @@ public class DVD extends Item {
         duration = new SimpleStringProperty(null);
     }
 
-    public DVD(String title, String author, String genre, LocalDate releaseDate, boolean issued, String duration) {
-        super(title, author, genre, releaseDate, issued);
+    public DVD(String title, String author, String genre, LocalDate releaseDate, boolean state, String duration, String isbn) {
+        super(title, author, genre, releaseDate, state, isbn);
         this.duration = new SimpleStringProperty(duration);
     }
 
-    public SimpleStringProperty getDuration() {
+    public SimpleStringProperty durationProperty() {
         return duration;
     }
+
+    public String getDuration() {return duration.get();}
 
     public void setDuration(String duration) {
         this.duration.set(duration);
