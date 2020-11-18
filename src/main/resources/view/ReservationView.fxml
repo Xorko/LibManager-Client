@@ -25,14 +25,15 @@
    <children>
       <TableView fx:id="itemsTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
         <columns>
-          <TableColumn prefWidth="75.0" text="Title" />
-          <TableColumn prefWidth="75.0" text="Author" />
-            <TableColumn prefWidth="75.0" text="Genre" />
-            <TableColumn prefWidth="75.0" text="Type" />
-            <TableColumn prefWidth="85.0" text="Release date" />
-            <TableColumn prefWidth="65.0" text="Publisher" />
-            <TableColumn prefWidth="75.0" text="ISBN" />
-            <TableColumn prefWidth="75.0" text="State" />
+          <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
+          <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Author" />
+            <TableColumn fx:id="genreColumn" prefWidth="75.0" text="Genre" />
+            <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
+            <TableColumn fx:id="releaseDateColumn" prefWidth="85.0" text="Release date" />
+            <TableColumn fx:id="publisherColumn" prefWidth="65.0" text="Publisher" />
+            <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="ISBN" />
+            <TableColumn fx:id="stateColumn" prefWidth="75.0" text="State" />
+            <TableColumn fx:id="durationColumn" prefWidth="75.0" text="Duration" />
         </columns>
       </TableView>
       <GridPane>
@@ -90,8 +91,8 @@
             </Label>
             <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
               <buttons>
-                <Button mnemonicParsing="false" text="Reset" />
-                  <Button mnemonicParsing="false" text="Search" />
+                    <Button mnemonicParsing="false" text="Reset" />
+                    <Button mnemonicParsing="false" text="Search" />
               </buttons>
                <GridPane.margin>
                   <Insets right="20.0" />
@@ -110,37 +111,37 @@
                   <Insets left="10.0" />
                </GridPane.margin>
             </Label>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+            <TextField fx:id="titleField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+            <TextField fx:id="authorField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+            <TextField fx:id="publisherField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <TextField maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+            <TextField fx:id="isbnField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+            <ComboBox fx:id="genreCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </ComboBox>
-            <ComboBox maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+            <ComboBox fx:id="typeCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
             </ComboBox>
-            <DatePicker maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+            <DatePicker fx:id="releaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
