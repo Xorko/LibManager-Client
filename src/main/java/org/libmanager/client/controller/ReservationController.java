@@ -11,8 +11,9 @@ import org.libmanager.client.model.Item;
 
 public class ReservationController {
 
+    // Book
     @FXML
-    private TextField titleField;
+    private TextField bookTitleField;
     @FXML
     private TextField authorField;
     @FXML
@@ -20,38 +21,63 @@ public class ReservationController {
     /*
     TODO Enum for ComboBox
     @FXML
-    private ComboBox genreCBox;
-    @FXML
-    private ComboBox typeCBox;
+    private ComboBox bookGenreCBox;
     */
     @FXML
-    private DatePicker releaseDateDPicker;
+    private DatePicker bookReleaseDateDPicker;
     @FXML
     private TextField isbnField;
     /*
     TODO types
     @FXML
-    private TableColumn titleColumn;
+    private TableColumn bookTitleColumn;
     @FXML
     private TableColumn authorColumn;
     @FXML
-    private TableColumn genreColumn;
+    private TableColumn bookGenreColumn;
     @FXML
-    private TableColumn typeColumn;
-    @FXML
-    private TableColumn releaseDateColumn;
+    private TableColumn bookReleaseDateColumn;
     @FXML
     private TableColumn publisherColumn;
     @FXML
     private TableColumn isbnColumn;
     @FXML
-    private TableColumn stateColumn;
+    private TableColumn bookStateColumn;
+    @FXML
+    private TableView bookTable;
+    */
+
+    // DVD
+    @FXML
+    private TextField dvdTitleField;
+    @FXML
+    private TextField directorField;
+    /*
+    TODO Enum for ComboBox
+    @FXML
+    private ComboBox dvdGenreCBox;
+    */
+    @FXML
+    private DatePicker dvdReleaseDateDPicker;
+    /*
+    TODO types
+    @FXML
+    private TableColumn dvdTitleColumn;
+    @FXML
+    private TableColumn directorColumn;
+    @FXML
+    private TableColumn dvdGenreColumn;
+    @FXML
+    private TableColumn dvdReleaseDateColumn;
     @FXML
     private TableColumn durationColumn;
     @FXML
-    private TableView itemsTable;
+    private TableColumn bookStateColumn;
+    @FXML
+    private TableView dvdTable;
     */
 
+    // App
     App app;
 
     public void setApp(App app) {this.app = app;}

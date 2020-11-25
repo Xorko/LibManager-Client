@@ -29,19 +29,19 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label text="Nom d'utilisateur" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <Label text="First name" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <Label text="Prénom" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <Label text="Last name" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Label text="Nom de famille" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
-      <Label text="Birthday" GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <Label text="Date de naissance" GridPane.columnIndex="1" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
@@ -49,7 +49,7 @@
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></TextField>
-      <Label text="Address" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <Label text="Adresse" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
@@ -78,12 +78,12 @@
             <Insets right="15.0" />
          </GridPane.margin>
       </ButtonBar>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="User data" GridPane.columnSpan="2147483647">
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Données utilisateur" GridPane.columnSpan="2147483647">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label text="Email address" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label text="Adresse Email" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <TextField fx:id="emailAddressField" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets right="10.0" />

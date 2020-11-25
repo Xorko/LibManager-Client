@@ -19,47 +19,50 @@
 
 <TabPane prefHeight="720.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <tabs>
-        <Tab text="Items">
-            <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                    <children>
-                        <GridPane layoutX="192.0" layoutY="235.0" prefHeight="691.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            </rowConstraints>
-                            <children>
-                                <TableView fx:id="itemsTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                                    <columns>
-                                        <TableColumn fx:id="titleColumn" prefWidth="75.0" text="Title" />
-                                        <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Author" />
-                                        <TableColumn fx:id="genreColumn" prefWidth="75.0" text="Genre" />
-                                        <TableColumn fx:id="typeColumn" prefWidth="75.0" text="Type" />
-                                        <TableColumn fx:id="releaseDateColumn" prefWidth="75.0" text="Release date" />
-                                        <TableColumn fx:id="isbnColumn" prefWidth="75.0" text="ISBN" />
-                                        <TableColumn fx:id="stateColumn" prefWidth="75.0" text="State" />
-                                        <TableColumn fx:id="durationColumn" prefWidth="75.0" text="Duration" />
-                                    </columns>
-                                </TableView>
-                                <GridPane>
-                                    <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    </columnConstraints>
-                                    <rowConstraints>
-                                        <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    </rowConstraints>
-                                    <children>
-                                        <GridPane>
-                                            <columnConstraints>
+        <Tab text="Ouvrage">
+         <content>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Livre">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane layoutX="192.0" layoutY="235.0" prefHeight="691.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TableView fx:id="bookTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <columns>
+                                          <TableColumn fx:id="titleBookColumn" prefWidth="75.0" text="Titre" />
+                                          <TableColumn fx:id="authorColumn" prefWidth="75.0" text="Auteur" />
+                                          <TableColumn fx:id="genreBookColumn" prefWidth="75.0" text="Genre" />
+                                          <TableColumn fx:id="releaseDateBookColumn" prefWidth="123.0" text="Date de publication" />
+                                          <TableColumn fx:id="publisherColumn" minWidth="0.0" prefWidth="73.0" text="Éditeur" />
+                                          <TableColumn fx:id="isbnColumn" prefWidth="66.0" text="ISBN" />
+                                          <TableColumn fx:id="stateBookColumn" prefWidth="79.0" text="État" />
+                                       </columns>
+                                    </TableView>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane>
+                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
+                                             </columnConstraints>
+                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -69,139 +72,287 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Search item" GridPane.columnSpan="2147483647">
-                                                    <GridPane.margin>
-                                                        <Insets />
-                                                    </GridPane.margin>
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Rechercher un livre" GridPane.columnSpan="2147483647">
+                                                   <GridPane.margin>
+                                                      <Insets />
+                                                   </GridPane.margin>
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
                                                 </Label>
-                                                <Label text="Title" GridPane.rowIndex="1">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                <Label text="Titre" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
-                                                <Label text="Author" GridPane.rowIndex="2">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                <Label text="Auteur" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
                                                 <Label text="Genre" GridPane.rowIndex="4">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
-                                                <Label text="Type" GridPane.rowIndex="5">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                <Label text="Date de publication" GridPane.rowIndex="5">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
-                                                <Label text="Release date" GridPane.rowIndex="6">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                <Label text="ISBN" GridPane.rowIndex="6">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
-                                                <Label text="ISBN" GridPane.rowIndex="7">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
-                                                </Label>
-                                                <TextField fx:id="titleField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin>
+                                                <TextField fx:id="titleBookField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
                                                 </TextField>
-                                                <TextField fx:id="authorField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin>
+                                                <TextField fx:id="authorBookField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
                                                 </TextField>
-                                                <ComboBox fx:id="genreCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin></ComboBox>
-                                                <ComboBox fx:id="typeCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin></ComboBox>
-                                                <DatePicker fx:id="releaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin></DatePicker>
-                                                <TextField fx:id="isbnField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin>
+                                                <ComboBox fx:id="genreBookCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </ComboBox>
+                                                <DatePicker fx:id="releaseDateBookDPicker" maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </DatePicker>
+                                                <TextField fx:id="isbnField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
                                                 </TextField>
-                                                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
-                                                    <buttons>
-                                                        <Button mnemonicParsing="false" text="Reset" />
-                                                        <Button mnemonicParsing="false" text="Search" />
-                                                    </buttons>
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin>
+                                                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+                                                   <buttons>
+                                                      <Button mnemonicParsing="false" text="Réinitialiser" />
+                                                      <Button mnemonicParsing="false" text="Rechercher" />
+                                                   </buttons>
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
                                                 </ButtonBar>
-                                                <Label text="Publisher" GridPane.rowIndex="3">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                <Label text="Éditeur" GridPane.rowIndex="3">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
                                                 <TextField fx:id="publisherField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin>
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
                                                 </TextField>
-                                                <ComboBox fx:id="stateCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
-                                                    <GridPane.margin>
-                                                        <Insets right="10.0" />
-                                                    </GridPane.margin>
+                                                <ComboBox fx:id="stateBookCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
                                                 </ComboBox>
-                                                <Label text="State" GridPane.rowIndex="8">
-                                                    <GridPane.margin>
-                                                        <Insets left="10.0" />
-                                                    </GridPane.margin>
+                                                <Label text="État" GridPane.rowIndex="7">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
                                                 </Label>
-                                            </children>
-                                        </GridPane>
-                                        <GridPane GridPane.rowIndex="1">
-                                            <columnConstraints>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.rowIndex="1">
+                                             <columnConstraints>
                                                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
+                                             </columnConstraints>
+                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                 <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Edit List" GridPane.rowIndex="1">
-                                                    <font>
-                                                        <Font size="18.0" />
-                                                    </font>
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Éditer la liste d'ouvrages" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
                                                 </Label>
                                                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
-                                                    <buttons>
-                                                        <Button mnemonicParsing="false" text="Add" ButtonBar.buttonData="LEFT" />
-                                                        <Button mnemonicParsing="false" text="Edit" ButtonBar.buttonData="LEFT" />
-                                                        <Button mnemonicParsing="false" text="Delete" ButtonBar.buttonData="LEFT" />
-                                                    </buttons>
+                                                   <buttons>
+                                                      <Button mnemonicParsing="false" text="Ajouter" ButtonBar.buttonData="LEFT" />
+                                                      <Button mnemonicParsing="false" text="Éditer" ButtonBar.buttonData="LEFT" />
+                                                      <Button mnemonicParsing="false" text="Supprimer" ButtonBar.buttonData="LEFT" />
+                                                   </buttons>
                                                 </ButtonBar>
-                                            </children>
-                                        </GridPane>
-                                    </children>
-                                </GridPane>
-                            </children>
-                        </GridPane>
-                    </children></AnchorPane>
-            </content>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </Tab>
+                <Tab text="DVD">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane layoutX="192.0" layoutY="235.0" prefHeight="691.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TableView fx:id="dvdTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <columns>
+                                          <TableColumn fx:id="titleDvdColumn" prefWidth="75.0" text="Titre" />
+                                          <TableColumn fx:id="directorColumn" prefWidth="75.0" text="Réalisateur" />
+                                          <TableColumn fx:id="genreDvdColumn" prefWidth="75.0" text="Genre" />
+                                          <TableColumn fx:id="durationColumn" prefWidth="65.0" text="Durée" />
+                                          <TableColumn fx:id="releaseDateDvdColumn" prefWidth="124.0" text="Date de sortie" />
+                                          <TableColumn fx:id="stateDvdColumn" prefWidth="49.0" text="État" />
+                                       </columns>
+                                    </TableView>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane>
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Rechercher un DVD" GridPane.columnSpan="2147483647">
+                                                   <GridPane.margin>
+                                                      <Insets />
+                                                   </GridPane.margin>
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Titre" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                                <Label text="Réalisateur" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                                <Label text="Genre" GridPane.rowIndex="3">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                                <Label text="Date de sortie" GridPane.rowIndex="4">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                                <TextField fx:id="titleDvdField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </TextField>
+                                                <TextField fx:id="directorField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </TextField>
+                                                <ComboBox fx:id="genreDvdCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </ComboBox>
+                                                <DatePicker fx:id="releaseDateDDvdPicker" maxWidth="1.7976931348623157E308" promptText="dd/mm/yyyy" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </DatePicker>
+                                                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                   <buttons>
+                                                      <Button mnemonicParsing="false" text="Réinitialiser" />
+                                                      <Button mnemonicParsing="false" text="Rechercher" />
+                                                   </buttons>
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </ButtonBar>
+                                                <ComboBox fx:id="stateDvdCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                                   <GridPane.margin>
+                                                      <Insets right="10.0" />
+                                                   </GridPane.margin>
+                                                </ComboBox>
+                                                <Label text="État" GridPane.rowIndex="5">
+                                                   <GridPane.margin>
+                                                      <Insets left="10.0" />
+                                                   </GridPane.margin>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Éditer la liste de DVDs" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                                   <buttons>
+                                                      <Button mnemonicParsing="false" text="Ajouter" ButtonBar.buttonData="LEFT" />
+                                                      <Button mnemonicParsing="false" text="Éditer" ButtonBar.buttonData="LEFT" />
+                                                      <Button mnemonicParsing="false" text="Supprimer" ButtonBar.buttonData="LEFT" />
+                                                   </buttons>
+                                                </ButtonBar>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </content>
         </Tab>
-        <Tab text="Users">
+        <Tab text="Utilisateurs">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
@@ -216,12 +367,12 @@
                             <children>
                                 <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                                     <columns>
-                                        <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username" />
-                                        <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First name" />
-                                        <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last name" />
-                                        <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Address" />
-                                        <TableColumn fx:id="birthdayColumn" prefWidth="75.0" text="Birthday" />
-                                        <TableColumn fx:id="emailAddressColumn" prefWidth="88.0" text="Email address" />
+                                        <TableColumn fx:id="usernameColumn" prefWidth="117.0" text="Nom d'utilisateur" />
+                                        <TableColumn fx:id="firstNameColumn" prefWidth="66.0" text="Prénom" />
+                                        <TableColumn fx:id="lastNameColumn" prefWidth="101.0" text="Nom de famille" />
+                                        <TableColumn fx:id="addressColumn" prefWidth="65.0" text="Adresse" />
+                                        <TableColumn fx:id="birthdayColumn" prefWidth="121.0" text="Date de naissance" />
+                                        <TableColumn fx:id="emailAddressColumn" prefWidth="107.0" text="Adresse Email" />
                                     </columns>
                                 </TableView>
                                 <GridPane>
@@ -236,7 +387,6 @@
                                         <GridPane>
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                             </columnConstraints>
@@ -251,7 +401,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Search User" GridPane.columnSpan="2147483647">
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Rechercher un utilisateur" GridPane.columnSpan="2147483647">
                                                     <GridPane.margin>
                                                         <Insets />
                                                     </GridPane.margin>
@@ -259,27 +409,27 @@
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
-                                                <Label text="Username" GridPane.rowIndex="1">
+                                                <Label text="Nom d'utilisateur" GridPane.rowIndex="1">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <Label text="First name" GridPane.rowIndex="2">
+                                                <Label text="Prénom" GridPane.rowIndex="2">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <Label text="Last Name" GridPane.rowIndex="3">
+                                                <Label text="Nom de famille" GridPane.rowIndex="3">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <Label text="Address" GridPane.rowIndex="4">
+                                                <Label text="Addresse" GridPane.rowIndex="4">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
                                                 </Label>
-                                                <Label text="Birthday" GridPane.rowIndex="5">
+                                                <Label text="Date de naissance" GridPane.rowIndex="5">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
@@ -298,10 +448,10 @@
                                                     <GridPane.margin>
                                                         <Insets right="10.0" />
                                                     </GridPane.margin></DatePicker>
-                                                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                                                <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
                                                     <buttons>
-                                                        <Button mnemonicParsing="false" text="Reset" />
-                                                        <Button mnemonicParsing="false" text="Search" />
+                                                        <Button mnemonicParsing="false" text="Réinitialiser" />
+                                                        <Button mnemonicParsing="false" text="Rechercher" />
                                                     </buttons>
                                                     <GridPane.margin>
                                                         <Insets right="20.0" />
@@ -317,7 +467,7 @@
                                                         <Insets right="10.0" />
                                                     </GridPane.margin>
                                                 </TextField>
-                                                <Label text="Email address" GridPane.rowIndex="6">
+                                                <Label text="Adresse Email" GridPane.rowIndex="6">
                                                     <GridPane.margin>
                                                         <Insets left="10.0" />
                                                     </GridPane.margin>
@@ -341,16 +491,16 @@
                                                 <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Edit List" GridPane.rowIndex="1">
+                                                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Éditer la liste d'utilisateurs" GridPane.rowIndex="1">
                                                     <font>
                                                         <Font size="18.0" />
                                                     </font>
                                                 </Label>
                                                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
                                                     <buttons>
-                                                        <Button mnemonicParsing="false" text="Add" ButtonBar.buttonData="LEFT" />
-                                                        <Button mnemonicParsing="false" text="Edit" ButtonBar.buttonData="LEFT" />
-                                                        <Button mnemonicParsing="false" text="Delete" ButtonBar.buttonData="LEFT" />
+                                                        <Button mnemonicParsing="false" text="Ajouter" ButtonBar.buttonData="LEFT" />
+                                                        <Button mnemonicParsing="false" text="Éditer" ButtonBar.buttonData="LEFT" />
+                                                        <Button mnemonicParsing="false" text="Supprimer" ButtonBar.buttonData="LEFT" />
                                                     </buttons>
                                                 </ButtonBar>
                                             </children>
@@ -362,7 +512,7 @@
                     </children></AnchorPane>
             </content>
         </Tab>
-        <Tab text="Settings">
+        <Tab text="Réglages email">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>

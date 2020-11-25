@@ -10,46 +10,77 @@ import org.libmanager.client.App;
 
 public class AdminPanelController {
 
+    // Book Pane
     @FXML
-    private TextField titleField;
+    private TextField titleBookField;
     @FXML
-    private TextField authorField;
+    private TextField authorBookField;
     @FXML
     private TextField publisherField;
     /*
     TODO enum
     @FXML
-    private ComboBox genreCBox;
+    private ComboBox genreBookCBox;
     @FXML
-    private ComboBox typeCBox;
-    @FXML
-    private ComboBox stateCBox;
+    private ComboBox stateBookCBox;
      */
     @FXML
-    private DatePicker releaseDateDPicker;
+    private DatePicker releaseDateBookDPicker;
     @FXML
     private TextField isbnField;
     /*
     TODO types
     @FXML
-    private  TableColumn titleColumn;
+    private  TableColumn titleBookColumn;
     @FXML
     private TableColumn authorColumn;
     @FXML
-    private TableColumn genreColumn;
+    private TableColumn genreBookColumn;
     @FXML
-    private TableColumn typeColumn;
+    private TableColumn publisherColumn;
     @FXML
-    private TableColumn releaseDateColumn;
+    private TableColumn releaseDateBookColumn;
     @FXML
     private TableColumn isbnColumn;
     @FXML
-    private TableColumn stateColumn;
+    private TableColumn stateBookColumn;
+    @FXML
+    private TableView bookTable;
+    */
+
+    //DVD Pane
+    @FXML
+    private TextField titleDvdField;
+    @FXML
+    private TextField directorField;
+    /*
+    TODO enum
+    @FXML
+    private ComboBox genreDvdCBox;
+    @FXML
+    private ComboBox stateDvdCBox;
+     */
+    @FXML
+    private DatePicker releaseDateDvdDPicker;
+    /*
+    TODO types
+    @FXML
+    private  TableColumn titleDvdColumn;
+    @FXML
+    private TableColumn directorColumn;
+    @FXML
+    private TableColumn genreDvdColumn;
     @FXML
     private TableColumn durationColumn;
     @FXML
-    private TableView itemsTable;
+    private TableColumn releaseDateDvdColumn;
+    @FXML
+    private TableColumn stateDvdColumn;
+    @FXML
+    private TableView dvdTable;
     */
+
+    // Users Pane
     @FXML
     private TextField usernameField;
     @FXML
@@ -80,6 +111,7 @@ public class AdminPanelController {
     private TableView usersTable;
     */
 
+    // App
     App app;
 
     public void setApp(App app) {this.app = app;}
