@@ -15,6 +15,24 @@ public class User {
     private SimpleStringProperty token;
     private SimpleBooleanProperty admin;
 
+    public User(String username, String firstName, String lastName, LocalDate birthday, String token, boolean admin) {
+        this.username = new SimpleStringProperty(username);
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
+        this.birthday = new SimpleObjectProperty<>(birthday);
+        this.token = new SimpleStringProperty(token);
+        this.admin = new SimpleBooleanProperty(admin);
+    }
+
+    public User(String username, String token, boolean admin) {
+        this.username = new SimpleStringProperty(username);
+        this.firstName = new SimpleStringProperty(null);
+        this.lastName = new SimpleStringProperty(null);
+        this.birthday = new SimpleObjectProperty<>(null);
+        this.token = new SimpleStringProperty(token);
+        this.admin = new SimpleBooleanProperty(admin);
+    }
+
     public SimpleStringProperty usernameProperty() {
         return username;
     }
