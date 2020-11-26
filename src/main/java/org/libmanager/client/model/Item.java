@@ -12,22 +12,22 @@ public abstract class Item {
     private SimpleStringProperty author;
     private SimpleStringProperty genre;
     private SimpleObjectProperty<LocalDate> releaseDate;
-    private SimpleBooleanProperty state;
+    private SimpleBooleanProperty status;
 
     public Item() {
         title = new SimpleStringProperty(null);
         author = new SimpleStringProperty(null);
         genre = new SimpleStringProperty(null);
         releaseDate = new SimpleObjectProperty<>(null);
-        state = new SimpleBooleanProperty(false);
+        status = new SimpleBooleanProperty(false);
     }
 
-    public Item(String title, String author, String genre, LocalDate releaseDate, boolean state) {
+    public Item(String title, String author, String genre, LocalDate releaseDate, boolean status) {
         this.title = new SimpleStringProperty(title);
         this.author = new SimpleStringProperty(author);
         this.genre = new SimpleStringProperty(genre);
         this.releaseDate = new SimpleObjectProperty<>(releaseDate);
-        this.state = new SimpleBooleanProperty(state);
+        this.status = new SimpleBooleanProperty(status);
     }
 
     public SimpleStringProperty titleProperty() {
@@ -78,15 +78,13 @@ public abstract class Item {
         this.releaseDate.set(releaseDate);
     }
 
-    public SimpleBooleanProperty stateProperty() {
-        return state;
+    public SimpleBooleanProperty statusProperty() {
+        return status;
     }
 
-    public boolean getState() {
-        return state.get();
+    public boolean getStatus() {
+        return status.get();
     }
 
-    public boolean isState() {return state.get();}
-
-    public void setState(boolean state) {this.state.set(state);}
+    public void setStatus(boolean status) {this.status.set(status);}
 }

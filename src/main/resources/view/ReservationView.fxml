@@ -37,7 +37,7 @@
                         <TableColumn fx:id="bookReleaseDateColumn" prefWidth="125.0" text="Publication" />
                         <TableColumn fx:id="bookPublisherColumn" prefWidth="76.0" text="Éditeur" />
                         <TableColumn fx:id="bookIsbnColumn" prefWidth="62.0" text="ISBN" />
-                        <TableColumn fx:id="bookStateColumn" prefWidth="71.0" />
+                        <TableColumn fx:id="bookStatusColumn" prefWidth="71.0" />
                      </columns>
                   </TableView>
                   <GridPane>
@@ -89,8 +89,8 @@
                         </Label>
                         <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                            <buttons>
-                              <Button fx:id="bookResetButton" mnemonicParsing="false" onAction="#handleBookReset" text="Réinitialiser" />
-                              <Button fx:id="bookSearchButton" mnemonicParsing="false" text="Rechercher" />
+                              <Button mnemonicParsing="false" onAction="#handleBookReset" text="Réinitialiser" />
+                              <Button mnemonicParsing="false" onAction="#handleBookSearch" text="Rechercher" />
                            </buttons>
                            <GridPane.margin>
                               <Insets right="15.0" />
@@ -124,11 +124,6 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </TextField>
-                        <TextField fx:id="bookIsbnField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </TextField>
                         <ComboBox fx:id="bookGenreCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets right="10.0" />
@@ -139,6 +134,11 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </DatePicker>
+                        <TextField fx:id="bookIsbnField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </TextField>
                      </children>
                   </GridPane>
                </children>
@@ -163,7 +163,7 @@
                         <TableColumn fx:id="dvdGenreColumn" prefWidth="75.0" text="Genre" />
                         <TableColumn fx:id="dvdReleaseDateColumn" prefWidth="121.0" text="Publication" />
                         <TableColumn fx:id="dvdDurationColumn" prefWidth="79.0" text="Durée" />
-                        <TableColumn fx:id="dvdStateColumn" prefWidth="62.0" text="État" />
+                        <TableColumn fx:id="dvdStatusColumn" prefWidth="62.0" text="État" />
                      </columns>
                   </TableView>
                   <GridPane>
@@ -213,8 +213,8 @@
                         </Label>
                         <ButtonBar GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                            <buttons>
-                              <Button fx:id="dvdResetButton" mnemonicParsing="false" onAction="#handleDVDReset" text="Réinitialiser" />
-                              <Button fx:id="dvdSearchButton" mnemonicParsing="false" text="Rechercher" />
+                              <Button mnemonicParsing="false" onAction="#handleDVDReset" text="Réinitialiser" />
+                              <Button mnemonicParsing="false" onAction="#handleDVDSearch" text="Rechercher" />
                            </buttons>
                            <GridPane.margin>
                               <Insets right="15.0" />

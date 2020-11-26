@@ -44,11 +44,7 @@ public class ReservationController {
     @FXML
     private TableColumn<Book, String> bookIsbnColumn;
     @FXML
-    private TableColumn<Book, Button> bookStateColumn;
-    @FXML
-    private Button bookResetButton;
-    @FXML
-    private Button bookSearchButton;
+    private TableColumn<Book, Button> bookStatusColumn;
 
     // DVD
     @FXML
@@ -72,11 +68,7 @@ public class ReservationController {
     @FXML
     private TableColumn<DVD, String> dvdDurationColumn;
     @FXML
-    private TableColumn<DVD, Button> dvdStateColumn;
-    @FXML
-    private Button dvdResetButton;
-    @FXML
-    private Button dvdSearchButton;
+    private TableColumn<DVD, Button> dvdStatusColumn;
 
     // App
     App app;
@@ -93,12 +85,12 @@ public class ReservationController {
         bookReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
         bookPublisherColumn.setCellValueFactory(cellData -> cellData.getValue().publisherProperty());
         bookIsbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
-        bookStateColumn.setCellValueFactory(cellData -> {
+        bookStatusColumn.setCellValueFactory(cellData -> {
             Button btn = new Button();
 
             btn.setMaxWidth(100);
 
-            if (cellData.getValue().getState()) {
+            if (cellData.getValue().getStatus()) {
                 btn.setText("Emprunter");
             } else {
                 btn.setText("Indisponible");
@@ -120,7 +112,7 @@ public class ReservationController {
         bookReleaseDateColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.1));
         bookPublisherColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.13));
         bookIsbnColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.12));
-        bookStateColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.115));
+        bookStatusColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.115));
 
         // --- DVD TABLE ---
         dvdTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
@@ -128,12 +120,12 @@ public class ReservationController {
         dvdGenreColumn.setCellValueFactory(cellData -> cellData.getValue().genreProperty());
         dvdDurationColumn.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
         dvdReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
-        dvdStateColumn.setCellValueFactory(cellData -> {
+        dvdStatusColumn.setCellValueFactory(cellData -> {
                     Button btn = new Button();
 
                     btn.prefWidth(75);
 
-                    if (cellData.getValue().getState()) {
+                    if (cellData.getValue().getStatus()) {
                         btn.setText("Emprunter");
                     } else {
                         btn.setText("Indisponible");
@@ -154,7 +146,7 @@ public class ReservationController {
         dvdGenreColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.15));
         dvdDurationColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.09));
         dvdReleaseDateColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
-        dvdStateColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.11));
+        dvdStatusColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.11));
 
         // --- DATE PICKERS ---
         bookReleaseDateDPicker.setConverter(new StringConverter<>() {
@@ -180,6 +172,16 @@ public class ReservationController {
                 return DateUtil.parse(string);
             }
         });
+    }
+
+    @FXML
+    private void handleBookSearch() {
+
+    }
+
+    @FXML
+    private void handleDVDSearch() {
+
     }
 
     @FXML

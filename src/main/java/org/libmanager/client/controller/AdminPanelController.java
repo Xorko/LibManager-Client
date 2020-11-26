@@ -3,27 +3,24 @@ package org.libmanager.client.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableView;
 import org.libmanager.client.App;
+import org.libmanager.client.enums.BookGenre;
+import org.libmanager.client.enums.Status;
 
 public class AdminPanelController {
 
-    // Book Pane
+    // Book
     @FXML
     private TextField bookTitleField;
     @FXML
     private TextField bookAuthorField;
     @FXML
     private TextField bookPublisherField;
-    /*
-    TODO enum
     @FXML
-    private ComboBox bookGenreCBox;
+    private ComboBox<BookGenre> bookGenreCBox;
     @FXML
-    private ComboBox bookStateCBox;
-     */
+    private ComboBox<Status> bookStatusCBox;
     @FXML
     private DatePicker bookReleaseDateDPicker;
     @FXML
@@ -45,7 +42,7 @@ public class AdminPanelController {
     @FXML
     private TableColumn bookIsbnColumn;
     @FXML
-    private TableColumn bookStateColumn;
+    private TableColumn bookStatusColumn;
 
     */
 
@@ -59,7 +56,7 @@ public class AdminPanelController {
     @FXML
     private ComboBox dvdGenreCBox;
     @FXML
-    private ComboBox dvdStateCBox;
+    private ComboBox dvdStatusCBox;
      */
     @FXML
     private DatePicker dvdReleaseDateDPicker;
@@ -76,7 +73,7 @@ public class AdminPanelController {
     @FXML
     private TableColumn dvdReleaseDateColumn;
     @FXML
-    private TableColumn dvdStateColumn;
+    private TableColumn dvdStatusColumn;
     @FXML
     private TableView dvdTable;
     */
