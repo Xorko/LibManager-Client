@@ -1,6 +1,7 @@
 package org.libmanager.client;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,18 +10,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.libmanager.client.controller.ReservationController;
 import org.libmanager.client.controller.RootController;
-import org.libmanager.client.model.Item;
+import org.libmanager.client.model.Book;
+import org.libmanager.client.model.DVD;
 import org.libmanager.client.model.User;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class App extends Application {
 
     private Stage primaryStage;
     private BorderPane rootView;
     private User loggedInUser;
-    private ObservableList<Item> itemList;
+    private ObservableList<Book> booksData = FXCollections.observableArrayList();
+    private ObservableList<DVD> dvdData = FXCollections.observableArrayList();
+    private ObservableList<User> usersData = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
         launch(args);
@@ -55,11 +61,12 @@ public class App extends Application {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(App.class.getResource("/view/ReservationView.fxml"));
-            GridPane reservation = loader.load();
+            TabPane reservation = loader.load();
 
             rootView.setCenter(reservation);
 
-            //TODO Controller
+            ReservationController controller = loader.getController();
+            controller.setApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -108,5 +115,29 @@ public class App extends Application {
 
     public User getLoggedInUser() {
         return loggedInUser;
+    }
+
+    public ObservableList<Book> getBooksData() {
+        return booksData;
+    }
+
+    public void setBooksData(ObservableList<Book> booksData) {
+        this.booksData = booksData;
+    }
+
+    public ObservableList<DVD> getDvdData() {
+        return dvdData;
+    }
+
+    public void setDvdData(ObservableList<DVD> dvdData) {
+        this.dvdData = dvdData;
+    }
+
+    public ObservableList<User> getUsersData() {
+        return usersData;
+    }
+
+    public void setUsersData(ObservableList<User> usersData) {
+        this.usersData = usersData;
     }
 }

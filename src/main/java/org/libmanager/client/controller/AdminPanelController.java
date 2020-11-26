@@ -12,70 +12,71 @@ public class AdminPanelController {
 
     // Book Pane
     @FXML
-    private TextField titleBookField;
+    private TextField bookTitleField;
     @FXML
-    private TextField authorBookField;
+    private TextField bookAuthorField;
     @FXML
-    private TextField publisherField;
+    private TextField bookPublisherField;
     /*
     TODO enum
     @FXML
-    private ComboBox genreBookCBox;
+    private ComboBox bookGenreCBox;
     @FXML
-    private ComboBox stateBookCBox;
+    private ComboBox bookStateCBox;
      */
     @FXML
-    private DatePicker releaseDateBookDPicker;
+    private DatePicker bookReleaseDateDPicker;
     @FXML
-    private TextField isbnField;
+    private TextField bookIsbnField;
     /*
     TODO types
     @FXML
-    private  TableColumn titleBookColumn;
-    @FXML
-    private TableColumn authorColumn;
-    @FXML
-    private TableColumn genreBookColumn;
-    @FXML
-    private TableColumn publisherColumn;
-    @FXML
-    private TableColumn releaseDateBookColumn;
-    @FXML
-    private TableColumn isbnColumn;
-    @FXML
-    private TableColumn stateBookColumn;
-    @FXML
     private TableView bookTable;
+    @FXML
+    private  TableColumn bookTitleColumn;
+    @FXML
+    private TableColumn bookAuthorColumn;
+    @FXML
+    private TableColumn bookGenreColumn;
+    @FXML
+    private TableColumn bookPublisherColumn;
+    @FXML
+    private TableColumn bookReleaseDateColumn;
+    @FXML
+    private TableColumn bookIsbnColumn;
+    @FXML
+    private TableColumn bookStateColumn;
+
     */
 
     //DVD Pane
     @FXML
     private TextField titleDvdField;
     @FXML
-    private TextField directorField;
+    private TextField dvdDirectorField;
     /*
     TODO enum
     @FXML
-    private ComboBox genreDvdCBox;
+    private ComboBox dvdGenreCBox;
     @FXML
-    private ComboBox stateDvdCBox;
+    private ComboBox dvdStateCBox;
      */
     @FXML
-    private DatePicker releaseDateDvdDPicker;
+    private DatePicker dvdReleaseDateDPicker;
     /*
     TODO types
     @FXML
-    private  TableColumn titleDvdColumn;
+    private  TableColumn dvdTitleColumn;
     @FXML
-    private TableColumn directorColumn;
+    private TableColumn dvdDirectorColumn;
     @FXML
-    private TableColumn genreDvdColumn;
+    private TableColumn dvdGenreColumn;
     @FXML
-    private TableColumn durationColumn;
+    private TableColumn dvdDurationColumn;
     @FXML
-    private TableColumn releaseDateDvdColumn;
+    private TableColumn dvdReleaseDateColumn;
     @FXML
-    private TableColumn stateDvdColumn;
+    private TableColumn dvdStateColumn;
     @FXML
     private TableView dvdTable;
     */
