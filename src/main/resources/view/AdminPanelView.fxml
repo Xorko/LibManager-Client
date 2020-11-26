@@ -44,7 +44,7 @@
                                           <TableColumn fx:id="bookReleaseDateBookColumn" prefWidth="123.0" text="Date de publication" />
                                           <TableColumn fx:id="bookPublisherColumn" minWidth="0.0" prefWidth="73.0" text="Éditeur" />
                                           <TableColumn fx:id="bookIsbnColumn" prefWidth="66.0" text="ISBN" />
-                                          <TableColumn fx:id="bookStateBookColumn" prefWidth="79.0" text="État" />
+                                          <TableColumn fx:id="bookStateBookColumn" prefWidth="79.0" text="Statut" />
                                        </columns>
                                     </TableView>
                                     <GridPane>
@@ -156,7 +156,7 @@
                                                       <Insets right="10.0" />
                                                    </GridPane.margin>
                                                 </ComboBox>
-                                                <Label text="État" GridPane.rowIndex="7">
+                                                <Label text="Statut" GridPane.rowIndex="7">
                                                    <GridPane.margin>
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
@@ -307,7 +307,7 @@
                                                       <Insets right="10.0" />
                                                    </GridPane.margin>
                                                 </ComboBox>
-                                                <Label text="État" GridPane.rowIndex="5">
+                                                <Label text="Statut" GridPane.rowIndex="5">
                                                    <GridPane.margin>
                                                       <Insets left="10.0" />
                                                    </GridPane.margin>
@@ -512,7 +512,7 @@
                     </children></AnchorPane>
             </content>
         </Tab>
-        <Tab text="Réglages email">
+        <Tab text="Paramètres">
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>

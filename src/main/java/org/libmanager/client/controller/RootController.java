@@ -44,6 +44,16 @@ public class RootController {
     }
 
     @FXML
+    private void handleGotoAdminPanel() {
+        app.showAdminPanelView();
+    }
+
+    @FXML
+    private void handleGotoReservation() {
+        app.showReservationView();
+    }
+
+    @FXML
     private void handleQuit() {
         System.exit(0);
     }
@@ -56,7 +66,19 @@ public class RootController {
     @FXML
     private void handleLogout() {
         //TODO If logged in user is admin, hide admin menu and go to reservation view
+        if (app.getLoggedInUser().isAdmin()) {
+            toggleAdminMenu();
+        }
+        toggleLogoutMenuItem();
         app.setLoggedInUser(null);
+    }
+
+    public void toggleAdminMenu() {
+        adminMenu.setVisible(!adminMenu.isVisible());
+    }
+
+    public void toggleLogoutMenuItem() {
+        logoutMenuItem.setVisible(!logoutMenuItem.isVisible());
     }
 
     @FXML

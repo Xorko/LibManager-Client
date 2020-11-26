@@ -10,9 +10,11 @@ import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
+import org.libmanager.client.model.Item;
 import org.libmanager.client.util.DateUtil;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class ReservationController {
 
@@ -98,8 +100,24 @@ public class ReservationController {
             }
 
             btn.setOnAction(event -> {
-                //TODO: Send a request to the server to borrow the book
-                System.out.println("Book borrowed");
+                if (app.getLoggedInUser() != null) {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.initOwner(app.getPrimaryStage());
+                    confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+                    confirmationAlert.setHeaderText("Voulez-vous vraiment emprunter ce livre ?");
+                    Optional<ButtonType> answer = confirmationAlert.showAndWait();
+                    if (answer.isPresent() && answer.get() == ButtonType.YES) {
+                        //TODO: Send a request to the server to borrow the book
+                        cellData.getValue().setStatus(false);
+                        System.out.println("Book borrowed");
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.initOwner(app.getPrimaryStage());
+                    alert.setHeaderText("Vous n'êtes pas connecté");
+                    alert.setContentText("Veuillez vous connecter avant d'emprunter un livre.");
+                    alert.showAndWait();
+                }
             });
 
             return new SimpleObjectProperty<>(btn);
@@ -132,10 +150,26 @@ public class ReservationController {
                         btn.setDisable(true);
                     }
 
-                    btn.setOnAction(event -> {
+            btn.setOnAction(event -> {
+                if (app.getLoggedInUser() != null) {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.initOwner(app.getPrimaryStage());
+                    confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+                    confirmationAlert.setHeaderText("Voulez-vous vraiment emprunter ce DVD ?");
+                    Optional<ButtonType> answer = confirmationAlert.showAndWait();
+                    if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the dvd
+                        cellData.getValue().setStatus(false);
                         System.out.println("DVD borrowed");
-                    });
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.initOwner(app.getPrimaryStage());
+                    alert.setHeaderText("Vous n'êtes pas connecté");
+                    alert.setContentText("Veuillez vous connecter avant d'emprunter un DVD.");
+                    alert.showAndWait();
+                }
+            });
 
                     return new SimpleObjectProperty<>(btn);
                 });
@@ -176,12 +210,12 @@ public class ReservationController {
 
     @FXML
     private void handleBookSearch() {
-
+        //TODO
     }
 
     @FXML
     private void handleDVDSearch() {
-
+        //TODO
     }
 
     @FXML

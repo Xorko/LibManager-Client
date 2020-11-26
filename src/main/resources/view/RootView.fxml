@@ -22,13 +22,13 @@
           <Menu fx:id="accountMenu" mnemonicParsing="false" text="Compte">
             <items>
               <MenuItem fx:id="loginMenuItem" mnemonicParsing="false" onAction="#handleLogin" text="Se connecter" />
-                  <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" text="Se déconnecter" />
+                  <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#handleLogout" text="Se déconnecter" />
             </items>
           </Menu>
             <Menu fx:id="adminMenu" mnemonicParsing="false" text="Admin" visible="false">
                 <items>
-                    <MenuItem fx:id="adminPanelMenuItem" mnemonicParsing="false" text="Panneau d'administartion" />
-                    <MenuItem fx:id="reservationMenuItem" mnemonicParsing="false" text="Fenêtre de reservation" />
+                    <MenuItem fx:id="adminPanelMenuItem" onAction="#handleGotoAdminPanel" mnemonicParsing="false" text="Panneau d'administartion" />
+                    <MenuItem fx:id="reservationMenuItem" onAction="#handleGotoReservation" mnemonicParsing="false" text="Fenêtre de reservation" />
                 </items>
             </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="?">

@@ -1,12 +1,11 @@
 package org.libmanager.client.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import org.libmanager.client.App;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.Status;
+import org.libmanager.client.model.Book;
 
 public class AdminPanelController {
 
@@ -25,28 +24,24 @@ public class AdminPanelController {
     private DatePicker bookReleaseDateDPicker;
     @FXML
     private TextField bookIsbnField;
-    /*
-    TODO types
     @FXML
-    private TableView bookTable;
+    private TableView<Book> bookTable;
     @FXML
-    private  TableColumn bookTitleColumn;
+    private TableColumn<Book, String> bookTitleColumn;
     @FXML
-    private TableColumn bookAuthorColumn;
+    private TableColumn<Book, String> bookAuthorColumn;
     @FXML
-    private TableColumn bookGenreColumn;
+    private TableColumn<Book, String> bookGenreColumn;
     @FXML
-    private TableColumn bookPublisherColumn;
+    private TableColumn<Book, String> bookPublisherColumn;
     @FXML
-    private TableColumn bookReleaseDateColumn;
+    private TableColumn<Book, String> bookReleaseDateColumn;
     @FXML
-    private TableColumn bookIsbnColumn;
+    private TableColumn<Book, String> bookIsbnColumn;
     @FXML
-    private TableColumn bookStatusColumn;
+    private TableColumn<Book, Button> bookStatusColumn;
 
-    */
-
-    //DVD Pane
+    //DVD
     @FXML
     private TextField titleDvdField;
     @FXML
