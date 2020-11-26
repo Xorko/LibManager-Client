@@ -38,6 +38,9 @@ public class RootController {
             Platform.runLater(() -> menuBar.setUseSystemMenuBar(true));
             quitMenuItem.acceleratorProperty().set(new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN));
         }
+
+        // Since the user will not be logged in at program startup, logout is disabled
+        logoutMenuItem.setVisible(false);
     }
 
     @FXML
