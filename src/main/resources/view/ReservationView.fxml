@@ -16,13 +16,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:controller="org.libmanager.client.controller.ReservationController" prefHeight="690.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<TabPane prefHeight="690.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.libmanager.client.controller.ReservationController">
   <tabs>
     <Tab text="Livres">
          <content>
             <GridPane prefHeight="690.0" prefWidth="1280.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
@@ -89,14 +89,14 @@
                         </Label>
                         <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                            <buttons>
-                              <Button fx:id="bookResetButton" onAction="#handleBookReset" mnemonicParsing="false" text="Réinitialiser" />
+                              <Button fx:id="bookResetButton" mnemonicParsing="false" onAction="#handleBookReset" text="Réinitialiser" />
                               <Button fx:id="bookSearchButton" mnemonicParsing="false" text="Rechercher" />
                            </buttons>
                            <GridPane.margin>
-                              <Insets right="20.0" />
+                              <Insets right="15.0" />
                            </GridPane.margin>
                            <padding>
-                              <Insets left="-20.0" />
+                              <Insets left="-15.0" />
                            </padding>
                         </ButtonBar>
                         <Label text="ISBN" GridPane.rowIndex="7">
@@ -149,7 +149,7 @@
          <content>
             <GridPane prefHeight="690.0" prefWidth="1280.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="75.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
@@ -211,16 +211,16 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                        <ButtonBar GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                            <buttons>
-                              <Button fx:id="dvdResetButton" onAction="#handleDVDReset" mnemonicParsing="false" text="Réinitialiser" />
+                              <Button fx:id="dvdResetButton" mnemonicParsing="false" onAction="#handleDVDReset" text="Réinitialiser" />
                               <Button fx:id="dvdSearchButton" mnemonicParsing="false" text="Rechercher" />
                            </buttons>
                            <GridPane.margin>
-                              <Insets right="20.0" />
+                              <Insets right="15.0" />
                            </GridPane.margin>
                            <padding>
-                              <Insets left="-20.0" />
+                              <Insets left="-15.0" />
                            </padding>
                         </ButtonBar>
                         <TextField fx:id="dvdTitleField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
