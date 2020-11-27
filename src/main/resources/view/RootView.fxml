@@ -27,7 +27,7 @@
           </Menu>
             <Menu fx:id="adminMenu" mnemonicParsing="false" text="Admin" visible="false">
                 <items>
-                    <MenuItem fx:id="adminPanelMenuItem" onAction="#handleGotoAdminPanel" mnemonicParsing="false" text="Panneau d'administartion" />
+                    <MenuItem fx:id="adminPanelMenuItem" onAction="#handleGotoAdminPanel" mnemonicParsing="false" text="Panneau d'administration" />
                     <MenuItem fx:id="reservationMenuItem" onAction="#handleGotoReservation" mnemonicParsing="false" text="Fenêtre de reservation" />
                 </items>
             </Menu>
