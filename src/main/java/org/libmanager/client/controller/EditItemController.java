@@ -224,7 +224,7 @@ public class EditItemController {
         } else {
             // There's at least one error
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(app.getPrimaryStage());
+            alert.initOwner(dialogStage);
             alert.setTitle("Champs invalides");
             alert.setHeaderText("Veuillez corriger les champs invalides");
             alert.setContentText(errMessage);
