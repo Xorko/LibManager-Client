@@ -1,6 +1,7 @@
 package org.libmanager.client.model;
 
 import javafx.beans.property.SimpleStringProperty;
+import org.libmanager.client.enums.Genre;
 
 import java.time.LocalDate;
 
@@ -12,10 +13,11 @@ public class Book extends Item {
     public Book() {
         super();
         publisher = new SimpleStringProperty(null);
+        isbn = new SimpleStringProperty(null);
     }
 
-    public Book(String title, String author, String genre, LocalDate releaseDate, boolean state, String publisher, String isbn) {
-        super(title, author, genre, releaseDate, state);
+    public Book(String title, String author, Genre genre, LocalDate releaseDate, boolean status, String publisher, String isbn) {
+        super(title, author, genre, releaseDate, status);
         this.publisher = new SimpleStringProperty(publisher);
         this.isbn = new SimpleStringProperty(isbn);
     }

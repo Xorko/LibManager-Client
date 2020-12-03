@@ -3,6 +3,7 @@ package org.libmanager.client.model;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import org.libmanager.client.enums.Genre;
 
 import java.time.LocalDate;
 
@@ -10,22 +11,22 @@ public abstract class Item {
 
     private SimpleStringProperty title;
     private SimpleStringProperty author;
-    private SimpleStringProperty genre;
+    private SimpleObjectProperty<Genre> genre;
     private SimpleObjectProperty<LocalDate> releaseDate;
     private SimpleBooleanProperty status;
 
     public Item() {
         title = new SimpleStringProperty(null);
         author = new SimpleStringProperty(null);
-        genre = new SimpleStringProperty(null);
+        genre = new SimpleObjectProperty<>(null);
         releaseDate = new SimpleObjectProperty<>(null);
         status = new SimpleBooleanProperty(false);
     }
 
-    public Item(String title, String author, String genre, LocalDate releaseDate, boolean status) {
+    public Item(String title, String author, Genre genre, LocalDate releaseDate, boolean status) {
         this.title = new SimpleStringProperty(title);
         this.author = new SimpleStringProperty(author);
-        this.genre = new SimpleStringProperty(genre);
+        this.genre = new SimpleObjectProperty<>(genre);
         this.releaseDate = new SimpleObjectProperty<>(releaseDate);
         this.status = new SimpleBooleanProperty(status);
     }
@@ -54,15 +55,15 @@ public abstract class Item {
         this.author.set(author);
     }
 
-    public SimpleStringProperty genreProperty() {
+    public SimpleObjectProperty<Genre> genreProperty() {
         return genre;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre.get();
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre.set(genre);
     }
 

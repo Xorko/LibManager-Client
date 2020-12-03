@@ -70,20 +70,34 @@ public class RootController {
             toggleAdminMenu();
         }
         toggleLogoutMenuItem();
+        toggleLoginMenuItem();
         app.setLoggedInUser(null);
     }
 
+    /**
+     * Toggle the visibility of admin menu
+     */
     public void toggleAdminMenu() {
         adminMenu.setVisible(!adminMenu.isVisible());
     }
 
+    /**
+     * Toggle the visibility of login in the account menu
+     */
+    public void toggleLoginMenuItem() {
+        loginMenuItem.setVisible(!loginMenuItem.isVisible());
+    }
+
+    /**
+     * Toggle the visibility of logout in the account menu
+     */
     public void toggleLogoutMenuItem() {
         logoutMenuItem.setVisible(!logoutMenuItem.isVisible());
     }
 
     @FXML
     private void handleAbout() {
-        Alert about = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert about = new Alert(Alert.AlertType.INFORMATION);
         about.initOwner(app.getPrimaryStage());
         about.setHeaderText("LibManager");
         about.setContentText("Version 0.1\nhttps://github.com/Xorko/LibManager-Client");

@@ -11,15 +11,21 @@ public class User {
     private SimpleStringProperty username;
     private SimpleStringProperty firstName;
     private SimpleStringProperty lastName;
+    private SimpleStringProperty address;
+    private SimpleStringProperty email;
     private SimpleObjectProperty<LocalDate> birthday;
+    private SimpleObjectProperty<LocalDate> registrationDate;
     private SimpleStringProperty token;
     private SimpleBooleanProperty admin;
 
-    public User(String username, String firstName, String lastName, LocalDate birthday, String token, boolean admin) {
+    public User(String username, String firstName, String lastName, String address, String email, LocalDate birthday, LocalDate registrationDate, String token, boolean admin) {
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
+        this.address = new SimpleStringProperty(address);
         this.birthday = new SimpleObjectProperty<>(birthday);
+        this.registrationDate = new SimpleObjectProperty<>(registrationDate);
+        this.email = new SimpleStringProperty(email);
         this.token = new SimpleStringProperty(token);
         this.admin = new SimpleBooleanProperty(admin);
     }
@@ -28,9 +34,24 @@ public class User {
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(null);
         this.lastName = new SimpleStringProperty(null);
+        this.address = new SimpleStringProperty(null);
         this.birthday = new SimpleObjectProperty<>(null);
+        this.registrationDate = new SimpleObjectProperty<>(null);
+        this.email = new SimpleStringProperty(null);
         this.token = new SimpleStringProperty(token);
         this.admin = new SimpleBooleanProperty(admin);
+    }
+
+    public User() {
+        this.username = new SimpleStringProperty(null);
+        this.firstName = new SimpleStringProperty(null);
+        this.lastName = new SimpleStringProperty(null);
+        this.address = new SimpleStringProperty(null);
+        this.birthday = new SimpleObjectProperty<>(null);
+        this.registrationDate = new SimpleObjectProperty<>(null);
+        this.email = new SimpleStringProperty(null);
+        this.token = new SimpleStringProperty(null);
+        this.admin = new SimpleBooleanProperty(false);
     }
 
     public SimpleStringProperty usernameProperty() {
@@ -69,8 +90,44 @@ public class User {
         this.lastName.set(lastName);
     }
 
+    public SimpleStringProperty addressProperty() {
+        return address;
+    }
+
+    public String getAddress() {
+        return address.get();
+    }
+
+    public void setAddress(String address) {
+        this.address.set(address);
+    }
+
+    public SimpleStringProperty emailProperty() {
+        return email;
+    }
+
+    public String getEmail() {
+        return email.get();
+    }
+
+    public void setEmail(String email) {
+        this.email.set(email);
+    }
+
     public SimpleObjectProperty<LocalDate> birthdayProperty() {
         return birthday;
+    }
+
+    public SimpleObjectProperty<LocalDate> registrationDateProperty() {
+        return registrationDate;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate.get();
+    }
+
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate.set(registrationDate);
     }
 
     public LocalDate getBirthday() {

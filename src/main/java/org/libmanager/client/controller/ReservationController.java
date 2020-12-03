@@ -10,7 +10,6 @@ import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
-import org.libmanager.client.model.Item;
 import org.libmanager.client.util.DateUtil;
 
 import java.time.LocalDate;
@@ -73,7 +72,7 @@ public class ReservationController {
     private TableColumn<DVD, Button> dvdStatusColumn;
 
     // App
-    App app;
+    private App app;
 
     @FXML
     private void initialize() {
@@ -83,7 +82,7 @@ public class ReservationController {
         // --- BOOKS TABLE ---
         bookTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         bookAuthorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
-        bookGenreColumn.setCellValueFactory(cellData -> cellData.getValue().genreProperty());
+        bookGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().toString()));
         bookReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
         bookPublisherColumn.setCellValueFactory(cellData -> cellData.getValue().publisherProperty());
         bookIsbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
@@ -104,16 +103,18 @@ public class ReservationController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                    confirmationAlert.setHeaderText("Voulez-vous vraiment emprunter ce livre ?");
+                    confirmationAlert.setHeaderText("Voulez vous vraiment emprunter ce livre ?");
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the book
                         cellData.getValue().setStatus(false);
-                        System.out.println("Book borrowed");
+                        btn.setDisable(true);
+                        btn.setText("Indisponible");
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
+                    alert.setTitle("Vous n'êtes pas connecté");
                     alert.setHeaderText("Vous n'êtes pas connecté");
                     alert.setContentText("Veuillez vous connecter avant d'emprunter un livre.");
                     alert.showAndWait();
@@ -135,44 +136,46 @@ public class ReservationController {
         // --- DVD TABLE ---
         dvdTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         dvdDirectorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
-        dvdGenreColumn.setCellValueFactory(cellData -> cellData.getValue().genreProperty());
+        dvdGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().toString()));
         dvdDurationColumn.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
         dvdReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
         dvdStatusColumn.setCellValueFactory(cellData -> {
-                    Button btn = new Button();
+            Button btn = new Button();
 
-                    btn.prefWidth(75);
+            btn.setMaxWidth(100);
 
-                    if (cellData.getValue().getStatus()) {
-                        btn.setText("Emprunter");
-                    } else {
-                        btn.setText("Indisponible");
-                        btn.setDisable(true);
-                    }
+            if (cellData.getValue().getStatus()) {
+                btn.setText("Emprunter");
+            } else {
+                btn.setText("Indisponible");
+                btn.setDisable(true);
+            }
 
             btn.setOnAction(event -> {
                 if (app.getLoggedInUser() != null) {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                    confirmationAlert.setHeaderText("Voulez-vous vraiment emprunter ce DVD ?");
+                    confirmationAlert.setHeaderText("Voulez vous vraiment emprunter ce DVD ?");
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the dvd
                         cellData.getValue().setStatus(false);
-                        System.out.println("DVD borrowed");
+                        btn.setDisable(true);
+                        btn.setText("Indisponible");
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
+                    alert.setTitle("Vous n'êtes pas connecté");
                     alert.setHeaderText("Vous n'êtes pas connecté");
                     alert.setContentText("Veuillez vous connecter avant d'emprunter un DVD.");
                     alert.showAndWait();
                 }
             });
 
-                    return new SimpleObjectProperty<>(btn);
-                });
+            return new SimpleObjectProperty<>(btn);
+        });
 
         // DVD table columns dimensions
         dvdTitleColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.295));
@@ -241,6 +244,14 @@ public class ReservationController {
     public void setApp(App app) {
         this.app = app;
         booksTable.setItems(app.getBooksData());
-        dvdTable.setItems(app.getDvdData());
+        dvdTable.setItems(app.getDVDData());
+    }
+
+    public TableView<Book> getBooksTable() {
+        return booksTable;
+    }
+
+    public TableView<DVD> getDvdTable() {
+        return dvdTable;
     }
 }

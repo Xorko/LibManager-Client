@@ -3,6 +3,8 @@ package org.libmanager.client.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.libmanager.client.App;
 import org.libmanager.client.model.User;
@@ -10,6 +12,8 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginController {
 
+    @FXML
+    private GridPane loginRoot;
     @FXML
     private TextField username;
     @FXML
@@ -20,6 +24,16 @@ public class LoginController {
     private Stage dialogStage;
 
     private App app;
+
+    @FXML
+    private void initialize() {
+        // Enter can be pressed instead of the login button
+        loginRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleLogin();
+            }
+        });
+    }
 
     public void setApp(App app) {
         this.app = app;
@@ -42,6 +56,7 @@ public class LoginController {
             if (usr.isAdmin()) {
                 app.toggleAdminMenu();
             }
+            app.toggleLoginMenu();
             app.toggleLogoutMenuItem();
             dialogStage.close();
             return true;
