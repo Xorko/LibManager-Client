@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
@@ -17,6 +18,10 @@ import java.util.regex.Pattern;
 
 public class EditUserController {
 
+    @FXML
+    private RowConstraints usernameRow;
+    @FXML
+    private RowConstraints passwordRow;
     @FXML
     private GridPane editUserRoot;
     @FXML
@@ -65,6 +70,7 @@ public class EditUserController {
     public void initializeAddUser() {
         usernameLabel.setVisible(false);
         usernameField.setVisible(false);
+        passwordRow.setPercentHeight(0);
 
         confirmButton.setOnAction(event -> handleAddUserConfirm());
         // Enter can be pressed instead of the confirm button
@@ -78,6 +84,7 @@ public class EditUserController {
     public void initializeEditUser(User selectedUser) {
         passwordLabel.setVisible(false);
         passwordField.setVisible(false);
+        passwordRow.setPercentHeight(0);
         usernameField.setText(selectedUser.getUsername());
         firstNameField.setText(selectedUser.getFirstName());
         lastNameField.setText(selectedUser.getLastName());
@@ -142,7 +149,7 @@ public class EditUserController {
             errMessage += "Pas de date de naissance validey\n";
         }
         if (emailAddressField.getText() == null || emailAddressField.getText().length() == 0 || !emailMatcher.matches()) {
-            errMessage += "Pas d'adresse email validel\n";
+            errMessage += "Pas d'adresse email valide\n";
         }
         if (add && (passwordField.getText() == null || passwordField.getText().length() == 0)) {
             errMessage += "Pas de mot de passe valide\n";

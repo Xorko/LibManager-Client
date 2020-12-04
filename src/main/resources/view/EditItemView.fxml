@@ -26,7 +26,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints fx:id="isbnRow" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
@@ -91,8 +91,8 @@
          </GridPane.margin></TextField>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
         <buttons>
-            <Button fx:id="cancelButton" onAction="#handleCancel" mnemonicParsing="false" text="Annuler" />
-          <Button fx:id="resetButton" onAction="#handleReset" mnemonicParsing="false" text="Réinitialiser" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />
+          <Button fx:id="resetButton" mnemonicParsing="false" onAction="#handleReset" text="Réinitialiser" />
             <Button fx:id="confirmButton" mnemonicParsing="false" text="Confirmer" />
         </buttons>
          <GridPane.margin>

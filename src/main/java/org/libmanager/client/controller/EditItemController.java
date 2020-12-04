@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
@@ -19,6 +20,8 @@ import java.time.LocalDate;
 
 public class EditItemController {
 
+    @FXML
+    private RowConstraints isbnRow;
     @FXML
     private GridPane editItemRoot;
     @FXML
@@ -99,6 +102,7 @@ public class EditItemController {
         publisherField.setVisible(false);
         isbnLabel.setVisible(false);
         isbnField.setVisible(false);
+        isbnRow.setPercentHeight(0);
         confirmButton.setOnAction(event -> handleAddDvdConfirm());
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
