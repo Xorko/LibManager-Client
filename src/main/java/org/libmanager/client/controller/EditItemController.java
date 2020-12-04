@@ -2,6 +2,8 @@ package org.libmanager.client.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
@@ -17,6 +19,8 @@ import java.time.LocalDate;
 
 public class EditItemController {
 
+    @FXML
+    private GridPane editItemRoot;
     @FXML
     private TextField titleField;
     @FXML
@@ -77,12 +81,18 @@ public class EditItemController {
         durationLabel.setVisible(false);
         durationField.setVisible(false);
         confirmButton.setOnAction(event -> handleAddBookConfirm());
+        // Enter can be pressed instead of the confirm button
+        editItemRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleAddBookConfirm();
+            }
+        });
     }
 
     /**
      * Initializes the view with "Add DVD" settings
      */
-    public void initializeAddDvd() {
+    public void initializeAddDVD() {
         genreCBox.getItems().setAll(DVDGenre.values());
         authorLabel.setText("Réalisateur");
         publisherLabel.setVisible(false);
@@ -90,6 +100,12 @@ public class EditItemController {
         isbnLabel.setVisible(false);
         isbnField.setVisible(false);
         confirmButton.setOnAction(event -> handleAddDvdConfirm());
+        // Enter can be pressed instead of the confirm button
+        editItemRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleAddDvdConfirm();
+            }
+        });
     }
 
     /**
@@ -105,21 +121,32 @@ public class EditItemController {
         releaseDateDPicker.getEditor().setText(DateUtil.format(selectedBook.getReleaseDate()));
         isbnField.setText(selectedBook.getIsbn());
         confirmButton.setOnAction(event -> handleEditBookConfirm(selectedBook));
+        // Enter can be pressed instead of the confirm button
+        editItemRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleEditBookConfirm(selectedBook);
+            }
+        });
     }
 
     /**
      * Initializes the view with "Edit DVD" settings
      * @param selectedDVD   the selected DVD
      */
-    public void initializeEditDvd(DVD selectedDVD) {
-        initializeAddDvd();
+    public void initializeEditDVD(DVD selectedDVD) {
+        initializeAddDVD();
         titleField.setText(selectedDVD.getTitle());
         authorField.setText(selectedDVD.getAuthor());
         genreCBox.valueProperty().set(selectedDVD.getGenre());
         releaseDateDPicker.getEditor().setText(DateUtil.format(selectedDVD.getReleaseDate()));
         durationField.setText(selectedDVD.getDuration());
         confirmButton.setOnAction(event -> handleEditDVDConfirm(selectedDVD));
-
+        // Enter can be pressed instead of the confirm button
+        editItemRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleEditDVDConfirm(selectedDVD);
+            }
+        });
     }
 
     /**
@@ -150,6 +177,7 @@ public class EditItemController {
             d.setTitle(titleField.getText());
             d.setAuthor(authorField.getText());
             d.setGenre(genreCBox.valueProperty().get());
+            d.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
             d.setDuration(durationField.getText());
             d.setStatus(true);
             app.getDVDData().add(d);

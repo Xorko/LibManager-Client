@@ -2,6 +2,8 @@ package org.libmanager.client.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
@@ -15,6 +17,8 @@ import java.util.regex.Pattern;
 
 public class EditUserController {
 
+    @FXML
+    private GridPane editUserRoot;
     @FXML
     private Label usernameLabel;
     @FXML
@@ -63,19 +67,31 @@ public class EditUserController {
         usernameField.setVisible(false);
 
         confirmButton.setOnAction(event -> handleAddUserConfirm());
+        // Enter can be pressed instead of the confirm button
+        editUserRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleAddUserConfirm();
+            }
+        });
     }
 
-    public void initializeEditUser(User u) {
+    public void initializeEditUser(User selectedUser) {
         passwordLabel.setVisible(false);
         passwordField.setVisible(false);
-        usernameField.setText(u.getUsername());
-        firstNameField.setText(u.getFirstName());
-        lastNameField.setText(u.getLastName());
-        addressField.setText(u.getAddress());
-        birthdayDPicker.getEditor().setText(DateUtil.format(u.getBirthday()));
-        emailAddressField.setText(u.getEmail());
+        usernameField.setText(selectedUser.getUsername());
+        firstNameField.setText(selectedUser.getFirstName());
+        lastNameField.setText(selectedUser.getLastName());
+        addressField.setText(selectedUser.getAddress());
+        birthdayDPicker.getEditor().setText(DateUtil.format(selectedUser.getBirthday()));
+        emailAddressField.setText(selectedUser.getEmail());
 
-        confirmButton.setOnAction(event -> handleEditUserConfirm(u));
+        confirmButton.setOnAction(event -> handleEditUserConfirm(selectedUser));
+        // Enter can be pressed instead of the confirm button
+        editUserRoot.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleEditUserConfirm(selectedUser);
+            }
+        });
     }
 
     private void handleAddUserConfirm() {
@@ -114,22 +130,22 @@ public class EditUserController {
                 .matcher(passwordField.getText());
         String errMessage = "";
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errMessage += "No valid first name\n";
+            errMessage += "Pas de prénom valide\n";
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errMessage += "No valid last name\n";
+            errMessage += "Pas de nom de famille valide\n";
         }
         if (addressField.getText() == null || addressField.getText().length() == 0) {
-            errMessage += "No valid address\n";
+            errMessage += "Pas d'adresse valdie\n";
         }
         if (birthdayDPicker.getEditor().getText() == null || !DateUtil.validDate(birthdayDPicker.getEditor().getText())) {
-            errMessage += "No valid birthday\n";
+            errMessage += "Pas de date de naissance validey\n";
         }
         if (emailAddressField.getText() == null || emailAddressField.getText().length() == 0 || !emailMatcher.matches()) {
-            errMessage += "No valid email\n";
+            errMessage += "Pas d'adresse email validel\n";
         }
         if (add && (passwordField.getText() == null || passwordField.getText().length() == 0)) {
-            errMessage += "No valid password\n";
+            errMessage += "Pas de mot de passe valide\n";
         }
         if (errMessage.length() == 0) {
             return true;
