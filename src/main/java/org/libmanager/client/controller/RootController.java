@@ -65,9 +65,9 @@ public class RootController {
 
     @FXML
     private void handleLogout() {
-        //TODO If logged in user is admin, hide admin menu and go to reservation view
         if (app.getLoggedInUser().isAdmin()) {
             toggleAdminMenu();
+            app.showReservationView();
         }
         toggleLogoutMenuItem();
         toggleLoginMenuItem();
@@ -99,6 +99,7 @@ public class RootController {
     private void handleAbout() {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
         about.initOwner(app.getPrimaryStage());
+        about.setTitle("LibManager");
         about.setHeaderText("LibManager");
         about.setContentText("Version 0.1\nhttps://github.com/Xorko/LibManager-Client");
         about.showAndWait();
