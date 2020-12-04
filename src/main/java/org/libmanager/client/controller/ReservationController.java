@@ -103,6 +103,7 @@ public class ReservationController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+                    confirmationAlert.setTitle("Confirmation de l'emprunt");
                     confirmationAlert.setHeaderText("Voulez vous vraiment emprunter ce livre ?");
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
@@ -156,6 +157,7 @@ public class ReservationController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+                    confirmationAlert.setTitle("Confirmation de l'emprunt");
                     confirmationAlert.setHeaderText("Voulez vous vraiment emprunter ce DVD ?");
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {

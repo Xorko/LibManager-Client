@@ -328,7 +328,7 @@ public class AdminPanelController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
-            confirmationAlert.setTitle("Voulez vous vraiment supprimer ce livre ?");
+            confirmationAlert.setTitle("Confirmation de la suppression");
             confirmationAlert.setHeaderText("Voulez vous vraiment supprimer ce livre ?");
             confirmationAlert.setContentText("Cette action est irreversible");
             Optional<ButtonType> answer = confirmationAlert.showAndWait();
@@ -353,7 +353,7 @@ public class AdminPanelController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
-            confirmationAlert.setTitle("Voulez vous vraiment supprimer ce DVD ?");
+            confirmationAlert.setTitle("Confirmation de la suppression");
             confirmationAlert.setHeaderText("Voulez vous vraiment supprimer ce DVD ?");
             confirmationAlert.setContentText("Cette action est irreversible");
             Optional<ButtonType> answer = confirmationAlert.showAndWait();
@@ -378,7 +378,7 @@ public class AdminPanelController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
-            confirmationAlert.setTitle("Voulez vous vraiment supprimer cet utilisateur ?");
+            confirmationAlert.setTitle("Confirmation de la suppression");
             confirmationAlert.setHeaderText("Voulez vous vraiment supprimer cet utilisateur ?");
             confirmationAlert.setContentText("Cette action est irreversible");
             Optional<ButtonType> answer = confirmationAlert.showAndWait();

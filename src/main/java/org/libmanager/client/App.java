@@ -158,7 +158,7 @@ public class App extends Application {
                 dialogStage.setTitle("Ajouter un livre");
             }
             else if (((Button) e.getSource()).getId().equals(adminPanelController.getDVDAddButton().getId())) {
-                controller.initializeAddDvd();
+                controller.initializeAddDVD();
                 dialogStage.setTitle("Ajouter un DVD");
             }
             else if (((Button) e.getSource()).getId().equals(adminPanelController.getBookEditButton().getId())) {
@@ -179,7 +179,7 @@ public class App extends Application {
             else if (((Button) e.getSource()).getId().equals(adminPanelController.getDVDEditButton().getId())) {
                 DVD selected = adminPanelController.getSelectedDVD();
                 if (selected != null) {
-                    controller.initializeEditDvd(selected);
+                    controller.initializeEditDVD(selected);
                     dialogStage.setTitle("Edition de " + selected.getTitle());
                 } else {
                     noError = false;
