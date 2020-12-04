@@ -8,6 +8,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
+import org.libmanager.client.component.DurationSpinner;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.enums.Genre;
@@ -45,7 +46,7 @@ public class EditItemController {
     @FXML
     private Label durationLabel;
     @FXML
-    private TextField durationField;
+    private DurationSpinner durationSpinner;
     @FXML
     private Button confirmButton;
     @FXML
@@ -82,7 +83,7 @@ public class EditItemController {
     public void initializeAddBook() {
         genreCBox.getItems().setAll(BookGenre.values());
         durationLabel.setVisible(false);
-        durationField.setVisible(false);
+        durationSpinner.setVisible(false);
         confirmButton.setOnAction(event -> handleAddBookConfirm());
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
@@ -143,7 +144,7 @@ public class EditItemController {
         authorField.setText(selectedDVD.getAuthor());
         genreCBox.valueProperty().set(selectedDVD.getGenre());
         releaseDateDPicker.getEditor().setText(DateUtil.format(selectedDVD.getReleaseDate()));
-        durationField.setText(selectedDVD.getDuration());
+        durationSpinner.getEditor().setText(selectedDVD.getDuration());
         confirmButton.setOnAction(event -> handleEditDVDConfirm(selectedDVD));
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
@@ -182,7 +183,7 @@ public class EditItemController {
             d.setAuthor(authorField.getText());
             d.setGenre(genreCBox.valueProperty().get());
             d.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
-            d.setDuration(durationField.getText());
+            d.setDuration(durationSpinner.getEditor().getText());
             d.setStatus(true);
             app.getDVDData().add(d);
             app.refreshTables();
@@ -212,7 +213,7 @@ public class EditItemController {
             d.setTitle(titleField.getText());
             d.setAuthor(authorField.getText());
             d.setGenre(genreCBox.valueProperty().get());
-            d.setDuration(durationField.getText());
+            d.setDuration(durationSpinner.getEditor().getText());
             app.refreshTables();
             dialogStage.close();
         }
@@ -246,9 +247,7 @@ public class EditItemController {
         if (book && (isbnField.getText() == null || isbnField.getText().length() == 0)) {
             errMessage += "Pas d'ISBN valide\n";
         }
-        // durationField text should be at least 2 characters long because we need to put at least one number and an unit (sec/min/h)
-        // TextField should be replaced by a spinner later or at least we need to implement a validator for it
-        if(!book && (durationField.getText() == null || durationField.getText().length() < 2)) {
+        if(!book && (durationSpinner.getEditor().getText() == null || !durationSpinner.getEditor().getText().matches("[0-9]+h[0-9]{0,2}"))) {
             errMessage += "Pas de durée valide";
         }
         if (errMessage.length() == 0) {
@@ -285,7 +284,7 @@ public class EditItemController {
         releaseDateDPicker.getEditor().setText("");
         genreCBox.valueProperty().set(null);
         publisherField.setText("");
-        durationField.setText("");
+        durationSpinner.getEditor().setText("");
         isbnField.setText("");
     }
 
