@@ -76,7 +76,7 @@
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin></DatePicker>
-      <DurationSpinner fx:id="durationSpinner" GridPane.columnIndex="2" GridPane.rowIndex="5">
+      <DurationSpinner fx:id="durationSpinner" maxWidth="1.7976931348623157E308" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
