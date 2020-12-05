@@ -89,7 +89,8 @@
       <TextField fx:id="isbnField" GridPane.columnIndex="2" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets right="10.0" />
-         </GridPane.margin></TextField>
+         </GridPane.margin>
+      </TextField>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="8">
         <buttons>
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancel" text="Annuler" />

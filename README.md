@@ -7,7 +7,7 @@
 * Linux/macOS: `./gradlew run`
 
 ### Add custom components to Scene Builder
-Import `redist/LibManager-components.jar` into Scene Builder (Scene Builder 11 or higher required)
+Import `lib/LibManager-components.jar` into Scene Builder (Scene Builder 11 or higher required)
 
 ### Authors
 * [Thibault LE GOFF](https://www.github.com/Xorko)
