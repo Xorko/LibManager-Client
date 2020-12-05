@@ -6,9 +6,12 @@
 * Windows: `gradlew.bat run`
 * Linux/macOS: `./gradlew run`
 
+### Add custom components to Scene Builder
+Import `redist/LibManager-components.jar` into Scene Builder (Scene Builder 11 or higher required)
+
 ### Authors
 * [Thibault LE GOFF](https://www.github.com/Xorko)
 * [Guillaume TIGER](https://github.com/XedSama)
-* [Gwenn MALIVET](https://github.com/Gwennbzh)
 * [Benoit AGOGUE](https://github.com/BzhNouille)
+* [Gwenn MALIVET](https://github.com/Gwennbzh)
 * [Kévin PHILIPPE](https://github.com/DeuxFois)

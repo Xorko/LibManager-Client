@@ -7,6 +7,13 @@ plugins {
 group 'org.xorko'
 version '1.0-SNAPSHOT'
 
+/**
+ * Workaround to compile JavaFX custom components for importation in Scene Builder:
+ * Uncomment these lines, then build the jar (with the jar task), then it can be imported into SceneBuilder
+ */
+// sourceCompatibility = 1.11
+// targetCompatibility = 1.11
+
 mainClassName = "org.libmanager.client.App"
 
 repositories {
