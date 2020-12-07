@@ -1,6 +1,9 @@
 package org.libmanager.client.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
@@ -8,18 +11,23 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
+import org.libmanager.client.I18n;
 import org.libmanager.client.component.DurationSpinner;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.enums.Genre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
+import org.libmanager.client.util.Converter;
 import org.libmanager.client.util.DateUtil;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.ResourceBundle;
 
 
-public class EditItemController {
+public class EditItemController implements Initializable {
 
     @FXML
     private RowConstraints isbnRow;
@@ -58,7 +66,7 @@ public class EditItemController {
     private App app;
 
     @FXML
-    private void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         titleField.setVisible(true);
         authorField.setVisible(true);
         genreCBox.setVisible(true);
@@ -81,7 +89,9 @@ public class EditItemController {
      * Initializes the view with "Add book" settings
      */
     public void initializeAddBook() {
-        genreCBox.getItems().setAll(BookGenre.values());
+        ObservableList<BookGenre> bookGenres = FXCollections.observableArrayList(Arrays.asList(BookGenre.values()));
+        bookGenres.remove(BookGenre.ANY);
+        genreCBox.getItems().setAll(bookGenres);
         durationLabel.setVisible(false);
         durationSpinner.setVisible(false);
         confirmButton.setOnAction(event -> handleAddBookConfirm());
@@ -97,8 +107,11 @@ public class EditItemController {
      * Initializes the view with "Add DVD" settings
      */
     public void initializeAddDVD() {
-        genreCBox.getItems().setAll(DVDGenre.values());
-        authorLabel.setText("Réalisateur");
+        ObservableList<DVDGenre> dvdGenres = FXCollections.observableArrayList(Arrays.asList(DVDGenre.values()));
+        dvdGenres.remove(DVDGenre.ANY);
+        genreCBox.getItems().setAll(dvdGenres);
+        genreCBox.setConverter(Converter.getGenreConverter());
+        authorLabel.setText(I18n.getBundle().getString("label.director"));
         publisherLabel.setVisible(false);
         publisherField.setVisible(false);
         isbnLabel.setVisible(false);
@@ -227,28 +240,28 @@ public class EditItemController {
     private boolean fieldsAreValid(boolean book) {
         String errMessage = "";
         if (titleField.getText() == null || titleField.getText().length() == 0) {
-            errMessage += "Pas de titre valide\n";
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.title") + "\n";
         }
         if (authorField.getText() == null || authorField.getText().length() == 0) {
             if (book)
-                errMessage += "Pas d'auteur valide\n";
+                errMessage += I18n.getBundle().getString("edit.item.alert.invalid.author") + "\n";
             else
-                errMessage += "Pas de réalisateur valide\n";
+                errMessage += I18n.getBundle().getString("edit.item.alert.invalid.director") + "\n";
         }
         if (book && (publisherField.getText() == null || publisherField.getText().length() == 0)) {
-            errMessage += "Pas d'éditeur valide\n";
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.publisher") + "\n";
         }
         if (genreCBox.valueProperty().get() == null) {
-            errMessage += "Pas de genre sélectionné\n";
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.genre") + "\n";
         }
         if (releaseDateDPicker.getEditor().getText() == null || !DateUtil.validDate(releaseDateDPicker.getEditor().getText())) {
-            errMessage += "Pas de date valide\n";
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.releasedate") + "\n";
         }
         if (book && (isbnField.getText() == null || isbnField.getText().length() == 0)) {
-            errMessage += "Pas d'ISBN valide\n";
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.isbn") + "\n";
         }
         if(!book && (durationSpinner.getEditor().getText() == null || !durationSpinner.getEditor().getText().matches("[0-9]+h[0-9]{0,2}"))) {
-            errMessage += "Pas de durée valide";
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.duration") + "\n";
         }
         if (errMessage.length() == 0) {
             return true;
@@ -256,8 +269,8 @@ public class EditItemController {
             // There's at least one error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Champs invalides");
-            alert.setHeaderText("Veuillez corriger les champs invalides");
+            alert.setTitle(I18n.getBundle().getString("login.label.invalidfields"));
+            alert.setHeaderText(I18n.getBundle().getString("edit.alert.incorrectfields.header"));
             alert.setContentText(errMessage);
 
             alert.showAndWait();

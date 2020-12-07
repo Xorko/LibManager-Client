@@ -1,20 +1,22 @@
 package org.libmanager.client.enums;
 
 public enum BookGenre implements Genre {
-    POETRY("Poésie"), NOVEL("Roman"), SCIENCEFICTION("Science-fiction"), FANTASY("Fantasy"),
-    FANTASTIC("Fantastique"),  BIOGRAPHY("Biographie"), TALE("Conte"), ESSAY("Essai"),
-    COMICSTRIP("Bande dessinée"), DRAMA("Drame"), DOCUMENTARY("Documentaire"), ADVENTURE("Aventure"),
-    SPYING("Espionnage"), WESTERN("Western"), CRIMINAL("Criminel"), SUPERHERO("Super-héros");
-
-    final String name;
-
-    BookGenre(String name) {
-        this.name = name;
-    }
+    ANY,
+    POETRY,
+    NOVEL,
+    SCIENCEFICTION,
+    FANTASY,
+    FANTASTIC,
+    BIOGRAPHY,
+    TALE,
+    ESSAY,
+    COMICSTRIP,
+    DRAMA,
+    CRIMINAL;
 
     @Override
     public String toString() {
-        return name;
+        return name().charAt(0) + name().substring(1).toLowerCase();
     }
 
     public static BookGenre getEnum(String value) {

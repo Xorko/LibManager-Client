@@ -10,30 +10,35 @@
    <top>
       <MenuBar fx:id="menuBar" BorderPane.alignment="CENTER">
         <menus>
-          <Menu fx:id="fileMenu" mnemonicParsing="false" text="Fichier">
+          <Menu fx:id="fileMenu" mnemonicParsing="false" text="%menubar.file">
             <items>
-              <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#handleQuit" text="Quitter">
+                <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#handlePreferences" text="%menubar.file.preferences">
+                    <accelerator>
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                    </accelerator>
+                </MenuItem>
+                <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#handleQuit" text="%menubar.file.quit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
-                  </MenuItem>
+                </MenuItem>
             </items>
           </Menu>
-          <Menu fx:id="accountMenu" mnemonicParsing="false" text="Compte">
+          <Menu fx:id="accountMenu" mnemonicParsing="false" text="%menubar.account">
             <items>
-              <MenuItem fx:id="loginMenuItem" mnemonicParsing="false" onAction="#handleLogin" text="Se connecter" />
-                  <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#handleLogout" text="Se déconnecter" />
+                    <MenuItem fx:id="loginMenuItem" mnemonicParsing="false" onAction="#handleLogin" text="%menubar.account.login" />
+                    <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#handleLogout" text="%menubar.account.logout" />
             </items>
           </Menu>
-            <Menu fx:id="adminMenu" mnemonicParsing="false" text="Admin" visible="false">
+            <Menu fx:id="adminMenu" mnemonicParsing="false" text="%menubar.admin" visible="false">
                 <items>
-                    <MenuItem fx:id="adminPanelMenuItem" onAction="#handleGotoAdminPanel" mnemonicParsing="false" text="Panneau d'administration" />
-                    <MenuItem fx:id="reservationMenuItem" onAction="#handleGotoReservation" mnemonicParsing="false" text="Fenêtre de reservation" />
+                    <MenuItem fx:id="adminPanelMenuItem" onAction="#handleGotoAdminPanel" mnemonicParsing="false" text="%menubar.admin.adminpanel" />
+                    <MenuItem fx:id="reservationMenuItem" onAction="#handleGotoReservation" mnemonicParsing="false" text="%menubar.admin.reservation" />
                 </items>
             </Menu>
-          <Menu fx:id="helpMenu" mnemonicParsing="false" text="?">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="%menubar.help">
             <items>
-              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#handleAbout" text="À propos" />
+              <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" onAction="#handleAbout" text="%menubar.help.about" />
             </items>
           </Menu>
         </menus>

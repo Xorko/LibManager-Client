@@ -24,7 +24,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Se connecter" GridPane.columnSpan="2147483647">
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%login.label.title" GridPane.columnSpan="2147483647">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
@@ -32,12 +32,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label text="Nom d'utilisateur" GridPane.rowIndex="1">
+      <Label text="%label.username" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
       </Label>
-      <Label text="Mot de passe" GridPane.rowIndex="2">
+      <Label text="%label.password" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin>
@@ -61,15 +61,15 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleLogin" text="Se connecter" GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#handleLogin" text="%login.button.login" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
             </Button>
          </children>
       </GridPane>
-      <Label fx:id="errorMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="Erreur" textFill="RED" visible="false" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-      <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Mot de passe oublié ?" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Label fx:id="errorMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="%login.label.allfieldsmustbecompleted" textFill="RED" visible="false" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
+      <Label alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%login.label.forgottenpassword" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>

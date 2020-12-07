@@ -4,21 +4,26 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
+import org.libmanager.client.I18n;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.enums.Status;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.model.User;
+import org.libmanager.client.util.Converter;
 import org.libmanager.client.util.DateUtil;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class AdminPanelController {
+public class AdminPanelController implements Initializable {
 
     // Book
     @FXML
@@ -132,10 +137,16 @@ public class AdminPanelController {
     private App app;
 
     @FXML
-    private void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         bookGenreCBox.getItems().setAll(BookGenre.values());
+        bookGenreCBox.valueProperty().set(BookGenre.ANY);
+        bookGenreCBox.setConverter(Converter.getBookGenreConverter());
+
         dvdGenreCBox.getItems().setAll(DVDGenre.values());
+        dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
+        dvdGenreCBox.setConverter(Converter.getDvdGenreConverter());
         bookStatusCBox.getItems().setAll(Status.values());
+
         dvdStatusCBox.getItems().setAll(Status.values());
 
         // --- BOOKS TABLE ---
@@ -151,9 +162,9 @@ public class AdminPanelController {
             btn.setMaxWidth(100);
 
             if (!cellData.getValue().getStatus()) {
-                btn.setText("Rendre");
+                btn.setText(I18n.getBundle().getString("button.return"));
             } else {
-                btn.setText("Disponible");
+                btn.setText(I18n.getBundle().getString("button.available"));
                 btn.setDisable(true);
             }
 
@@ -162,20 +173,19 @@ public class AdminPanelController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                    confirmationAlert.setHeaderText("Voulez vous vraiment rendre disponible ce livre ?");
+                    confirmationAlert.setHeaderText(I18n.getBundle().getString("admin.alert.confirm.return.book"));
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server
                         btn.setDisable(true);
-                        btn.setText("Disponible");
+                        btn.setText(I18n.getBundle().getString("button.available"));
                         cellData.getValue().setStatus(Status.AVAILABLE.isAvailable());
-                        System.out.println("Book back in stock");
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
-                    alert.setHeaderText("Vous n'êtes pas connecté en tant qu'administrateur");
-                    alert.setContentText("Veuillez vous connecter avant d'emprunter un livre.");
+                    alert.setHeaderText(I18n.getBundle().getString("alert.not.admin.header"));
+                    alert.setContentText(I18n.getBundle().getString("alert.not.admin.book.return.content"));
                     alert.showAndWait();
                 }
             });
@@ -204,9 +214,9 @@ public class AdminPanelController {
             btn.setMaxWidth(100);
 
             if (!cellData.getValue().getStatus()) {
-                btn.setText("Rendre");
+                btn.setText(I18n.getBundle().getString("button.return"));
             } else {
-                btn.setText("Disponible");
+                btn.setText(I18n.getBundle().getString("button.available"));
                 btn.setDisable(true);
             }
 
@@ -215,19 +225,19 @@ public class AdminPanelController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                    confirmationAlert.setHeaderText("Voulez vous vraiment rendre disponible ce DVD ?");
+                    confirmationAlert.setHeaderText(I18n.getBundle().getString("admin.alert.confirm.return.dvd"));
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server
                         btn.setDisable(true);
-                        btn.setText("Disponible");
+                        btn.setText(I18n.getBundle().getString("button.available"));
                         cellData.getValue().setStatus(Status.AVAILABLE.isAvailable());
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
-                    alert.setHeaderText("Vous n'êtes pas connecté en tant qu'administrateur");
-                    alert.setContentText("Veuillez vous connecter avant d'emprunter un DVD.");
+                    alert.setHeaderText(I18n.getBundle().getString("alert.not.admin.header"));
+                    alert.setContentText(I18n.getBundle().getString("alert.not.admin.dvd.return.content"));
                     alert.showAndWait();
                 }
             });
@@ -328,9 +338,9 @@ public class AdminPanelController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
-            confirmationAlert.setTitle("Confirmation de la suppression");
-            confirmationAlert.setHeaderText("Voulez vous vraiment supprimer ce livre ?");
-            confirmationAlert.setContentText("Cette action est irreversible");
+            confirmationAlert.setTitle(I18n.getBundle().getString("admin.alert.confirm.deletion.title"));
+            confirmationAlert.setHeaderText(I18n.getBundle().getString("admin.alert.confirm.deletion.book"));
+            confirmationAlert.setContentText(I18n.getBundle().getString("admin.alert.confirm.deletion.content"));
             Optional<ButtonType> answer = confirmationAlert.showAndWait();
             if (answer.isPresent() && answer.get() == ButtonType.YES) {
                 app.getBooksData().remove(selected);
@@ -339,9 +349,9 @@ public class AdminPanelController {
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(app.getPrimaryStage());
-            alert.setTitle("Aucun livre sélectionné");
-            alert.setHeaderText("Aucun livre sélectionné");
-            alert.setContentText("Veuillez sélectionner un livre afin de le supprimer");
+            alert.setTitle(I18n.getBundle().getString("admin.alert.confirm.deletion.title"));
+            alert.setHeaderText(I18n.getBundle().getString("alert.noselection.book.title"));
+            alert.setContentText(I18n.getBundle().getString("alert.noselection.book.delete.content"));
             alert.showAndWait();
         }
     }
@@ -353,9 +363,9 @@ public class AdminPanelController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
-            confirmationAlert.setTitle("Confirmation de la suppression");
-            confirmationAlert.setHeaderText("Voulez vous vraiment supprimer ce DVD ?");
-            confirmationAlert.setContentText("Cette action est irreversible");
+            confirmationAlert.setTitle(I18n.getBundle().getString("admin.alert.confirm.deletion.title"));
+            confirmationAlert.setHeaderText(I18n.getBundle().getString("admin.alert.confirm.deletion.dvd"));
+            confirmationAlert.setContentText(I18n.getBundle().getString("admin.alert.confirm.deletion.content"));
             Optional<ButtonType> answer = confirmationAlert.showAndWait();
             if (answer.isPresent() && answer.get() == ButtonType.YES) {
                 app.getDVDData().remove(selected);
@@ -364,9 +374,9 @@ public class AdminPanelController {
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(app.getPrimaryStage());
-            alert.setTitle("Aucun DVD sélectionné");
-            alert.setHeaderText("Aucun DVD sélectionné");
-            alert.setContentText("Veuillez sélectionner un DVD afin de le supprimer");
+            alert.setTitle(I18n.getBundle().getString("alert.noselection.dvd.title"));
+            alert.setHeaderText(I18n.getBundle().getString("alert.noselection.dvd.title"));
+            alert.setContentText(I18n.getBundle().getString("alert.noselection.dvd.delete.content"));
             alert.showAndWait();
         }
     }
@@ -378,9 +388,9 @@ public class AdminPanelController {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
-            confirmationAlert.setTitle("Confirmation de la suppression");
-            confirmationAlert.setHeaderText("Voulez vous vraiment supprimer cet utilisateur ?");
-            confirmationAlert.setContentText("Cette action est irreversible");
+            confirmationAlert.setTitle(I18n.getBundle().getString("admin.alert.confirm.deletion.title"));
+            confirmationAlert.setHeaderText(I18n.getBundle().getString("admin.alert.confirm.deletion.user"));
+            confirmationAlert.setContentText(I18n.getBundle().getString("admin.alert.confirm.deletion.content"));
             Optional<ButtonType> answer = confirmationAlert.showAndWait();
             if (answer.isPresent() && answer.get() == ButtonType.YES) {
                 app.getUsersData().remove(selected);
@@ -389,9 +399,9 @@ public class AdminPanelController {
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(app.getPrimaryStage());
-            alert.setTitle("Aucun utilisateur sélectionné");
-            alert.setHeaderText("Aucun utilisateur sélectionné");
-            alert.setContentText("Veuillez sélectionner un utilisateur afin de le supprimer");
+            alert.setTitle(I18n.getBundle().getString("alert.noselection.user.title"));
+            alert.setHeaderText(I18n.getBundle().getString("alert.noselection.user.title"));
+            alert.setContentText(I18n.getBundle().getString("alert.noselection.user.delete.content"));
             alert.showAndWait();
         }
     }

@@ -18,7 +18,7 @@
 
 <TabPane prefHeight="690.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.libmanager.client.controller.ReservationController">
   <tabs>
-    <Tab text="Livres">
+    <Tab text="%label.books">
          <content>
             <GridPane prefHeight="690.0" prefWidth="1280.0">
                <columnConstraints>
@@ -31,12 +31,12 @@
                <children>
                   <TableView fx:id="booksTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
                      <columns>
-                        <TableColumn fx:id="bookTitleColumn" prefWidth="75.0" text="Titre" />
-                        <TableColumn fx:id="bookAuthorColumn" prefWidth="75.0" text="Auteur" />
-                        <TableColumn fx:id="bookGenreColumn" prefWidth="75.0" text="Genre" />
-                        <TableColumn fx:id="bookReleaseDateColumn" prefWidth="125.0" text="Publication" />
-                        <TableColumn fx:id="bookPublisherColumn" prefWidth="76.0" text="Éditeur" />
-                        <TableColumn fx:id="bookIsbnColumn" prefWidth="62.0" text="ISBN" />
+                        <TableColumn fx:id="bookTitleColumn" prefWidth="75.0" text="%label.title" />
+                        <TableColumn fx:id="bookAuthorColumn" prefWidth="75.0" text="%label.author" />
+                        <TableColumn fx:id="bookGenreColumn" prefWidth="75.0" text="%label.genre" />
+                        <TableColumn fx:id="bookReleaseDateColumn" prefWidth="125.0" text="%label.column.releasedate" />
+                        <TableColumn fx:id="bookPublisherColumn" prefWidth="76.0" text="%label.publisher" />
+                        <TableColumn fx:id="bookIsbnColumn" prefWidth="62.0" text="%label.isbn" />
                         <TableColumn fx:id="bookStatusColumn" prefWidth="71.0" />
                      </columns>
                   </TableView>
@@ -59,27 +59,27 @@
                         <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Titre" GridPane.rowIndex="2">
+                        <Label text="%label.title" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Auteur" GridPane.rowIndex="3">
+                        <Label text="%label.author" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Date de publication" GridPane.rowIndex="6">
+                        <Label text="%label.releasedate" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Genre" GridPane.rowIndex="5">
+                        <Label text="%label.genre" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Rechercher un livre" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.search.books" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -89,8 +89,8 @@
                         </Label>
                         <ButtonBar prefHeight="40.0" prefWidth="99.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                            <buttons>
-                              <Button mnemonicParsing="false" onAction="#handleBookReset" text="Réinitialiser" />
-                              <Button mnemonicParsing="false" onAction="#handleBookSearch" text="Rechercher" />
+                              <Button mnemonicParsing="false" onAction="#handleBookReset" text="%button.reset" />
+                              <Button mnemonicParsing="false" onAction="#handleBookSearch" text="%button.search" />
                            </buttons>
                            <GridPane.margin>
                               <Insets right="15.0" />
@@ -99,12 +99,12 @@
                               <Insets left="-15.0" />
                            </padding>
                         </ButtonBar>
-                        <Label text="ISBN" GridPane.rowIndex="7">
+                        <Label text="%label.isbn" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Éditeur" GridPane.rowIndex="4">
+                        <Label text="%label.publisher" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
@@ -129,7 +129,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </ComboBox>
-                        <DatePicker fx:id="bookReleaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="jj/mm/aaaa" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                        <DatePicker fx:id="bookReleaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="%date.format" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>
@@ -145,7 +145,7 @@
             </GridPane>
          </content>
     </Tab>
-    <Tab text="DVDs">
+    <Tab text="%label.dvd">
          <content>
             <GridPane prefHeight="690.0" prefWidth="1280.0">
                <columnConstraints>
@@ -158,12 +158,12 @@
                <children>
                   <TableView fx:id="dvdTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2147483647">
                      <columns>
-                        <TableColumn fx:id="dvdTitleColumn" prefWidth="75.0" text="Titre" />
-                        <TableColumn fx:id="dvdDirectorColumn" prefWidth="75.0" text="Réalisateur" />
-                        <TableColumn fx:id="dvdGenreColumn" prefWidth="75.0" text="Genre" />
-                        <TableColumn fx:id="dvdReleaseDateColumn" prefWidth="121.0" text="Publication" />
-                        <TableColumn fx:id="dvdDurationColumn" prefWidth="79.0" text="Durée" />
-                        <TableColumn fx:id="dvdStatusColumn" prefWidth="62.0" text="État" />
+                        <TableColumn fx:id="dvdTitleColumn" prefWidth="75.0" text="%label.title" />
+                        <TableColumn fx:id="dvdDirectorColumn" prefWidth="75.0" text="%label.director" />
+                        <TableColumn fx:id="dvdGenreColumn" prefWidth="75.0" text="%label.genre" />
+                        <TableColumn fx:id="dvdReleaseDateColumn" prefWidth="121.0" text="%label.column.releasedate" />
+                        <TableColumn fx:id="dvdDurationColumn" prefWidth="79.0" text="%label.duration" />
+                        <TableColumn fx:id="dvdStatusColumn" prefWidth="62.0" />
                      </columns>
                   </TableView>
                   <GridPane>
@@ -183,27 +183,27 @@
                         <RowConstraints minHeight="10.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Label text="Titre" GridPane.rowIndex="2">
+                        <Label text="%label.title" GridPane.rowIndex="2">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Réalisateur" GridPane.rowIndex="3">
+                        <Label text="%label.director" GridPane.rowIndex="3">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Date de publication" GridPane.rowIndex="5">
+                        <Label text="%label.releasedate" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label text="Genre" GridPane.rowIndex="4">
+                        <Label text="%label.genre" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Rechercher un DVD" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.search.dvd" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -213,8 +213,8 @@
                         </Label>
                         <ButtonBar GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                            <buttons>
-                              <Button mnemonicParsing="false" onAction="#handleDVDReset" text="Réinitialiser" />
-                              <Button mnemonicParsing="false" onAction="#handleDVDSearch" text="Rechercher" />
+                              <Button mnemonicParsing="false" onAction="#handleDVDReset" text="%button.reset" />
+                              <Button mnemonicParsing="false" onAction="#handleDVDSearch" text="%button.search" />
                            </buttons>
                            <GridPane.margin>
                               <Insets right="15.0" />
@@ -238,7 +238,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </ComboBox>
-                        <DatePicker fx:id="dvdReleaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="jj/mm/aaaa" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                        <DatePicker fx:id="dvdReleaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="%date.format" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>

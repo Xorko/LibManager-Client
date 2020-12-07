@@ -2,6 +2,7 @@ package org.libmanager.client.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -11,7 +12,10 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import org.libmanager.client.App;
 
-public class RootController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class RootController implements Initializable {
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -32,7 +36,7 @@ public class RootController {
     private App app;
 
     @FXML
-    private void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         // Handle macOS
         if (System.getProperties().getProperty("os.name").toLowerCase().contains("mac")) {
             Platform.runLater(() -> menuBar.setUseSystemMenuBar(true));
@@ -51,6 +55,11 @@ public class RootController {
     @FXML
     private void handleGotoReservation() {
         app.showReservationView();
+    }
+
+    @FXML
+    private void handlePreferences() {
+        app.showSettingsView();
     }
 
     @FXML

@@ -1,6 +1,7 @@
 package org.libmanager.client.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
@@ -8,15 +9,18 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
+import org.libmanager.client.I18n;
 import org.libmanager.client.model.User;
 import org.libmanager.client.util.DateUtil;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class EditUserController {
+public class EditUserController implements Initializable {
 
     @FXML
     private RowConstraints usernameRow;
@@ -49,7 +53,7 @@ public class EditUserController {
     private Stage dialogStage;
 
     @FXML
-    private void initialize() {
+    public void initialize(URL location, ResourceBundle resources) {
         usernameField.setEditable(false);
 
         birthdayDPicker.setVisible(true);
@@ -137,22 +141,22 @@ public class EditUserController {
                 .matcher(passwordField.getText());
         String errMessage = "";
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errMessage += "Pas de prénom valide\n";
+            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.firstname") + "\n";
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errMessage += "Pas de nom de famille valide\n";
+            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.lastname") + "\n";
         }
         if (addressField.getText() == null || addressField.getText().length() == 0) {
-            errMessage += "Pas d'adresse valdie\n";
+            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.address") + "\n";
         }
         if (birthdayDPicker.getEditor().getText() == null || !DateUtil.validDate(birthdayDPicker.getEditor().getText())) {
-            errMessage += "Pas de date de naissance validey\n";
+            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.birthday") + "\n";
         }
         if (emailAddressField.getText() == null || emailAddressField.getText().length() == 0 || !emailMatcher.matches()) {
-            errMessage += "Pas d'adresse email valide\n";
+            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.email") + "\n";
         }
         if (add && (passwordField.getText() == null || passwordField.getText().length() == 0)) {
-            errMessage += "Pas de mot de passe valide\n";
+            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.password") + "\n";
         }
         if (errMessage.length() == 0) {
             return true;
@@ -160,8 +164,8 @@ public class EditUserController {
             // There's at least one error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Champs invalides");
-            alert.setHeaderText("Veuillez corriger les champs invalides");
+            alert.setTitle(I18n.getBundle().getString("login.label.invalidfields"));
+            alert.setHeaderText(I18n.getBundle().getString("edit.alert.incorrectfields.header"));
             alert.setContentText(errMessage);
 
             alert.showAndWait();

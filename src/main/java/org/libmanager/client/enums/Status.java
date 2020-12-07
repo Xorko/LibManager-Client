@@ -1,22 +1,15 @@
 package org.libmanager.client.enums;
 
 public enum Status {
-    AVAILABLE(true, "Disponible"), BORROWED(false, "Emprunté");
+    AVAILABLE(true), UNAVAILABLE(false);
 
     boolean available;
-    String name;
 
-    Status(boolean available, String name) {
+    Status(boolean available) {
         this.available = available;
-        this.name = name;
     }
 
     public boolean isAvailable() {
         return available;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

@@ -3,19 +3,25 @@ package org.libmanager.client.controller;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
+import org.libmanager.client.I18n;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
+import org.libmanager.client.util.Converter;
 import org.libmanager.client.util.DateUtil;
 
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class ReservationController {
+public class ReservationController implements Initializable {
 
     // Book
     @FXML
@@ -75,11 +81,12 @@ public class ReservationController {
     private App app;
 
     @FXML
-    private void initialize() {
-        bookGenreCBox.getItems().setAll(BookGenre.values());
-        dvdGenreCBox.getItems().setAll(DVDGenre.values());
+    public void initialize(URL location, ResourceBundle resources) {
+        initBookTab();
+        initDVDTab();
+    }
 
-        // --- BOOKS TABLE ---
+    private void initBookTab() {
         bookTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         bookAuthorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
         bookGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().toString()));
@@ -92,9 +99,9 @@ public class ReservationController {
             btn.setMaxWidth(100);
 
             if (cellData.getValue().getStatus()) {
-                btn.setText("Emprunter");
+                btn.setText(I18n.getBundle().getString("reservation.button.status.available"));
             } else {
-                btn.setText("Indisponible");
+                btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
                 btn.setDisable(true);
             }
 
@@ -103,21 +110,21 @@ public class ReservationController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                    confirmationAlert.setTitle("Confirmation de l'emprunt");
-                    confirmationAlert.setHeaderText("Voulez vous vraiment emprunter ce livre ?");
+                    confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirmation.borrowing.title"));
+                    confirmationAlert.setHeaderText(I18n.getBundle().getString("alert.confirmation.borrowing.book.header"));
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the book
                         cellData.getValue().setStatus(false);
                         btn.setDisable(true);
-                        btn.setText("Indisponible");
+                        btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
-                    alert.setTitle("Vous n'êtes pas connecté");
-                    alert.setHeaderText("Vous n'êtes pas connecté");
-                    alert.setContentText("Veuillez vous connecter avant d'emprunter un livre.");
+                    alert.setTitle(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
+                    alert.setHeaderText(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
+                    alert.setContentText(I18n.getBundle().getString("alert.warning.borrowing.book.notloggedin"));
                     alert.showAndWait();
                 }
             });
@@ -134,7 +141,24 @@ public class ReservationController {
         bookIsbnColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.12));
         bookStatusColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.115));
 
-        // --- DVD TABLE ---
+        bookReleaseDateDPicker.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocalDate date) {
+                return DateUtil.format(date);
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return DateUtil.parse(string);
+            }
+        });
+
+        bookGenreCBox.getItems().setAll(BookGenre.values());
+        bookGenreCBox.valueProperty().set(BookGenre.ANY);
+        bookGenreCBox.setConverter(Converter.getBookGenreConverter());
+    }
+
+    private void initDVDTab() {
         dvdTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         dvdDirectorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
         dvdGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().toString()));
@@ -146,9 +170,9 @@ public class ReservationController {
             btn.setMaxWidth(100);
 
             if (cellData.getValue().getStatus()) {
-                btn.setText("Emprunter");
+                btn.setText(I18n.getBundle().getString("reservation.button.status.available"));
             } else {
-                btn.setText("Indisponible");
+                btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
                 btn.setDisable(true);
             }
 
@@ -157,21 +181,21 @@ public class ReservationController {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-                    confirmationAlert.setTitle("Confirmation de l'emprunt");
-                    confirmationAlert.setHeaderText("Voulez vous vraiment emprunter ce DVD ?");
+                    confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirmation.borrowing.title"));
+                    confirmationAlert.setHeaderText(I18n.getBundle().getString("alert.confirmation.borrowing.dvd.header"));
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the dvd
                         cellData.getValue().setStatus(false);
                         btn.setDisable(true);
-                        btn.setText("Indisponible");
+                        btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
-                    alert.setTitle("Vous n'êtes pas connecté");
-                    alert.setHeaderText("Vous n'êtes pas connecté");
-                    alert.setContentText("Veuillez vous connecter avant d'emprunter un DVD.");
+                    alert.setTitle(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
+                    alert.setHeaderText(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
+                    alert.setContentText(I18n.getBundle().getString("alert.warning.borrowing.dvd.notloggedin"));
                     alert.showAndWait();
                 }
             });
@@ -187,19 +211,6 @@ public class ReservationController {
         dvdReleaseDateColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
         dvdStatusColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.11));
 
-        // --- DATE PICKERS ---
-        bookReleaseDateDPicker.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(LocalDate date) {
-                return DateUtil.format(date);
-            }
-
-            @Override
-            public LocalDate fromString(String string) {
-                return DateUtil.parse(string);
-            }
-        });
-
         dvdReleaseDateDPicker.setConverter(new StringConverter<>() {
             @Override
             public String toString(LocalDate date) {
@@ -211,10 +222,18 @@ public class ReservationController {
                 return DateUtil.parse(string);
             }
         });
+
+        dvdGenreCBox.getItems().setAll(DVDGenre.values());
+        dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
+        dvdGenreCBox.setConverter(Converter.getDvdGenreConverter());
     }
 
     @FXML
     private void handleBookSearch() {
+        if (I18n.getLocale() == Locale.US)
+            app.changeLanguage(Locale.FRANCE);
+        else
+            app.changeLanguage(Locale.US);
         //TODO
     }
 

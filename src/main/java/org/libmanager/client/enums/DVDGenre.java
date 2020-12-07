@@ -1,19 +1,21 @@
 package org.libmanager.client.enums;
 
 public enum DVDGenre implements Genre {
-    SCIENCEFICTION("Science-fiction"), FANTASY("Fantasy"), FANTASTIC("Fantastique"),
-    DRAMA("Drame"), DOCUMENTARY("Documentaire"), ADVENTURE("Aventure"),
-    SPYING("Espionnage"), WESTERN("Western"), CRIMINAL("Criminel"), SUPERHERO("Super-héros");
-
-    String name;
-
-    DVDGenre(String name) {
-        this.name = name;
-    }
+    ANY,
+    SCIENCEFICTION,
+    FANTASY,
+    FANTASTIC,
+    DRAMA,
+    DOCUMENTARY,
+    ADVENTURE,
+    SPYING,
+    WESTERN,
+    CRIMINAL,
+    SUPERHERO;
 
     @Override
     public String toString() {
-        return name;
+        return name().charAt(0) + name().substring(1).toLowerCase();
     }
 
     public static DVDGenre getEnum(String value) {
