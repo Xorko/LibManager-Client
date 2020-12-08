@@ -145,9 +145,14 @@ public class AdminPanelController implements Initializable {
         dvdGenreCBox.getItems().setAll(DVDGenre.values());
         dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
         dvdGenreCBox.setConverter(Converter.getDvdGenreConverter());
+
         bookStatusCBox.getItems().setAll(Status.values());
+        bookStatusCBox.valueProperty().set(Status.ANY);
+        bookStatusCBox.setConverter(Converter.getStatusConverter());
 
         dvdStatusCBox.getItems().setAll(Status.values());
+        dvdStatusCBox.valueProperty().set(Status.ANY);
+        dvdStatusCBox.setConverter(Converter.getStatusConverter());
 
         // --- BOOKS TABLE ---
         bookTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
@@ -179,7 +184,7 @@ public class AdminPanelController implements Initializable {
                         //TODO: Send a request to the server
                         btn.setDisable(true);
                         btn.setText(I18n.getBundle().getString("button.available"));
-                        cellData.getValue().setStatus(Status.AVAILABLE.isAvailable());
+                        cellData.getValue().setStatus(true);
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -231,7 +236,7 @@ public class AdminPanelController implements Initializable {
                         //TODO: Send a request to the server
                         btn.setDisable(true);
                         btn.setText(I18n.getBundle().getString("button.available"));
-                        cellData.getValue().setStatus(Status.AVAILABLE.isAvailable());
+                        cellData.getValue().setStatus(true);
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);

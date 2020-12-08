@@ -1,15 +1,15 @@
 package org.libmanager.client.enums;
 
 public enum Status {
-    AVAILABLE(true), UNAVAILABLE(false);
+    UNAVAILABLE(0), AVAILABLE(1), ANY(2);
 
-    boolean available;
+    int status;
 
-    Status(boolean available) {
-        this.available = available;
+    Status(int status) {
+        this.status = status;
     }
 
-    public boolean isAvailable() {
-        return available;
+    public int getStatus() {
+        return status;
     }
 }

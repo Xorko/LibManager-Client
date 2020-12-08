@@ -219,6 +219,8 @@ public final class Converter {
             @Override
             public String toString(Status object) {
                 switch (object) {
+                    case ANY:
+                        return I18n.getBundle().getString("enum.status.any");
                     case AVAILABLE:
                         return I18n.getBundle().getString("enum.status.available");
                     case UNAVAILABLE:
