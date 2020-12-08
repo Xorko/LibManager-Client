@@ -13,6 +13,54 @@ public final class Converter {
     private static final StringConverter<Settings>  settingConverter;
     private static final StringConverter<Language>  languageConverter;
 
+    /**
+     * Return the StringConverter for Genre enums
+     * @return The StringConverter for Genre enums
+     */
+    public static StringConverter<Genre> getGenreConverter() {
+        return genreConverter;
+    }
+
+    /**
+     * Return the StringConverter for the BookGenre enum
+     * @return the StringConverter for the BookGenre enum
+     */
+    public static StringConverter<BookGenre> getBookGenreConverter() {
+        return bookGenreConverter;
+    }
+
+    /**
+     * Return the StringConverter for the DVDGenre enum
+     * @return the StringConverter for the DVDGenre enum
+     */
+    public static StringConverter<DVDGenre> getDvdGenreConverter() {
+        return dvdGenreConverter;
+    }
+
+    /**
+     * Return the StringConverter for the Status enum
+     * @return the StringConverter for the Status enum
+     */
+    public static StringConverter<Status> getStatusConverter() {
+        return statusConverter;
+    }
+
+    /**
+     * Return the StringConverter for Settings enums
+     * @return the StringConverter for Settings enums
+     */
+    public static StringConverter<Settings> getSettingConverter() {
+        return settingConverter;
+    }
+
+    /**
+     * Return the StringConverter for Language enum
+     * @return The StringConverter for Language enum
+     */
+    public static StringConverter<Language> getLanguageConverter() {
+        return languageConverter;
+    }
+
     static {
         genreConverter = new StringConverter<>() {
             @Override
@@ -52,9 +100,6 @@ public final class Converter {
                 }
                 if (object.toString().equals(DVDGenre.SCIENCEFICTION.toString())) {
                     return I18n.getBundle().getString("enum.dvdgenre.sciencefiction");
-                }
-                if (object.toString().equals(DVDGenre.ADVENTURE.toString())) {
-                    return I18n.getBundle().getString("enum.dvdgenre.adventure");
                 }
                 if (object.toString().equals(DVDGenre.ADVENTURE.toString())) {
                     return I18n.getBundle().getString("enum.dvdgenre.adventure");
@@ -230,54 +275,6 @@ public final class Converter {
                 return null;
             }
         };
-    }
-
-    /**
-     * Return the StringConverter for Genre enums
-     * @return The StringConverter for Genre enums
-     */
-    public static StringConverter<Genre> getGenreConverter() {
-        return genreConverter;
-    }
-
-    /**
-     * Return the StringConverter for the BookGenre enum
-     * @return the StringConverter for the BookGenre enum
-     */
-    public static StringConverter<BookGenre> getBookGenreConverter() {
-        return bookGenreConverter;
-    }
-
-    /**
-     * Return the StringConverter for the DVDGenre enum
-     * @return the StringConverter for the DVDGenre enum
-     */
-    public static StringConverter<DVDGenre> getDvdGenreConverter() {
-        return dvdGenreConverter;
-    }
-
-    /**
-     * Return the StringConverter for the Status enum
-     * @return the StringConverter for the Status enum
-     */
-    public static StringConverter<Status> getStatusConverter() {
-        return statusConverter;
-    }
-
-    /**
-     * Return the StringConverter for Settings enums
-     * @return the StringConverter for Settings enums
-     */
-    public static StringConverter<Settings> getSettingConverter() {
-        return settingConverter;
-    }
-
-    /**
-     * Return the StringConverter for Language enum
-     * @return The StringConverter for Language enum
-     */
-    public static StringConverter<Language> getLanguageConverter() {
-        return languageConverter;
     }
 
 }

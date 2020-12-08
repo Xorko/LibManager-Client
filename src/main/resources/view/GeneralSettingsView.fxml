@@ -42,7 +42,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2147483647">
         <buttons>
           <Button fx:id="cancelBtn" onAction="#handleCancel" mnemonicParsing="false" text="%button.cancel" />
-            <Button fx:id="applyBtn" onAction="#handleApply" mnemonicParsing="false" text="Apply" />
+            <Button fx:id="applyBtn" onAction="#handleApply" mnemonicParsing="false" text="%button.apply" />
             <Button fx:id="confirmBtn" onAction="#handleConfirm" mnemonicParsing="false" text="%button.confirm" />
         </buttons>
          <GridPane.margin>
