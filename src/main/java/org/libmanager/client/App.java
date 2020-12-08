@@ -293,12 +293,24 @@ public class App extends Application {
         }
     }
 
-    public void changeLanguage(Locale locale) {
-        I18n.changeLanguage(locale);
+    public void reloadViews() {
+        loadRootView();
         loadReservationView();
         loadAdminPanelView();
-        initRootView();
-        showReservationView();
+    }
+
+    public void changeLanguage(Locale locale) {
+        I18n.changeLanguage(locale);
+        if (rootView.getCenter() == adminPanelView) {
+            reloadViews();
+            initRootView();
+            showAdminPanelView();
+        }
+        else {
+            reloadViews();
+            initRootView();
+            showReservationView();
+        }
     }
 
     /**
@@ -353,6 +365,14 @@ public class App extends Application {
 
     public BorderPane getRootView() {
         return rootView;
+    }
+
+    public TabPane getReservationView() {
+        return reservationView;
+    }
+
+    public TabPane getAdminPanelView() {
+        return adminPanelView;
     }
 
     /**

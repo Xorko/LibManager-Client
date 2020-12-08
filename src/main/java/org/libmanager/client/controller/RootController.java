@@ -19,6 +19,8 @@ public class RootController implements Initializable {
     @FXML
     private MenuBar menuBar;
     @FXML
+    private MenuItem settingsMenuItem;
+    @FXML
     private MenuItem quitMenuItem;
     @FXML
     private MenuItem loginMenuItem;
@@ -40,10 +42,12 @@ public class RootController implements Initializable {
         // Handle macOS
         if (System.getProperties().getProperty("os.name").toLowerCase().contains("mac")) {
             Platform.runLater(() -> menuBar.setUseSystemMenuBar(true));
+            settingsMenuItem.acceleratorProperty().set(new KeyCodeCombination(KeyCode.P, KeyCombination.META_DOWN));
             quitMenuItem.acceleratorProperty().set(new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN));
         }
 
-        // Since the user will not be logged in at program startup, logout is disabled
+        // Since the user will not be logged in at program startup, logout is disabled.
+        // In the case where the view is reloaded, the check will be done in setApp
         logoutMenuItem.setVisible(false);
     }
 
@@ -116,5 +120,12 @@ public class RootController implements Initializable {
 
     public void setApp(App app) {
         this.app = app;
+        if (app.getLoggedInUser() != null) {
+            if (app.getLoggedInUser().isAdmin()) {
+                app.toggleAdminMenu();
+            }
+            app.toggleLoginMenu();
+            app.toggleLogoutMenuItem();
+        }
     }
 }
