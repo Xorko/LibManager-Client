@@ -92,6 +92,8 @@ public class EditItemController implements Initializable {
         ObservableList<BookGenre> bookGenres = FXCollections.observableArrayList(Arrays.asList(BookGenre.values()));
         bookGenres.remove(BookGenre.ANY);
         genreCBox.getItems().setAll(bookGenres);
+        genreCBox.setConverter(Converter.getGenreConverter());
+        genreCBox.valueProperty().set(BookGenre.ANY);
         durationLabel.setVisible(false);
         durationSpinner.setVisible(false);
         confirmButton.setOnAction(event -> handleAddBookConfirm());
@@ -251,7 +253,7 @@ public class EditItemController implements Initializable {
         if (book && (publisherField.getText() == null || publisherField.getText().length() == 0)) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.publisher") + "\n";
         }
-        if (genreCBox.valueProperty().get() == null) {
+        if (genreCBox.valueProperty().get() == null || genreCBox.valueProperty().get() == BookGenre.ANY || genreCBox.valueProperty().get() == DVDGenre.ANY) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.genre") + "\n";
         }
         if (releaseDateDPicker.getEditor().getText() == null || !DateUtil.validDate(releaseDateDPicker.getEditor().getText())) {
