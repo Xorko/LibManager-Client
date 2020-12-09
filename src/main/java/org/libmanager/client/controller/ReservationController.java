@@ -17,7 +17,6 @@ import org.libmanager.client.util.DateUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
