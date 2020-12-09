@@ -145,7 +145,7 @@ public class EditUserController implements Initializable {
         do {
             firstname = firstname.replaceAll("\\s+", "");
             lastname = lastname.replaceAll("\\s+", "");
-            if (firstname.length() > 3) firstname = firstname.substring(0, 3);
+            if (firstname.length() > 3) firstname = firstname.substring(0, 1);
             if (lastname.length() > 10) lastname = lastname.substring(0, 10);
 
             username += firstname.toLowerCase() + ".";
@@ -167,7 +167,7 @@ public class EditUserController implements Initializable {
     private boolean fieldsAreValid(boolean add) {
         Matcher emailMatcher = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
                 .matcher(emailAddressField.getText());
-        Matcher passwordMatcher = Pattern.compile("^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[@#$%^&+=])(?=\\S+$).{8,}$")
+        Matcher passwordMatcher = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,}$")
                 .matcher(passwordField.getText());
         String errMessage = "";
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
@@ -185,7 +185,7 @@ public class EditUserController implements Initializable {
         if (emailAddressField.getText() == null || emailAddressField.getText().length() == 0 || !emailMatcher.matches()) {
             errMessage += I18n.getBundle().getString("edit.user.alert.invalid.email") + "\n";
         }
-        if (add && (passwordField.getText() == null || passwordField.getText().length() == 0)) {
+        if (add && (passwordField.getText() == null || !passwordMatcher.matches())) {
             errMessage += I18n.getBundle().getString("edit.user.alert.invalid.password") + "\n";
         }
         if (errMessage.length() == 0) {
