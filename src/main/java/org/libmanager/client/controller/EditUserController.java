@@ -24,8 +24,6 @@ import java.util.regex.Pattern;
 public class EditUserController implements Initializable {
 
     @FXML
-    private RowConstraints usernameRow;
-    @FXML
     private RowConstraints passwordRow;
     @FXML
     private GridPane editUserRoot;
@@ -73,9 +71,8 @@ public class EditUserController implements Initializable {
     }
 
     public void initializeAddUser() {
-        usernameLabel.setVisible(false);
-        usernameField.setVisible(false);
-        passwordRow.setPercentHeight(0);
+        firstNameField.setOnKeyTyped(event -> usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText())));
+        lastNameField.setOnKeyTyped(event -> usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText())));
 
         confirmButton.setOnAction(event -> handleAddUserConfirm());
         // Enter can be pressed instead of the confirm button
@@ -143,10 +140,9 @@ public class EditUserController implements Initializable {
     private String generateUsername(String firstname, String lastname) {
         String username = "";
         do {
-            firstname = firstname.replaceAll("\\s+", "");
-            lastname = lastname.replaceAll("\\s+", "");
-            if (firstname.length() > 3) firstname = firstname.substring(0, 1);
             if (lastname.length() > 10) lastname = lastname.substring(0, 10);
+            lastname = lastname.replaceAll("\\s+", "");
+            firstname = firstname.substring(0, 1).replaceAll("\\s+", "");
 
             username += firstname.toLowerCase() + ".";
             username += lastname.toLowerCase();
