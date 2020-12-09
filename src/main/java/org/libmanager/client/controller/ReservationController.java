@@ -230,10 +230,6 @@ public class ReservationController implements Initializable {
 
     @FXML
     private void handleBookSearch() {
-        if (I18n.getLocale() == Locale.US)
-            app.changeLanguage(Locale.FRANCE);
-        else
-            app.changeLanguage(Locale.US);
         //TODO
     }
 
