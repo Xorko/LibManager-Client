@@ -242,7 +242,7 @@ public class ReservationController implements Initializable {
         bookTitleField.setText("");
         bookAuthorField.setText("");
         bookPublisherField.setText("");
-        bookGenreCBox.valueProperty().set(null);
+        bookGenreCBox.valueProperty().set(BookGenre.ANY);
         bookReleaseDateDPicker.getEditor().setText("");
         bookIsbnField.setText("");
         //TODO: Reload list ?
@@ -252,7 +252,7 @@ public class ReservationController implements Initializable {
     private void handleDVDReset() {
         dvdTitleField.setText("");
         dvdDirectorField.setText("");
-        dvdGenreCBox.valueProperty().set(null);
+        dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
         dvdReleaseDateDPicker.getEditor().setText("");
         //TODO: Reload list ?
     }

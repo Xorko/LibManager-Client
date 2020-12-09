@@ -416,19 +416,19 @@ public class AdminPanelController implements Initializable {
         bookTitleField.setText("");
         bookAuthorField.setText("");
         bookPublisherField.setText("");
-        bookGenreCBox.valueProperty().set(null);
+        bookGenreCBox.valueProperty().set(BookGenre.ANY);
         bookReleaseDateDPicker.getEditor().setText("");
         bookIsbnField.setText("");
-        bookStatusCBox.valueProperty().set(null);
+        bookStatusCBox.valueProperty().set(Status.ANY);
     }
 
     @FXML
     private void handleResetDVD() {
         dvdTitleField.setText("");
         dvdDirectorField.setText("");
-        dvdGenreCBox.valueProperty().set(null);
+        dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
         dvdReleaseDateDPicker.getEditor().setText("");
-        dvdStatusCBox.valueProperty().set(null);
+        dvdStatusCBox.valueProperty().set(Status.ANY);
     }
 
     @FXML
