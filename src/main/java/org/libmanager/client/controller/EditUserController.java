@@ -15,6 +15,7 @@ import org.libmanager.client.util.DateUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,8 +109,7 @@ public class EditUserController implements Initializable {
     private void handleAddUserConfirm() {
         if (fieldsAreValid(true)) {
             User u = new User();
-            // TODO: Get username from server
-            u.setUsername("Test user");
+            u.setUsername(generateUsername(firstNameField.getText(), lastNameField.getText()));
             u.setFirstName(firstNameField.getText());
             u.setLastName(lastNameField.getText());
             u.setAddress(addressField.getText());
@@ -132,6 +132,36 @@ public class EditUserController implements Initializable {
             app.refreshTables();
             dialogStage.close();
         }
+    }
+
+    /**
+     * Generate random username from first name and last name of the user
+     * @param firstname First name of the user
+     * @param lastname Last name of the user
+     * @return String username
+     * */
+    private String generateUsername(String firstname, String lastname) {
+        String username = "";
+        do {
+            firstname = firstname.replaceAll("\\s+", "");
+            lastname = lastname.replaceAll("\\s+", "");
+            if (firstname.length() > 3) firstname = firstname.substring(0, 3);
+            if (lastname.length() > 10) lastname = lastname.substring(0, 10);
+
+            username += firstname.toLowerCase() + ".";
+            username += lastname.toLowerCase();
+            username += (new Random().nextInt(200));
+        } while (!usernameIsUnique(username));
+        return username;
+    }
+
+    /**
+     * Check if a username is unique
+     * @return true if the username is unique, false otherwise
+     */
+    private boolean usernameIsUnique(String username) {
+        // TODO: Request
+        return true;
     }
 
     private boolean fieldsAreValid(boolean add) {
