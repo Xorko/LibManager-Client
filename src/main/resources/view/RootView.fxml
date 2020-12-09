@@ -28,6 +28,7 @@
             <items>
                     <MenuItem fx:id="loginMenuItem" mnemonicParsing="false" onAction="#handleLogin" text="%menubar.account.login" />
                     <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#handleLogout" text="%menubar.account.logout" />
+                    <MenuItem fx:id="resetPasswordMenuItem" mnemonicParsing="false" onAction="#handleResetPassword" text="%menubar.account.resetpassword" />
             </items>
           </Menu>
             <Menu fx:id="adminMenu" mnemonicParsing="false" text="%menubar.admin" visible="false">

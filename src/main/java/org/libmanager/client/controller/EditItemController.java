@@ -112,6 +112,7 @@ public class EditItemController implements Initializable {
         ObservableList<DVDGenre> dvdGenres = FXCollections.observableArrayList(Arrays.asList(DVDGenre.values()));
         dvdGenres.remove(DVDGenre.ANY);
         genreCBox.getItems().setAll(dvdGenres);
+        genreCBox.valueProperty().set(DVDGenre.ANY);
         genreCBox.setConverter(Converter.getGenreConverter());
         authorLabel.setText(I18n.getBundle().getString("label.director"));
         publisherLabel.setVisible(false);
@@ -267,18 +268,17 @@ public class EditItemController implements Initializable {
         }
         if (errMessage.length() == 0) {
             return true;
-        } else {
-            // There's at least one error
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(dialogStage);
-            alert.setTitle(I18n.getBundle().getString("login.label.invalidfields"));
-            alert.setHeaderText(I18n.getBundle().getString("edit.alert.incorrectfields.header"));
-            alert.setContentText(errMessage);
-
-            alert.showAndWait();
-
-            return false;
         }
+        // There's at least one error
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(dialogStage);
+        alert.setTitle(I18n.getBundle().getString("login.label.invalidfields"));
+        alert.setHeaderText(I18n.getBundle().getString("edit.alert.incorrectfields.header"));
+        alert.setContentText(errMessage);
+
+        alert.showAndWait();
+
+        return false;
     }
 
     /**

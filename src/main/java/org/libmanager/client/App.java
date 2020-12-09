@@ -47,6 +47,9 @@ public class App extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Load the root layout
+     */
     public void loadRootView() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -71,6 +74,9 @@ public class App extends Application {
         primaryStage.setScene(scene);
     }
 
+    /**
+     * Load the reservation panel
+     */
     public void loadReservationView() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -99,6 +105,9 @@ public class App extends Application {
             }
     }
 
+    /**
+     * Load the admin panel
+     */
     public void loadAdminPanelView() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -154,7 +163,7 @@ public class App extends Application {
     }
 
     /**
-     * Show the login
+     * Show the login dialog
      */
     public void showLoginDialog() {
         try {
@@ -164,6 +173,7 @@ public class App extends Application {
             GridPane dialog = loader.load();
 
             Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
             dialogStage.setTitle(I18n.getBundle().getString("login.label.title"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -180,6 +190,39 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Show the ResetPassword dialog
+     */
+    public void showResetPasswordDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ResetPasswordView.fxml"));
+            loader.setResources(I18n.getBundle());
+            GridPane dialog = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.setTitle(I18n.getBundle().getString("resetpassword.label.title"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(dialog);
+            dialogStage.setScene(scene);
+
+            ResetPasswordController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setApp(this);
+
+            dialogStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Show the EditItem dialog according to what button has been clicked
+     * @param e The event
+     */
     public void showEditItemView(ActionEvent e) {
         try {
             boolean noError = true;
@@ -246,6 +289,10 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Show the EditUser dialog according to what button has been clicked
+     * @param e The event
+     */
     public void showEditUserView(ActionEvent e) {
         try {
             boolean noError = true;
@@ -293,12 +340,19 @@ public class App extends Application {
         }
     }
 
+    /**
+     * Reload the 3 main views
+     */
     public void reloadViews() {
         loadRootView();
         loadReservationView();
         loadAdminPanelView();
     }
 
+    /**
+     * Change the language
+     * @param locale The new language
+     */
     public void changeLanguage(Locale locale) {
         I18n.changeLanguage(locale);
         if (rootView.getCenter() == adminPanelView) {
@@ -361,18 +415,6 @@ public class App extends Application {
      */
     public User getLoggedInUser() {
         return loggedInUser;
-    }
-
-    public BorderPane getRootView() {
-        return rootView;
-    }
-
-    public TabPane getReservationView() {
-        return reservationView;
-    }
-
-    public TabPane getAdminPanelView() {
-        return adminPanelView;
     }
 
     /**

@@ -87,6 +87,11 @@ public class RootController implements Initializable {
         app.setLoggedInUser(null);
     }
 
+    @FXML
+    private void handleResetPassword() {
+        app.showResetPasswordDialog();
+    }
+
     /**
      * Toggle the visibility of admin menu
      */

@@ -2,6 +2,7 @@ package org.libmanager.client.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -23,6 +24,8 @@ public class LoginController implements Initializable {
     private TextField username;
     @FXML
     private TextField password;
+    @FXML
+    private Hyperlink forgottenPassword;
     @FXML
     private Label errorMessage;
 
@@ -69,5 +72,10 @@ public class LoginController implements Initializable {
         errorMessage.setText(I18n.getBundle().getString("login.label.allfieldsmustbecompleted"));
         errorMessage.setVisible(true);
         return false;
+    }
+
+    @FXML
+    private void handleForgottenPassword() {
+        app.showResetPasswordDialog();
     }
 }
