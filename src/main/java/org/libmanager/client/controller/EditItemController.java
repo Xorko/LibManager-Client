@@ -297,7 +297,7 @@ public class EditItemController implements Initializable {
         titleField.setText("");
         authorField.setText("");
         releaseDateDPicker.getEditor().setText("");
-        genreCBox.valueProperty().set(null);
+        genreCBox.valueProperty().set(BookGenre.ANY);
         publisherField.setText("");
         durationSpinner.getEditor().setText("");
         isbnField.setText("");
