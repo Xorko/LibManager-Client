@@ -28,8 +28,6 @@ public class EditUserController implements Initializable {
     @FXML
     private GridPane editUserRoot;
     @FXML
-    private Label usernameLabel;
-    @FXML
     private Label passwordLabel;
     @FXML
     private TextField usernameField;
@@ -106,7 +104,7 @@ public class EditUserController implements Initializable {
     private void handleAddUserConfirm() {
         if (fieldsAreValid(true)) {
             User u = new User();
-            u.setUsername(generateUsername(firstNameField.getText(), lastNameField.getText()));
+            u.setUsername(usernameField.getText());
             u.setFirstName(firstNameField.getText());
             u.setLastName(lastNameField.getText());
             u.setAddress(addressField.getText());

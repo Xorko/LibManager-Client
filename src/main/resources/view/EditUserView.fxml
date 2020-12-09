@@ -36,7 +36,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="usernameLabel" text="%label.username" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label text="%label.username" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Label>
