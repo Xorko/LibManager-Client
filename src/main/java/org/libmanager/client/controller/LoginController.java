@@ -66,6 +66,7 @@ public class LoginController implements Initializable {
             }
             app.toggleLoginMenu();
             app.toggleLogoutMenuItem();
+            app.toggleReservationOverviewMenuItem();
             dialogStage.close();
             return true;
         }

@@ -341,6 +341,42 @@ public class App extends Application {
     }
 
     /**
+     * Show the Overview of reserved items of the logged in user
+     */
+    public void showReservationOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ReservationsOverview.fxml"));
+            loader.setResources(I18n.getBundle());
+            GridPane dialog = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(I18n.getBundle().getString("reservationoverview.label.title"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(dialog);
+            dialogStage.setScene(scene);
+
+            ReservationOverviewController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setApp(this);
+
+            dialogStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Show and hide the reservation overview menu in menu bar
+     */
+    public void toggleReservationOverviewMenuItem() {
+        if(loggedInUser != null) {
+            rootController.toggleReservationOverviewMenuItem();
+        }
+    }
+
+    /**
      * Reload the 3 main views
      */
     public void reloadViews() {

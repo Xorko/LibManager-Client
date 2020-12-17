@@ -26,6 +26,7 @@
           </Menu>
           <Menu fx:id="accountMenu" mnemonicParsing="false" text="%menubar.account">
             <items>
+                  <MenuItem fx:id="reservationOverviewMenuItem" mnemonicParsing="false" onAction="#handleReservationOverview" text="%menubar.account.reservationoverview" />
                     <MenuItem fx:id="loginMenuItem" mnemonicParsing="false" onAction="#handleLogin" text="%menubar.account.login" />
                 <MenuItem fx:id="resetPasswordMenuItem" mnemonicParsing="false" onAction="#handleResetPassword" text="%menubar.account.resetpassword" />
                     <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#handleLogout" text="%menubar.account.logout" />
@@ -33,8 +34,8 @@
           </Menu>
             <Menu fx:id="adminMenu" mnemonicParsing="false" text="%menubar.admin" visible="false">
                 <items>
-                    <MenuItem fx:id="adminPanelMenuItem" onAction="#handleGotoAdminPanel" mnemonicParsing="false" text="%menubar.admin.adminpanel" />
-                    <MenuItem fx:id="reservationMenuItem" onAction="#handleGotoReservation" mnemonicParsing="false" text="%menubar.admin.reservation" />
+                    <MenuItem fx:id="adminPanelMenuItem" mnemonicParsing="false" onAction="#handleGotoAdminPanel" text="%menubar.admin.adminpanel" />
+                    <MenuItem fx:id="reservationMenuItem" mnemonicParsing="false" onAction="#handleGotoReservation" text="%menubar.admin.reservation" />
                 </items>
             </Menu>
           <Menu fx:id="helpMenu" mnemonicParsing="false" text="%menubar.help">
