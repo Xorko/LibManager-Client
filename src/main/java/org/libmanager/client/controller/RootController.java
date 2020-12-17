@@ -34,6 +34,8 @@ public class RootController implements Initializable {
     private MenuItem reservationMenuItem;
     @FXML
     private MenuItem aboutMenuItem;
+    @FXML
+    private MenuItem reservationOverviewMenuItem;
 
     private App app;
 
@@ -49,6 +51,7 @@ public class RootController implements Initializable {
         // Since the user will not be logged in at program startup, logout is disabled.
         // In the case where the view is reloaded, the check will be done in setApp
         logoutMenuItem.setVisible(false);
+        reservationOverviewMenuItem.setVisible(false);
     }
 
     @FXML
@@ -84,6 +87,7 @@ public class RootController implements Initializable {
         }
         toggleLogoutMenuItem();
         toggleLoginMenuItem();
+        toggleReservationOverviewMenuItem();
         app.setLoggedInUser(null);
     }
 
@@ -111,6 +115,15 @@ public class RootController implements Initializable {
      */
     public void toggleLogoutMenuItem() {
         logoutMenuItem.setVisible(!logoutMenuItem.isVisible());
+    }
+
+    /**
+     * toggle the visibility of reservation overview in the account menu
+     */
+    public void toggleReservationOverviewMenuItem() {reservationOverviewMenuItem.setVisible(!reservationOverviewMenuItem.isVisible());}
+
+    public void handleReservationOverview() {
+        app.showReservationOverview();
     }
 
     @FXML
