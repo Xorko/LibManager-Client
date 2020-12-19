@@ -51,6 +51,7 @@ public class RootController implements Initializable {
         // Since the user will not be logged in at program startup, logout is disabled.
         // In the case where the view is reloaded, the check will be done in setApp
         logoutMenuItem.setVisible(false);
+        adminMenu.setVisible(false);
         reservationOverviewMenuItem.setVisible(false);
     }
 

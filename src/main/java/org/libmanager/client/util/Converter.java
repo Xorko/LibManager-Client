@@ -98,6 +98,9 @@ public final class Converter {
                 if (object.toString().equals(BookGenre.CRIMINAL.toString())) {
                     return I18n.getBundle().getString("enum.bookgenre.criminal");
                 }
+                if (object.toString().equals(BookGenre.THEATER.toString())) {
+                    return I18n.getBundle().getString("enum.bookgenre.theater");
+                }
                 if (object.toString().equals(DVDGenre.SCIENCEFICTION.toString())) {
                     return I18n.getBundle().getString("enum.dvdgenre.sciencefiction");
                 }

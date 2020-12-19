@@ -12,7 +12,8 @@ public enum BookGenre implements Genre {
     ESSAY,
     COMICSTRIP,
     DRAMA,
-    CRIMINAL;
+    CRIMINAL,
+    THEATER;
 
     @Override
     public String toString() {

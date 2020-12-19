@@ -1,5 +1,9 @@
 package org.libmanager.client.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
@@ -11,7 +15,7 @@ import javafx.stage.Stage;
 import org.libmanager.client.App;
 import org.libmanager.client.I18n;
 import org.libmanager.client.model.User;
-import org.mindrot.jbcrypt.BCrypt;
+import org.libmanager.client.api.ServerAPI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -52,27 +56,43 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private boolean handleLogin() {
+    private void handleLogin() {
         if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-            String hashed = BCrypt.hashpw(password.getText(), BCrypt.gensalt());
-            //TODO Send login request to the server and analyze the reply
-            //TODO Set the error message according to the reply
-
-            // False admin for test purposes
-            User usr = new User("admin", "12345", true);
-            app.setLoggedInUser(usr);
-            if (usr.isAdmin()) {
-                app.toggleAdminMenu();
+            //String hashed = BCrypt.hashpw(password.getText(), BCrypt.gensalt());
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = null;
+            try {
+                root = mapper.readTree(ServerAPI.callLogin(username.getText(), password.getText()));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
             }
-            app.toggleLoginMenu();
-            app.toggleLogoutMenuItem();
-            app.toggleReservationOverviewMenuItem();
-            dialogStage.close();
-            return true;
+            if (root != null) {
+                // True if the user can log in
+                boolean valid = root.get("valid").asBoolean();
+                // True if the user is admin
+                boolean admin = root.get("admin").asBoolean();
+                String token = root.get("token").asText();
+                String username = root.get("username").asText();
+                if (!valid) {
+                    errorMessage.setText(I18n.getBundle().getString("login.label.incorrect"));
+                    errorMessage.setVisible(true);
+                } else {
+                    errorMessage.setVisible(false);
+                    app.setLoggedInUser(new User(username, token, admin));
+                    if (admin) {
+                        app.toggleAdminMenu();
+                    }
+                    app.toggleLoginMenu();
+                    app.toggleLogoutMenuItem();
+                    app.toggleReservationOverviewMenuItem();
+                    // May cause segfault if not run later
+                    Platform.runLater(() -> dialogStage.close());
+                }
+            }
+        } else {
+            errorMessage.setText(I18n.getBundle().getString("login.label.allfieldsmustbecompleted"));
+            errorMessage.setVisible(true);
         }
-        errorMessage.setText(I18n.getBundle().getString("login.label.allfieldsmustbecompleted"));
-        errorMessage.setVisible(true);
-        return false;
     }
 
     @FXML

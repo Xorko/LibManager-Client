@@ -1,5 +1,9 @@
 package org.libmanager.client.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -11,6 +15,7 @@ import javafx.util.StringConverter;
 import org.libmanager.client.App;
 import org.libmanager.client.I18n;
 import org.libmanager.client.model.User;
+import org.libmanager.client.api.ServerAPI;
 import org.libmanager.client.util.DateUtil;
 
 import java.net.URL;
@@ -69,8 +74,20 @@ public class EditUserController implements Initializable {
     }
 
     public void initializeAddUser() {
-        firstNameField.setOnKeyTyped(event -> usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText())));
-        lastNameField.setOnKeyTyped(event -> usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText())));
+        // Generate username when first name and last name fields aren't empty and are unfocused
+        firstNameField.focusedProperty().addListener((event -> {
+            if (!firstNameField.isFocused() && firstNameField.getText().length() != 0 && lastNameField.getText().length() != 0) {
+                //usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText()));
+                //generateUsername(firstNameField.getText(), lastNameField.getText());
+            }
+        }));
+
+        lastNameField.focusedProperty().addListener((event -> {
+            if (!lastNameField.isFocused() && firstNameField.getText().length() != 0 && lastNameField.getText().length() != 0) {
+                //usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText()));
+                generateUsername(firstNameField.getText(), lastNameField.getText());
+            }
+        }));
 
         confirmButton.setOnAction(event -> handleAddUserConfirm());
         // Enter can be pressed instead of the confirm button
@@ -133,20 +150,31 @@ public class EditUserController implements Initializable {
      * Generate random username from first name and last name of the user
      * @param firstname First name of the user
      * @param lastname Last name of the user
-     * @return String username
      * */
-    private String generateUsername(String firstname, String lastname) {
-        String username = "";
-        do {
-            if (lastname.length() > 10) lastname = lastname.substring(0, 10);
-            lastname = lastname.replaceAll("\\s+", "");
-            firstname = firstname.substring(0, 1).replaceAll("\\s+", "");
+    private void generateUsername(String firstname, String lastname) {
+        final String[] firstName = {firstname};
+        final String[] lastName = {lastname};
 
-            username += firstname.toLowerCase() + ".";
-            username += lastname.toLowerCase();
-            username += (new Random().nextInt(200));
-        } while (!usernameIsUnique(username));
-        return username;
+        final Task<String> generateUsernameTask = new Task<>() {
+            @Override
+            protected String call() {
+                String username = "";
+                do {
+                    if (lastName[0].length() > 10) lastName[0] = lastName[0].substring(0, 10);
+                    lastName[0] = lastName[0].replaceAll("\\s+", "");
+                    firstName[0] = firstName[0].substring(0, 1).replaceAll("\\s+", "");
+
+                    username += firstName[0].toLowerCase() + ".";
+                    username += lastName[0].toLowerCase();
+                    username += (new Random().nextInt(200));
+                } while (!usernameIsUnique(username));
+                return username;
+            }
+        };
+
+        generateUsernameTask.setOnSucceeded(event -> usernameField.setText(generateUsernameTask.getValue()));
+
+        new Thread(generateUsernameTask).start();
     }
 
     /**
@@ -154,8 +182,19 @@ public class EditUserController implements Initializable {
      * @return true if the username is unique, false otherwise
      */
     private boolean usernameIsUnique(String username) {
-        // TODO: Request
-        return true;
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = null;
+        try {
+            root = mapper.readTree(ServerAPI.callCheckUsername(username));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if (root != null) {
+            if (root.get("code").asText().equals("OK")) {
+                return !root.get("content").asBoolean();
+            }
+        }
+        return false;
     }
 
     private boolean fieldsAreValid(boolean add) {

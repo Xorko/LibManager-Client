@@ -1,5 +1,8 @@
 package org.libmanager.client.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
 import org.libmanager.client.I18n;
+import org.libmanager.client.api.ServerAPI;
 import org.libmanager.client.component.DurationSpinner;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
@@ -183,9 +187,29 @@ public class EditItemController implements Initializable {
             b.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
             b.setIsbn(isbnField.getText());
             b.setStatus(true);
-            app.getBooksData().add(b);
-            app.refreshTables();
-            dialogStage.close();
+
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = null;
+            try {
+                root = mapper.readTree(ServerAPI.callAddBook(
+                        app.getLoggedInUser().getToken(),
+                        b.getIsbn(),
+                        b.getAuthor(),
+                        b.getTitle(),
+                        b.getPublisher(),
+                        DateUtil.formatDB(b.getReleaseDate()),
+                        b.getGenre().toString()
+                ));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            if (root != null) {
+                if (root.get("code").asText().equals("OK")) {
+                    app.getBooksData().add(b);
+                    app.refreshTables();
+                    dialogStage.close();
+                }
+            }
         }
     }
 
