@@ -62,7 +62,13 @@ public class LoginController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = null;
             try {
-                root = mapper.readTree(ServerAPI.callLogin(username.getText(), password.getText()));
+                String content = ServerAPI.callLogin(username.getText(), password.getText());
+                if (content != null) {
+                    root = mapper.readTree(content);
+                } else {
+                    errorMessage.setText(I18n.getBundle().getString("server.connection.failed"));
+                    errorMessage.setVisible(true);
+                }
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -88,6 +94,9 @@ public class LoginController implements Initializable {
                     // May cause segfault if not run later
                     Platform.runLater(() -> dialogStage.close());
                 }
+            } else {
+                errorMessage.setText("Can't connect to the server");
+                errorMessage.setVisible(true);
             }
         } else {
             errorMessage.setText(I18n.getBundle().getString("login.label.allfieldsmustbecompleted"));

@@ -191,7 +191,7 @@ public class EditItemController implements Initializable {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = null;
             try {
-                root = mapper.readTree(ServerAPI.callAddBook(
+                String content = ServerAPI.callAddBook(
                         app.getLoggedInUser().getToken(),
                         b.getIsbn(),
                         b.getAuthor(),
@@ -199,7 +199,16 @@ public class EditItemController implements Initializable {
                         b.getPublisher(),
                         DateUtil.formatDB(b.getReleaseDate()),
                         b.getGenre().toString()
-                ));
+                );
+                if (content != null) {
+                    root = mapper.readTree(content);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(dialogStage);
+                    alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+                    alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+                    alert.showAndWait();
+                }
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }

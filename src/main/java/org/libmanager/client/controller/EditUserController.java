@@ -77,14 +77,12 @@ public class EditUserController implements Initializable {
         // Generate username when first name and last name fields aren't empty and are unfocused
         firstNameField.focusedProperty().addListener((event -> {
             if (!firstNameField.isFocused() && firstNameField.getText().length() != 0 && lastNameField.getText().length() != 0) {
-                //usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText()));
-                //generateUsername(firstNameField.getText(), lastNameField.getText());
+                generateUsername(firstNameField.getText(), lastNameField.getText());
             }
         }));
 
         lastNameField.focusedProperty().addListener((event -> {
             if (!lastNameField.isFocused() && firstNameField.getText().length() != 0 && lastNameField.getText().length() != 0) {
-                //usernameField.setText(generateUsername(firstNameField.getText(), lastNameField.getText()));
                 generateUsername(firstNameField.getText(), lastNameField.getText());
             }
         }));
@@ -119,6 +117,9 @@ public class EditUserController implements Initializable {
     }
 
     private void handleAddUserConfirm() {
+        if (usernameField.getText().length() == 0) {
+            generateUsername(firstNameField.getText(), lastNameField.getText());
+        }
         if (fieldsAreValid(true)) {
             User u = new User();
             u.setUsername(usernameField.getText());
@@ -185,7 +186,16 @@ public class EditUserController implements Initializable {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = null;
         try {
-            root = mapper.readTree(ServerAPI.callCheckUsername(username));
+            String content =ServerAPI.callCheckUsername(username);
+            if (content != null) {
+                root = mapper.readTree(content);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(dialogStage);
+                alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+                alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+                alert.showAndWait();
+            }
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -203,6 +213,9 @@ public class EditUserController implements Initializable {
         Matcher passwordMatcher = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*_-]).{8,}$")
                 .matcher(passwordField.getText());
         String errMessage = "";
+        if (usernameField.getText() == null || usernameField.getText().length() == 0) {
+            errMessage += I18n.getBundle().getString("edit.user.alert.no.username");
+        }
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
             errMessage += I18n.getBundle().getString("edit.user.alert.invalid.firstname") + "\n";
         }

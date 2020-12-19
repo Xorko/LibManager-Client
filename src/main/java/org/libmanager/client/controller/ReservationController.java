@@ -88,7 +88,7 @@ public class ReservationController implements Initializable {
     private void initBookTab() {
         bookTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         bookAuthorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
-        bookGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().toString()));
+        bookGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().getName()));
         bookReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
         bookPublisherColumn.setCellValueFactory(cellData -> cellData.getValue().publisherProperty());
         bookIsbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
@@ -160,7 +160,7 @@ public class ReservationController implements Initializable {
     private void initDVDTab() {
         dvdTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         dvdDirectorColumn.setCellValueFactory(cellData -> cellData.getValue().authorProperty());
-        dvdGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().toString()));
+        dvdGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().getName()));
         dvdDurationColumn.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
         dvdReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
         dvdStatusColumn.setCellValueFactory(cellData -> {
