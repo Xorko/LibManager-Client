@@ -1,6 +1,13 @@
 package org.libmanager.client.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import org.libmanager.client.enums.Genre;
@@ -9,13 +16,18 @@ import java.time.LocalDate;
 
 public abstract class Item {
 
+    private SimpleIntegerProperty id;
     private SimpleStringProperty title;
     private SimpleStringProperty author;
     private SimpleObjectProperty<Genre> genre;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private SimpleObjectProperty<LocalDate> releaseDate;
     private SimpleBooleanProperty status;
 
     public Item() {
+        id = new SimpleIntegerProperty(0);
         title = new SimpleStringProperty(null);
         author = new SimpleStringProperty(null);
         genre = new SimpleObjectProperty<>(null);
@@ -23,12 +35,25 @@ public abstract class Item {
         status = new SimpleBooleanProperty(false);
     }
 
-    public Item(String title, String author, Genre genre, LocalDate releaseDate, boolean status) {
+    public Item(int id, String title, String author, Genre genre, LocalDate releaseDate, boolean status) {
+        this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
         this.author = new SimpleStringProperty(author);
         this.genre = new SimpleObjectProperty<>(genre);
         this.releaseDate = new SimpleObjectProperty<>(releaseDate);
         this.status = new SimpleBooleanProperty(status);
+    }
+
+    public SimpleIntegerProperty idProperty() {
+        return id;
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     public SimpleStringProperty titleProperty() {

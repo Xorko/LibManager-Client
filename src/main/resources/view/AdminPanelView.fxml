@@ -155,7 +155,7 @@
                                                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
                                                    <buttons>
                                                       <Button mnemonicParsing="false" onAction="#handleResetBook" text="%button.reset" />
-                                                      <Button mnemonicParsing="false" text="%button.search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleBookSearch" text="%button.search" />
                                                    </buttons>
                                                    <GridPane.margin>
                                                       <Insets right="10.0" />
@@ -306,7 +306,7 @@
                                                 <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
                                                    <buttons>
                                                       <Button mnemonicParsing="false" onAction="#handleResetDVD" text="%button.reset" />
-                                                      <Button mnemonicParsing="false" text="%button.search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleDVDSearch" text="%button.search" />
                                                    </buttons>
                                                    <GridPane.margin>
                                                       <Insets right="10.0" />

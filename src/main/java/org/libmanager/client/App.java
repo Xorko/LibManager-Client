@@ -1,8 +1,17 @@
 package org.libmanager.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,12 +22,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.libmanager.client.api.ServerAPI;
 import org.libmanager.client.controller.*;
+import org.libmanager.client.enums.BookGenre;
+import org.libmanager.client.enums.DVDGenre;
+import org.libmanager.client.enums.Genre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.model.User;
+import org.libmanager.client.util.DateUtil;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 public class App extends Application {
@@ -42,6 +57,9 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("LibManager");
+
+        updateData();
+
         initRootView();
         showReservationView();
         primaryStage.show();
@@ -82,6 +100,7 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/ReservationView.fxml"));
             loader.setResources(I18n.getBundle());
+
             reservationView = loader.load();
             ReservationController controller = loader.getController();
             controller.setApp(this);
@@ -368,6 +387,149 @@ public class App extends Application {
     }
 
     /**
+     * Get the user list
+     * @return  the user list
+     */
+    public ObservableList<User> getUsersData() {
+        return usersData;
+    }
+
+    /**
+     * Set the user list
+     * @param usersData the user list
+     */
+    public void setUsersData(ObservableList<User> usersData) {
+        this.usersData = usersData;
+    }
+
+    /**
+     * Refresh tables content
+     */
+    public void refreshTables() {
+        if (reservationController != null) {
+            reservationController.getBooksTable().refresh();
+            reservationController.getDvdTable().refresh();
+        }
+        if (adminPanelController != null) {
+            adminPanelController.getBooksTable().refresh();
+            adminPanelController.getDVDTable().refresh();
+            adminPanelController.getUsersTable().refresh();
+        }
+    }
+
+    /**
+     * Update content lists content
+     */
+    public void updateData() {
+        final Task<Void> updateDataFromDB = new Task<>() {
+            @Override
+            protected Void call() {
+                getBooksFromDB();
+                getDVDFromDB();
+                return null;
+            }
+        };
+
+        new Thread(updateDataFromDB).start();
+    }
+
+    /**
+     * Load the books from a JSON server response
+     * @param response  The server response (JSON)
+     */
+    public void loadBooksFromJSON(String response) {
+        JsonNode root = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // Add a module so that Jackson uses the right class for Genre
+        SimpleModule module = new SimpleModule();
+        module.setAbstractTypes(new SimpleAbstractTypeResolver().addMapping(Genre.class, BookGenre.class));
+        mapper.registerModule(module);
+
+        try {
+            root = mapper.readTree(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (root == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(primaryStage);
+            alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+            alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+            alert.showAndWait();
+        } else {
+            if (root.get("code").asText().equals("OK")) {
+                List<Book> books = null;
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, Book.class);
+                try {
+                    String collection = mapper.writeValueAsString(root.get("collection"));
+                    books = mapper.readValue(collection, type);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                getBooksData().setAll(books);
+            }
+        }
+    }
+
+    /**
+     * Load the DVDs from a JSON server response
+     * @param response  The server response (JSON)
+     */
+    public void loadDVDFromJSON(String response) {
+        JsonNode root = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // Add a module so that Jackson uses the right class for Genre
+        SimpleModule module = new SimpleModule();
+        module.setAbstractTypes(new SimpleAbstractTypeResolver().addMapping(Genre.class, DVDGenre.class));
+        mapper.registerModule(module);
+
+        try {
+            root = mapper.readTree(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (root == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(primaryStage);
+            alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+            alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+            alert.showAndWait();
+        } else {
+            if (root.get("code").asText().equals("OK")) {
+                List<DVD> dvd = null;
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, DVD.class);
+                try {
+                    String collection = mapper.writeValueAsString(root.get("collection"));
+                    dvd = mapper.readValue(collection, type);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                getDVDData().setAll(dvd);
+            }
+        }
+    }
+
+    /**
+     * Gather book list from the server
+     */
+    public void getBooksFromDB() {
+        loadBooksFromJSON(ServerAPI.callGetAllBooks());
+    }
+
+    /**
+     * Gather DVD list from the server
+     */
+    public void getDVDFromDB() {
+        loadDVDFromJSON(ServerAPI.callGetAllDVD());
+    }
+
+    /**
      * Show and hide the reservation overview menu in menu bar
      */
     public void toggleReservationOverviewMenuItem() {
@@ -380,6 +542,7 @@ public class App extends Application {
      * Reload the 3 main views
      */
     public void reloadViews() {
+        updateData();
         loadRootView();
         loadReservationView();
         loadAdminPanelView();
@@ -457,7 +620,7 @@ public class App extends Application {
      * Get the books list
      * @return  the books list
      */
-    public ObservableList<Book> getBooksData() {
+    public synchronized ObservableList<Book> getBooksData() {
         return booksData;
     }
 
@@ -465,7 +628,7 @@ public class App extends Application {
      * Set the book list
      * @param booksData the book list
      */
-    public void setBooksData(ObservableList<Book> booksData) {
+    public synchronized void setBooksData(ObservableList<Book> booksData) {
         this.booksData = booksData;
     }
 
@@ -473,7 +636,7 @@ public class App extends Application {
      * Get the DVD list
      * @return  the DVD list
      */
-    public ObservableList<DVD> getDVDData() {
+    public synchronized ObservableList<DVD> getDVDData() {
         return dvdData;
     }
 
@@ -481,41 +644,8 @@ public class App extends Application {
      * Set the DVD list
      * @param dvdData the DVD list
      */
-    public void setDVDData(ObservableList<DVD> dvdData) {
+    public synchronized void setDVDData(ObservableList<DVD> dvdData) {
         this.dvdData = dvdData;
     }
 
-    /**
-     * Get the user list
-     * @return  the user list
-     */
-    public ObservableList<User> getUsersData() {
-        return usersData;
-    }
-
-    /**
-     * Set the user list
-     * @param usersData the user list
-     */
-    public void setUsersData(ObservableList<User> usersData) {
-        this.usersData = usersData;
-    }
-
-    /**
-     * Refresh tables content
-     */
-    public void refreshTables() {
-        reservationController.getBooksTable().refresh();
-        reservationController.getDvdTable().refresh();
-        adminPanelController.getBooksTable().refresh();
-        adminPanelController.getDVDTable().refresh();
-        adminPanelController.getUsersTable().refresh();
-    }
-
-    /**
-     * Update lists content
-     */
-    public void updateData() {
-        //TODO
-    }
 }

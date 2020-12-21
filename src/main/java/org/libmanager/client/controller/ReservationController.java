@@ -1,15 +1,26 @@
 package org.libmanager.client.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
 import org.libmanager.client.I18n;
+import org.libmanager.client.api.ServerAPI;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
+import org.libmanager.client.enums.Genre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.util.Converter;
@@ -17,6 +28,7 @@ import org.libmanager.client.util.DateUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -229,12 +241,42 @@ public class ReservationController implements Initializable {
 
     @FXML
     private void handleBookSearch() {
-        //TODO
+        Task<Void> searchBooks = new Task<>() {
+            @Override
+            protected Void call() {
+                    String response = ServerAPI.callSearchBooks(
+                            bookIsbnField.getText().length() == 0 ? null : bookIsbnField.getText(),
+                            bookAuthorField.getText().length() == 0 ? null : bookAuthorField.getText(),
+                            bookTitleField.getText().length() == 0 ? null : bookTitleField.getText(),
+                            bookPublisherField.getText().length() == 0 ? null : bookPublisherField.getText(),
+                            !DateUtil.validDate(bookReleaseDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(bookReleaseDateDPicker.getEditor().getText())),
+                            bookGenreCBox.valueProperty().get().toString().length() == 0 ? null : bookGenreCBox.valueProperty().get().toString(),
+                            null
+                    );
+                    app.loadBooksFromJSON(response);
+                return null;
+            }
+        };
+        new Thread(searchBooks).start();
     }
 
     @FXML
     private void handleDVDSearch() {
-        //TODO
+        Task<Void> searchDVDs = new Task<>() {
+            @Override
+            protected Void call() {
+                String response = ServerAPI.callSearchDVD(
+                        dvdDirectorField.getText().length() == 0 ? null : dvdDirectorField.getText(),
+                        dvdTitleField.getText().length() == 0 ? null : dvdTitleField.getText(),
+                        !DateUtil.validDate(dvdReleaseDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(dvdReleaseDateDPicker.getEditor().getText())),
+                        dvdGenreCBox.valueProperty().get().toString().length() == 0 ? null : dvdGenreCBox.valueProperty().get().toString(),
+                        null
+                );
+                app.loadDVDFromJSON(response);
+                return null;
+            }
+        };
+        new Thread(searchDVDs).start();
     }
 
     @FXML
@@ -245,7 +287,8 @@ public class ReservationController implements Initializable {
         bookGenreCBox.valueProperty().set(BookGenre.ANY);
         bookReleaseDateDPicker.getEditor().setText("");
         bookIsbnField.setText("");
-        //TODO: Reload list ?
+        app.getBooksFromDB();
+        app.refreshTables();
     }
 
     @FXML
@@ -254,7 +297,8 @@ public class ReservationController implements Initializable {
         dvdDirectorField.setText("");
         dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
         dvdReleaseDateDPicker.getEditor().setText("");
-        //TODO: Reload list ?
+        app.getDVDFromDB();
+        app.refreshTables();
     }
 
     public void setApp(App app) {

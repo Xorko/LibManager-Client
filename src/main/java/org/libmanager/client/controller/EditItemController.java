@@ -1,6 +1,7 @@
 package org.libmanager.client.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -90,7 +91,7 @@ public class EditItemController implements Initializable {
     }
 
     /**
-     * Initializes the view with "Add book" settings
+     * Initialize the view with "Add book" settings
      */
     public void initializeAddBook() {
         ObservableList<BookGenre> bookGenres = FXCollections.observableArrayList(Arrays.asList(BookGenre.values()));
@@ -110,7 +111,7 @@ public class EditItemController implements Initializable {
     }
 
     /**
-     * Initializes the view with "Add DVD" settings
+     * Initialize the view with "Add DVD" settings
      */
     public void initializeAddDVD() {
         ObservableList<DVDGenre> dvdGenres = FXCollections.observableArrayList(Arrays.asList(DVDGenre.values()));
@@ -134,7 +135,7 @@ public class EditItemController implements Initializable {
     }
 
     /**
-     * Initializes the view with "Edit book" settings
+     * Initialize the view with "Edit book" settings
      * @param selectedBook  the selected book
      */
     public void initializeEditBook(Book selectedBook) {
@@ -155,7 +156,7 @@ public class EditItemController implements Initializable {
     }
 
     /**
-     * Initializes the view with "Edit DVD" settings
+     * Initialize the view with "Edit DVD" settings
      * @param selectedDVD   the selected DVD
      */
     public void initializeEditDVD(DVD selectedDVD) {
@@ -175,7 +176,7 @@ public class EditItemController implements Initializable {
     }
 
     /**
-     * Handles confirmation button click when adding book
+     * Handle confirmation button click when adding book
      */
     private void handleAddBookConfirm() {
         if (fieldsAreValid(true)) {
@@ -188,7 +189,6 @@ public class EditItemController implements Initializable {
             b.setIsbn(isbnField.getText());
             b.setStatus(true);
 
-            ObjectMapper mapper = new ObjectMapper();
             JsonNode root = null;
             try {
                 String content = ServerAPI.callAddBook(
@@ -201,7 +201,7 @@ public class EditItemController implements Initializable {
                         b.getGenre().toString()
                 );
                 if (content != null) {
-                    root = mapper.readTree(content);
+                    root = new ObjectMapper().readTree(content);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.initOwner(dialogStage);
@@ -223,7 +223,7 @@ public class EditItemController implements Initializable {
     }
 
     /**
-     * Handles confirmation button click when adding DVD
+     * Handle confirmation button click when adding DVD
      */
     private void handleAddDvdConfirm() {
         if (fieldsAreValid(false)) {
@@ -234,37 +234,123 @@ public class EditItemController implements Initializable {
             d.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
             d.setDuration(durationSpinner.getEditor().getText());
             d.setStatus(true);
-            app.getDVDData().add(d);
-            app.refreshTables();
-            dialogStage.close();
+
+            String content = ServerAPI.callAddDVD(
+                        app.getLoggedInUser().getToken(),
+                        d.getAuthor(),
+                        d.getTitle(),
+                        d.getDuration(),
+                        DateUtil.formatDB(d.getReleaseDate()),
+                        d.getGenre().toString()
+                );
+
+                if (content == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(dialogStage);
+                    alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+                    alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+                    alert.showAndWait();
+                } else {
+                    String code = null;
+                    try {
+                        code = new ObjectMapper().readTree(content).get("code").asText();
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                    if (code != null && code.equals("OK")) {
+                            app.getDVDData().add(d);
+                            app.refreshTables();
+                            dialogStage.close();
+                    }
+                }
         }
     }
 
     /**
-     * Handles confirmation button click when editing book
+     * Handle confirmation button click when editing book
      * @param b  the edited book
      */
     private void handleEditBookConfirm(Book b) {
         if (fieldsAreValid(true)) {
-            b.setTitle(titleField.getText());
-            b.setAuthor(authorField.getText());
-            b.setPublisher(publisherField.getText());
-            b.setGenre(genreCBox.valueProperty().get());
-            b.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
-            b.setIsbn(isbnField.getText());
-            app.refreshTables();
-            dialogStage.close();
+            String content = ServerAPI.callEditBook(
+                    app.getLoggedInUser().getToken(),
+                    b.getId(),
+                    b.getIsbn().equals(isbnField.getText()) ? null : isbnField.getText(),
+                    b.getAuthor().equals(authorField.getText()) ? null : authorField.getText(),
+                    b.getTitle().equals(titleField.getText()) ? null : titleField.getText(),
+                    b.getPublisher().equals(publisherField.getText()) ? null : publisherField.getText(),
+                    DateUtil.format(b.getReleaseDate()).equals((releaseDateDPicker.getEditor().getText())) ?
+                            null : DateUtil.formatDB(DateUtil.parse(releaseDateDPicker.getEditor().getText())),
+                    b.getGenre().equals(genreCBox.getValue()) ? null : genreCBox.getValue().toString()
+            );
+            if (content == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(dialogStage);
+                alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+                alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+                alert.showAndWait();
+            } else {
+                String code = null;
+                try {
+                    code = new ObjectMapper().readTree(content).get("code").asText();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                if (code != null && code.equals("OK")) {
+                    b.setTitle(titleField.getText());
+                    b.setAuthor(authorField.getText());
+                    b.setPublisher(publisherField.getText());
+                    b.setGenre(genreCBox.valueProperty().get());
+                    b.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
+                    b.setIsbn(isbnField.getText());
+
+                    app.refreshTables();
+                    dialogStage.close();
+                }
+            }
         }
     }
 
+    /**
+     * Handle confirmation button click when editing DVD
+     * @param d  the edited book
+     */
     private void handleEditDVDConfirm(DVD d) {
         if (fieldsAreValid(false)) {
-            d.setTitle(titleField.getText());
-            d.setAuthor(authorField.getText());
-            d.setGenre(genreCBox.valueProperty().get());
-            d.setDuration(durationSpinner.getEditor().getText());
-            app.refreshTables();
-            dialogStage.close();
+            String content = ServerAPI.callEditDVD(
+                    app.getLoggedInUser().getToken(),
+                    d.getId(),
+                    d.getAuthor().equals(authorField.getText()) ? null : authorField.getText(),
+                    d.getTitle().equals(titleField.getText()) ? null : titleField.getText(),
+                    d.getDuration().equals(durationSpinner.getEditor().getText()) ? null : durationSpinner.getEditor().getText(),
+                    DateUtil.format(d.getReleaseDate()).equals((releaseDateDPicker.getEditor().getText())) ?
+                            null : DateUtil.formatDB(DateUtil.parse(releaseDateDPicker.getEditor().getText())),
+                    d.getGenre().equals(genreCBox.getValue()) ? null : genreCBox.getValue().toString()
+            );
+            if (content == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(dialogStage);
+                alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+                alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+                alert.showAndWait();
+            } else {
+                String code = null;
+                try {
+                    code = new ObjectMapper().readTree(content).get("code").asText();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                if (code != null && code.equals("OK")) {
+                    d.setTitle(titleField.getText());
+                    d.setAuthor(authorField.getText());
+                    d.setDuration(durationSpinner.getEditor().getText());
+                    d.setGenre(genreCBox.valueProperty().get());
+                    d.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
+
+                    app.refreshTables();
+                    dialogStage.close();
+                }
+            }
         }
     }
 
@@ -274,6 +360,7 @@ public class EditItemController implements Initializable {
      * @return  true if fields are valid, false otherwise
      */
     private boolean fieldsAreValid(boolean book) {
+        // TODO: 12/20/20 Add max length verification 
         String errMessage = "";
         if (titleField.getText() == null || titleField.getText().length() == 0) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.title") + "\n";
@@ -293,7 +380,7 @@ public class EditItemController implements Initializable {
         if (releaseDateDPicker.getEditor().getText() == null || !DateUtil.validDate(releaseDateDPicker.getEditor().getText())) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.releasedate") + "\n";
         }
-        if (book && (isbnField.getText() == null || isbnField.getText().length() == 0)) {
+        if (book && (isbnField.getText() == null || isbnField.getText().length() == 0 || isbnField.getText().length() > 13)) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.isbn") + "\n";
         }
         if(!book && (durationSpinner.getEditor().getText() == null || !durationSpinner.getEditor().getText().matches("[0-9]+h[0-9]{0,2}"))) {
