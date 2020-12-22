@@ -1,8 +1,6 @@
 package org.libmanager.client.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +59,8 @@ public class EditItemController implements Initializable {
     @FXML
     private DurationSpinner durationSpinner;
     @FXML
+    private Spinner<Integer> copiesSpinner;
+    @FXML
     private Button confirmButton;
     @FXML
     private Button resetButton;
@@ -76,6 +76,11 @@ public class EditItemController implements Initializable {
         authorField.setVisible(true);
         genreCBox.setVisible(true);
         releaseDateDPicker.setVisible(true);
+
+        // Commit the value after typing
+        copiesSpinner.onKeyTypedProperty().addListener(((observable, oldValue, newValue) -> {
+            copiesSpinner.getValueFactory().increment(0);
+        }));
 
         releaseDateDPicker.setConverter(new StringConverter<>() {
             @Override
@@ -101,6 +106,7 @@ public class EditItemController implements Initializable {
         genreCBox.valueProperty().set(BookGenre.ANY);
         durationLabel.setVisible(false);
         durationSpinner.setVisible(false);
+        copiesSpinner.getValueFactory().setValue(1);
         confirmButton.setOnAction(event -> handleAddBookConfirm());
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
@@ -125,6 +131,7 @@ public class EditItemController implements Initializable {
         isbnLabel.setVisible(false);
         isbnField.setVisible(false);
         isbnRow.setPercentHeight(0);
+        copiesSpinner.getValueFactory().setValue(1);
         confirmButton.setOnAction(event -> handleAddDvdConfirm());
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
@@ -140,6 +147,7 @@ public class EditItemController implements Initializable {
      */
     public void initializeEditBook(Book selectedBook) {
         initializeAddBook();
+
         titleField.setText(selectedBook.getTitle());
         authorField.setText(selectedBook.getAuthor());
         publisherField.setText(selectedBook.getPublisher());
@@ -147,6 +155,8 @@ public class EditItemController implements Initializable {
         releaseDateDPicker.getEditor().setText(DateUtil.format(selectedBook.getReleaseDate()));
         isbnField.setText(selectedBook.getIsbn());
         confirmButton.setOnAction(event -> handleEditBookConfirm(selectedBook));
+        copiesSpinner.getValueFactory().setValue(selectedBook.getTotalCopies());
+
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -167,6 +177,7 @@ public class EditItemController implements Initializable {
         releaseDateDPicker.getEditor().setText(DateUtil.format(selectedDVD.getReleaseDate()));
         durationSpinner.getEditor().setText(selectedDVD.getDuration());
         confirmButton.setOnAction(event -> handleEditDVDConfirm(selectedDVD));
+        copiesSpinner.getValueFactory().setValue(selectedDVD.getAvailableCopies());
         // Enter can be pressed instead of the confirm button
         editItemRoot.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -187,9 +198,10 @@ public class EditItemController implements Initializable {
             b.setGenre(genreCBox.valueProperty().get());
             b.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
             b.setIsbn(isbnField.getText());
-            b.setStatus(true);
+            b.setTotalCopies(copiesSpinner.getValue());
+            b.setAvailableCopies(b.getTotalCopies());
 
-            JsonNode root = null;
+            String code = null;
             try {
                 String content = ServerAPI.callAddBook(
                         app.getLoggedInUser().getToken(),
@@ -198,10 +210,11 @@ public class EditItemController implements Initializable {
                         b.getTitle(),
                         b.getPublisher(),
                         DateUtil.formatDB(b.getReleaseDate()),
-                        b.getGenre().toString()
+                        b.getGenre().toString(),
+                        b.getAvailableCopies()
                 );
                 if (content != null) {
-                    root = new ObjectMapper().readTree(content);
+                    code = new ObjectMapper().readTree(content).get("code").asText();
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.initOwner(dialogStage);
@@ -212,11 +225,13 @@ public class EditItemController implements Initializable {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-            if (root != null) {
-                if (root.get("code").asText().equals("OK")) {
+            if (code != null) {
+                if (code.equals("OK")) {
                     app.getBooksData().add(b);
                     app.refreshTables();
                     dialogStage.close();
+                } else {
+                    handleErrorCode(code);
                 }
             }
         }
@@ -233,15 +248,17 @@ public class EditItemController implements Initializable {
             d.setGenre(genreCBox.valueProperty().get());
             d.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
             d.setDuration(durationSpinner.getEditor().getText());
-            d.setStatus(true);
+            d.setAvailableCopies(copiesSpinner.getValue());
+            d.setTotalCopies(copiesSpinner.getValue());
 
             String content = ServerAPI.callAddDVD(
-                        app.getLoggedInUser().getToken(),
-                        d.getAuthor(),
-                        d.getTitle(),
-                        d.getDuration(),
-                        DateUtil.formatDB(d.getReleaseDate()),
-                        d.getGenre().toString()
+                    app.getLoggedInUser().getToken(),
+                    d.getAuthor(),
+                    d.getTitle(),
+                    d.getDuration(),
+                    DateUtil.formatDB(d.getReleaseDate()),
+                    d.getGenre().toString(),
+                    d.getTotalCopies()
                 );
 
                 if (content == null) {
@@ -261,6 +278,8 @@ public class EditItemController implements Initializable {
                             app.getDVDData().add(d);
                             app.refreshTables();
                             dialogStage.close();
+                    } else {
+                        handleErrorCode(code);
                     }
                 }
         }
@@ -281,7 +300,8 @@ public class EditItemController implements Initializable {
                     b.getPublisher().equals(publisherField.getText()) ? null : publisherField.getText(),
                     DateUtil.format(b.getReleaseDate()).equals((releaseDateDPicker.getEditor().getText())) ?
                             null : DateUtil.formatDB(DateUtil.parse(releaseDateDPicker.getEditor().getText())),
-                    b.getGenre().equals(genreCBox.getValue()) ? null : genreCBox.getValue().toString()
+                    b.getGenre().equals(genreCBox.getValue()) ? null : genreCBox.getValue().toString(),
+                    b.getTotalCopies() == copiesSpinner.getValue() ? 0 : copiesSpinner.getValue()
             );
             if (content == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -303,9 +323,12 @@ public class EditItemController implements Initializable {
                     b.setGenre(genreCBox.valueProperty().get());
                     b.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
                     b.setIsbn(isbnField.getText());
+                    b.setTotalCopies(copiesSpinner.getValue());
 
                     app.refreshTables();
                     dialogStage.close();
+                } else {
+                    handleErrorCode(code);
                 }
             }
         }
@@ -325,7 +348,8 @@ public class EditItemController implements Initializable {
                     d.getDuration().equals(durationSpinner.getEditor().getText()) ? null : durationSpinner.getEditor().getText(),
                     DateUtil.format(d.getReleaseDate()).equals((releaseDateDPicker.getEditor().getText())) ?
                             null : DateUtil.formatDB(DateUtil.parse(releaseDateDPicker.getEditor().getText())),
-                    d.getGenre().equals(genreCBox.getValue()) ? null : genreCBox.getValue().toString()
+                    d.getGenre().equals(genreCBox.getValue()) ? null : genreCBox.getValue().toString(),
+                    d.getTotalCopies() == copiesSpinner.getValue() ? 0 : copiesSpinner.getValue()
             );
             if (content == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -346,9 +370,12 @@ public class EditItemController implements Initializable {
                     d.setDuration(durationSpinner.getEditor().getText());
                     d.setGenre(genreCBox.valueProperty().get());
                     d.setReleaseDate(DateUtil.parse(releaseDateDPicker.getEditor().getText()));
+                    d.setTotalCopies(copiesSpinner.getValue());
 
                     app.refreshTables();
                     dialogStage.close();
+                } else {
+                    handleErrorCode(code);
                 }
             }
         }
@@ -379,6 +406,9 @@ public class EditItemController implements Initializable {
         }
         if (releaseDateDPicker.getEditor().getText() == null || !DateUtil.validDate(releaseDateDPicker.getEditor().getText())) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.releasedate") + "\n";
+        }
+        if (copiesSpinner.getValue() == null || copiesSpinner.getEditor().getText().length() == 0) {
+            errMessage += I18n.getBundle().getString("edit.item.alert.invalid.copies") + "\n";
         }
         if (book && (isbnField.getText() == null || isbnField.getText().length() == 0 || isbnField.getText().length() > 13)) {
             errMessage += I18n.getBundle().getString("edit.item.alert.invalid.isbn") + "\n";
@@ -418,9 +448,32 @@ public class EditItemController implements Initializable {
         authorField.setText("");
         releaseDateDPicker.getEditor().setText("");
         genreCBox.valueProperty().set(BookGenre.ANY);
+        copiesSpinner.getValueFactory().setValue(1);
         publisherField.setText("");
-        durationSpinner.getEditor().setText("");
+        durationSpinner.getEditor().setText("0");
         isbnField.setText("");
+    }
+
+    /**
+     * Show an alert according to the error code
+     * @param code  The received error code
+     */
+    private void handleErrorCode(String code) {
+        if (code != null && code.equals("MAX_ITEMS_REACHED")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle(I18n.getBundle().getString("edit.item.alert.limit.reached.title"));
+            alert.setHeaderText(I18n.getBundle().getString("edit.item.alert.limit.reached.header"));
+            alert.setContentText(I18n.getBundle().getString("edit.item.alert.limit.reached.content"));
+            alert.showAndWait();
+        } else if (code != null && code.equals("INVALID_COPIES_NUMBER")) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(dialogStage);
+            alert.setTitle(I18n.getBundle().getString("edit.item.alert.invalid.copies.title"));
+            alert.setHeaderText(I18n.getBundle().getString("edit.item.alert.invalid.copies.header"));
+            alert.setContentText(I18n.getBundle().getString("edit.item.alert.invalid.copies.content"));
+            alert.showAndWait();
+        }
     }
 
     public void setDialogStage(Stage dialogStage) {

@@ -44,6 +44,8 @@
                                           <TableColumn fx:id="bookReleaseDateColumn" prefWidth="123.0" text="%label.releasedate" />
                                           <TableColumn fx:id="bookPublisherColumn" minWidth="0.0" prefWidth="73.0" text="%label.publisher" />
                                           <TableColumn fx:id="bookIsbnColumn" prefWidth="66.0" text="%label.isbn" />
+                                          <TableColumn fx:id="bookAvailableCopiesColumn" prefWidth="66.0" text="%label.copies.available" />
+                                          <TableColumn fx:id="bookTotalCopiesColumn" prefWidth="66.0" text="%label.copies.total" />
                                           <TableColumn fx:id="bookStatusColumn" prefWidth="79.0" />
                                        </columns>
                                     </TableView>
@@ -217,6 +219,8 @@
                                           <TableColumn fx:id="dvdGenreColumn" prefWidth="75.0" text="%label.genre" />
                                           <TableColumn fx:id="dvdDurationColumn" prefWidth="65.0" text="%label.duration" />
                                           <TableColumn fx:id="dvdReleaseDateColumn" prefWidth="124.0" text="%label.releasedate" />
+                                          <TableColumn fx:id="dvdAvailableCopiesColumn" prefWidth="124.0" text="%label.copies.available" />
+                                          <TableColumn fx:id="dvdTotalCopiesColumn" prefWidth="124.0" text="%label.copies.total" />
                                           <TableColumn fx:id="dvdStatusColumn" prefWidth="49.0" />
                                        </columns>
                                     </TableView>

@@ -1,13 +1,5 @@
 package org.libmanager.client.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
@@ -20,7 +12,6 @@ import org.libmanager.client.I18n;
 import org.libmanager.client.api.ServerAPI;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
-import org.libmanager.client.enums.Genre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.util.Converter;
@@ -28,7 +19,6 @@ import org.libmanager.client.util.DateUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -126,9 +116,11 @@ public class ReservationController implements Initializable {
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the book
-                        cellData.getValue().setStatus(false);
-                        btn.setDisable(true);
-                        btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
+                        cellData.getValue().decrementCopies();
+                        if (cellData.getValue().getAvailableCopies() <= 0) {
+                            btn.setDisable(true);
+                            btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
+                        }
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -197,9 +189,11 @@ public class ReservationController implements Initializable {
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server to borrow the dvd
-                        cellData.getValue().setStatus(false);
-                        btn.setDisable(true);
-                        btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
+                        cellData.getValue().decrementCopies();
+                        if (cellData.getValue().getAvailableCopies() <= 0) {
+                            btn.setDisable(true);
+                            btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
+                        }
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);

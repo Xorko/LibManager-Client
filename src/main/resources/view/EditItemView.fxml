@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import org.libmanager.client.component.DurationSpinner?>
-
 <GridPane fx:id="editItemRoot" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.libmanager.client.controller.EditItemController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
@@ -57,7 +48,7 @@
       <Label fx:id="durationLabel" text="%label.duration" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Label fx:id="publisherLabel" text="%label.publisher" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Label fx:id="isbnLabel" text="%label.isbn" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <Label text="\%label.copy" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label text="%label.copies" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <TextField fx:id="titleField" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
@@ -93,7 +84,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </TextField>
-      <Spinner maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="7">
+      <Spinner fx:id="copiesSpinner" editable="true" min="1" max="100000" initialValue="1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>

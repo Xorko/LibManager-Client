@@ -18,7 +18,6 @@ import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.enums.Status;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
-import org.libmanager.client.model.Item;
 import org.libmanager.client.model.User;
 import org.libmanager.client.util.Converter;
 import org.libmanager.client.util.DateUtil;
@@ -61,6 +60,10 @@ public class AdminPanelController implements Initializable {
     private TableColumn<Book, String> bookIsbnColumn;
     @FXML
     private TableColumn<Book, Button> bookStatusColumn;
+    @FXML
+    private TableColumn<Book, Integer> bookAvailableCopiesColumn;
+    @FXML
+    private TableColumn<Book, Integer> bookTotalCopiesColumn;
 
     //DVD
     @FXML
@@ -87,6 +90,10 @@ public class AdminPanelController implements Initializable {
     private TableColumn<DVD, String> dvdReleaseDateColumn;
     @FXML
     private TableColumn<DVD, Button> dvdStatusColumn;
+    @FXML
+    private TableColumn<DVD, Integer> dvdAvailableCopiesColumn;
+    @FXML
+    private TableColumn<DVD, Integer> dvdTotalCopiesColumn;
 
     // Users
     @FXML
@@ -167,6 +174,8 @@ public class AdminPanelController implements Initializable {
         bookReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
         bookPublisherColumn.setCellValueFactory(cellData -> cellData.getValue().publisherProperty());
         bookIsbnColumn.setCellValueFactory(cellData -> cellData.getValue().isbnProperty());
+        bookAvailableCopiesColumn.setCellValueFactory(cellData -> cellData.getValue().availableCopiesProperty().asObject());
+        bookTotalCopiesColumn.setCellValueFactory(cellData -> cellData.getValue().totalCopiesProperty().asObject());
         bookStatusColumn.setCellValueFactory(cellData -> {
             Button btn = new Button();
 
@@ -188,9 +197,11 @@ public class AdminPanelController implements Initializable {
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server
-                        btn.setDisable(true);
-                        btn.setText(I18n.getBundle().getString("button.available"));
-                        cellData.getValue().setStatus(true);
+                        cellData.getValue().incrementCopies();
+                        if (cellData.getValue().getAvailableCopies() == cellData.getValue().getTotalCopies()) {
+                            btn.setDisable(true);
+                            btn.setText(I18n.getBundle().getString("button.available"));
+                        }
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -210,7 +221,9 @@ public class AdminPanelController implements Initializable {
         bookGenreColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.12));
         bookReleaseDateColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.1));
         bookPublisherColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.13));
-        bookIsbnColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.12));
+        bookIsbnColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.05));
+        bookAvailableCopiesColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.05));
+        bookTotalCopiesColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.05));
         bookStatusColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.115));
 
         // --- DVD TABLE ---
@@ -219,6 +232,8 @@ public class AdminPanelController implements Initializable {
         dvdGenreColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().genreProperty().get().getName()));
         dvdDurationColumn.setCellValueFactory(cellData -> cellData.getValue().durationProperty());
         dvdReleaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(DateUtil.format(cellData.getValue().getReleaseDate())));
+        dvdAvailableCopiesColumn.setCellValueFactory(cellData -> cellData.getValue().availableCopiesProperty().asObject());
+        dvdTotalCopiesColumn.setCellValueFactory(cellData -> cellData.getValue().availableCopiesProperty().asObject());
         dvdStatusColumn.setCellValueFactory(cellData -> {
             Button btn = new Button();
 
@@ -240,9 +255,11 @@ public class AdminPanelController implements Initializable {
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
                     if (answer.isPresent() && answer.get() == ButtonType.YES) {
                         //TODO: Send a request to the server
-                        btn.setDisable(true);
-                        btn.setText(I18n.getBundle().getString("button.available"));
-                        cellData.getValue().setStatus(true);
+                        cellData.getValue().incrementCopies();
+                        if (cellData.getValue().getAvailableCopies() == cellData.getValue().getTotalCopies()) {
+                            btn.setDisable(true);
+                            btn.setText(I18n.getBundle().getString("button.available"));
+                        }
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -262,6 +279,8 @@ public class AdminPanelController implements Initializable {
         dvdGenreColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.15));
         dvdDurationColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.09));
         dvdReleaseDateColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
+        dvdAvailableCopiesColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.05));
+        dvdTotalCopiesColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.05));
         dvdStatusColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.11));
 
         // --- USERS TABLE ---

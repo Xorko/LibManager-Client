@@ -11,7 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.libmanager.client.util.ServerConfig;
+import org.libmanager.client.util.Config;
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,8 +38,8 @@ public class ServerAPI {
     static {
         // Initialize all of the endpoints
         try {
-            String server = ServerConfig.getProperty("server.protocol") + "://" + ServerConfig.getProperty("server.host")
-                    + ":" + ServerConfig.getProperty("server.port");
+            String server = Config.getProperty("server.protocol") + "://" + Config.getProperty("server.host")
+                    + ":" + Config.getProperty("server.port");
 
             GET_ALL_BOOKS   = server + "/item/book/get/all";
             GET_ALL_DVD     = server + "/item/dvd/get/all";
@@ -150,9 +150,11 @@ public class ServerAPI {
      * @param publisher     The publisher of the book to add
      * @param releaseDate   The release date of the book to add
      * @param genre         The genre of the book to add
+     * @param copies        The number of copies of the book
      * @return              The server response
      */
-    public static String callAddBook(String token, String isbn, String author, String title, String publisher, String releaseDate, String genre) {
+    public static String callAddBook(String token, String isbn, String author, String title,
+                                     String publisher, String releaseDate, String genre, int copies) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
         urlParameters.add(new BasicNameValuePair("isbn", isbn));
@@ -161,6 +163,8 @@ public class ServerAPI {
         urlParameters.add(new BasicNameValuePair("publisher", publisher));
         urlParameters.add(new BasicNameValuePair("releaseDate", releaseDate));
         urlParameters.add(new BasicNameValuePair("genre", genre));
+        urlParameters.add(new BasicNameValuePair("copies", Integer.toString(copies)));
+        urlParameters.add(new BasicNameValuePair("totalCopies", Integer.toString(copies)));
         return sendPOST(ADD_BOOK, urlParameters);
     }
 
@@ -172,9 +176,10 @@ public class ServerAPI {
      * @param duration      The duration of the movie
      * @param releaseDate   The release date of the movie
      * @param genre         The genre of the dvd
+     * @param totalCopies   The number of copies of the DVD
      * @return              The server response
      */
-    public static String callAddDVD(String token, String director, String title, String duration, String releaseDate, String genre) {
+    public static String callAddDVD(String token, String director, String title, String duration, String releaseDate, String genre, int totalCopies) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
         urlParameters.add(new BasicNameValuePair("director", director));
@@ -182,6 +187,7 @@ public class ServerAPI {
         urlParameters.add(new BasicNameValuePair("duration", duration));
         urlParameters.add(new BasicNameValuePair("releaseDate", releaseDate));
         urlParameters.add(new BasicNameValuePair("genre", genre));
+        urlParameters.add(new BasicNameValuePair("totalCopies", Integer.toString(totalCopies)));
         return sendPOST(ADD_DVD, urlParameters);
     }
 
@@ -195,9 +201,11 @@ public class ServerAPI {
      * @param publisher     The publisher of the book
      * @param releaseDate   The release date of the book
      * @param genre         The genre of the book
+     * @param totalCopies        The number of copies of the DVD
      * @return              The server response
      */
-    public static String callEditBook(String token, int id, String isbn, String author, String title, String publisher, String releaseDate, String genre) {
+    public static String callEditBook(String token, int id, String isbn, String author, String title, String publisher,
+                                      String releaseDate, String genre, int totalCopies) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
         urlParameters.add(new BasicNameValuePair("id", Integer.toString(id)));
@@ -207,6 +215,7 @@ public class ServerAPI {
         urlParameters.add(new BasicNameValuePair("publisher", publisher));
         urlParameters.add(new BasicNameValuePair("releaseDate", releaseDate));
         urlParameters.add(new BasicNameValuePair("genre", genre));
+        urlParameters.add(new BasicNameValuePair("totalCopies", Integer.toString(totalCopies)));
         return sendPOST(EDIT_BOOK, urlParameters);
     }
 
@@ -219,9 +228,11 @@ public class ServerAPI {
      * @param duration      The duration of the movie
      * @param releaseDate   The release date of the movie
      * @param genre         The genre of the movie
+     * @param totalCopies   The number of copies of the DVD
      * @return              The server response
      */
-    public static String callEditDVD(String token, int id, String author, String title, String duration, String releaseDate, String genre) {
+    public static String callEditDVD(String token, int id, String author, String title, String duration,
+                                     String releaseDate, String genre, int totalCopies) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
         urlParameters.add(new BasicNameValuePair("id", Integer.toString(id)));
@@ -230,6 +241,7 @@ public class ServerAPI {
         urlParameters.add(new BasicNameValuePair("duration", duration));
         urlParameters.add(new BasicNameValuePair("releaseDate", releaseDate));
         urlParameters.add(new BasicNameValuePair("genre", genre));
+        urlParameters.add(new BasicNameValuePair("totalCopies", Integer.toString(totalCopies)));
         return sendPOST(EDIT_DVD, urlParameters);
     }
 

@@ -1,7 +1,6 @@
 package org.libmanager.client.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
@@ -16,15 +15,17 @@ import java.time.LocalDate;
 
 public abstract class Item {
 
-    private SimpleIntegerProperty id;
-    private SimpleStringProperty title;
-    private SimpleStringProperty author;
-    private SimpleObjectProperty<Genre> genre;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty title;
+    private final SimpleStringProperty author;
+    private final SimpleObjectProperty<Genre> genre;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    private SimpleObjectProperty<LocalDate> releaseDate;
-    private SimpleBooleanProperty status;
+    private final SimpleObjectProperty<LocalDate> releaseDate;
+    private final SimpleBooleanProperty status;
+    private final SimpleIntegerProperty availableCopies;
+    private final SimpleIntegerProperty totalCopies;
 
     public Item() {
         id = new SimpleIntegerProperty(0);
@@ -33,15 +34,34 @@ public abstract class Item {
         genre = new SimpleObjectProperty<>(null);
         releaseDate = new SimpleObjectProperty<>(null);
         status = new SimpleBooleanProperty(false);
+        availableCopies = new SimpleIntegerProperty(0);
+        totalCopies = new SimpleIntegerProperty(0);
+
+        availableCopies.addListener(((observable, oldValue, newValue) -> this.setStatus(newValue.intValue() > 0)));
     }
 
-    public Item(int id, String title, String author, Genre genre, LocalDate releaseDate, boolean status) {
+    public Item(int id, String title, String author, Genre genre, LocalDate releaseDate, int availableCopies, int totalCopies) {
         this.id = new SimpleIntegerProperty(id);
         this.title = new SimpleStringProperty(title);
         this.author = new SimpleStringProperty(author);
         this.genre = new SimpleObjectProperty<>(genre);
         this.releaseDate = new SimpleObjectProperty<>(releaseDate);
-        this.status = new SimpleBooleanProperty(status);
+        this.status = new SimpleBooleanProperty(availableCopies > 0);
+        this.availableCopies = new SimpleIntegerProperty(availableCopies);
+        this.totalCopies = new SimpleIntegerProperty(totalCopies);
+
+        this.availableCopies.addListener(((observable, oldValue, newValue) -> this.setStatus(newValue.intValue() > 0)));
+    }
+
+    public void incrementCopies() {
+        if (getAvailableCopies() < getTotalCopies())
+            availableCopies.set(availableCopies.get() + 1);
+    }
+
+    public void decrementCopies() {
+        if (availableCopies.get() - 1 >= 0) {
+            availableCopies.set(availableCopies.get() - 1);
+        }
     }
 
     public SimpleIntegerProperty idProperty() {
@@ -112,5 +132,33 @@ public abstract class Item {
         return status.get();
     }
 
-    public void setStatus(boolean status) {this.status.set(status);}
+    public void setStatus(boolean status) {
+        this.status.set(status);
+    }
+
+    public SimpleIntegerProperty availableCopiesProperty() {
+        return availableCopies;
+    }
+
+    public int getAvailableCopies() {
+        return availableCopies.get();
+    }
+
+    public void setAvailableCopies(int copies) {
+        if (copies > 0 && copies <= totalCopies.get())
+            this.availableCopies.set(copies);
+    }
+
+    public SimpleIntegerProperty totalCopiesProperty() {
+        return totalCopies;
+    }
+
+    public int getTotalCopies() {
+        return totalCopies.get();
+    }
+
+    public void setTotalCopies(int totalCopies) {
+        if (totalCopies > 0)
+            this.totalCopies.set(totalCopies);
+    }
 }

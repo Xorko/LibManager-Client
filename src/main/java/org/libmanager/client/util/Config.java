@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class ServerConfig {
+public class Config {
     private static final String propFileName = "config.properties";
     private static Properties props;
 
-    private static Properties getQueries() throws IOException {
+    private static Properties getProps() throws IOException {
         // Avoid reloading the file if it is already loaded
         if (props == null) {
             // https://stackoverflow.com/a/18699561
@@ -27,6 +27,10 @@ public class ServerConfig {
     }
 
     public static String getProperty(String prop) throws IOException {
-        return getQueries().getProperty(prop);
+        return getProps().getProperty(prop);
+    }
+
+    public static void setProperty(String key, String value) throws IOException {
+        getProps().setProperty(key, value);
     }
 }
