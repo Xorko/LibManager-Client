@@ -13,21 +13,21 @@ import java.time.LocalDate;
 
 public class User {
 
-    private SimpleStringProperty username;
-    private SimpleStringProperty firstName;
-    private SimpleStringProperty lastName;
-    private SimpleStringProperty address;
-    private SimpleStringProperty email;
+    private final SimpleStringProperty username;
+    private final SimpleStringProperty firstName;
+    private final SimpleStringProperty lastName;
+    private final SimpleStringProperty address;
+    private final SimpleStringProperty email;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    private SimpleObjectProperty<LocalDate> birthday;
+    private final SimpleObjectProperty<LocalDate> birthday;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    private SimpleObjectProperty<LocalDate> registrationDate;
-    private SimpleStringProperty token;
-    private SimpleBooleanProperty admin;
+    private final SimpleObjectProperty<LocalDate> registrationDate;
+    private final SimpleStringProperty token;
+    private final SimpleBooleanProperty admin;
 
     public User(String username, String firstName, String lastName, String address, String email, LocalDate birthday, LocalDate registrationDate, String token, boolean admin) {
         this.username = new SimpleStringProperty(username);

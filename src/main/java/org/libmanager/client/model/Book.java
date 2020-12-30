@@ -7,8 +7,8 @@ import java.time.LocalDate;
 
 public class Book extends Item {
 
-    private SimpleStringProperty publisher;
-    private SimpleStringProperty isbn;
+    private final SimpleStringProperty publisher;
+    private final SimpleStringProperty isbn;
 
     public Book() {
         super();

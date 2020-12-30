@@ -5,10 +5,10 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Reservation {
 
-    private SimpleLongProperty id;
-    private SimpleStringProperty username;
-    private SimpleStringProperty title;
-    private SimpleStringProperty itemType;
+    private final SimpleLongProperty id;
+    private final SimpleStringProperty username;
+    private final SimpleStringProperty title;
+    private final SimpleStringProperty itemType;
 
     public Reservation() {
         this.id = new SimpleLongProperty(0);

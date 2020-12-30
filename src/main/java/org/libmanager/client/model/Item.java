@@ -50,17 +50,6 @@ public abstract class Item {
         this.availableCopies.addListener(((observable, oldValue, newValue) -> this.setStatus(newValue.intValue() > 0)));
     }
 
-    public void incrementCopies() {
-        if (getAvailableCopies() < getTotalCopies())
-            availableCopies.set(availableCopies.get() + 1);
-    }
-
-    public void decrementCopies() {
-        if (availableCopies.get() - 1 >= 0) {
-            availableCopies.set(availableCopies.get() - 1);
-        }
-    }
-
     public SimpleLongProperty idProperty() {
         return id;
     }

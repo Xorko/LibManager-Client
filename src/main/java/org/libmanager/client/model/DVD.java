@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 public class DVD extends Item {
 
-    private SimpleStringProperty duration;
+    private final SimpleStringProperty duration;
 
     public DVD() {
         duration = new SimpleStringProperty(null);
