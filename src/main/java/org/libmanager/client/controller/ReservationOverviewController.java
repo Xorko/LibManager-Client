@@ -114,13 +114,22 @@ public class ReservationOverviewController implements Initializable {
     private void setStatusText() {
         int borrowedBooks = calculateNumberOfBorrowedBooks();
         int borrowedDVDs = calculateNumberOfBorrowedDVDs();
-        int maxBooks = calculateBookLimit();
-        int maxDVDs = calculateDVDLimit();
-        statusLabel.setText(
-                I18n.getBundle().getString("label.limits") + "\t" + I18n.getBundle().getString("label.limits.books")
-                        + borrowedBooks + "/" + maxBooks + "\t" + I18n.getBundle().getString("label.limits.dvds")
-                        + borrowedDVDs + "/" + maxDVDs
-        );
+        if (!app.getLoggedInUser().isAdmin()) {
+            int maxBooks = calculateBookLimit();
+            int maxDVDs = calculateDVDLimit();
+            statusLabel.setText(
+                    I18n.getBundle().getString("label.limits") + "\t" + I18n.getBundle().getString("label.limits.books")
+                            + borrowedBooks + "/" + maxBooks + "\t" + I18n.getBundle().getString("label.limits.dvds")
+                            + borrowedDVDs + "/" + maxDVDs
+            );
+        }
+        else {
+            statusLabel.setText(
+                    I18n.getBundle().getString("label.limits") + "\t" + I18n.getBundle().getString("label.limits.books")
+                            + borrowedBooks + "\t" + I18n.getBundle().getString("label.limits.dvds")
+                            + borrowedDVDs
+            );
+        }
     }
 
     /**
@@ -207,7 +216,6 @@ public class ReservationOverviewController implements Initializable {
 
     public void setApp(App app) {
         this.app = app;
-        System.out.println(app.getLoggedInUser().getUsername());
         loadReservations();
     }
 }
