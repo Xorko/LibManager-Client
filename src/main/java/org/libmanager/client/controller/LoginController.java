@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -114,6 +113,6 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleForgottenPassword() {
-        app.showResetPasswordDialog();
+        app.showPasswordResetDialog();
     }
 }

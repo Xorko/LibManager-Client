@@ -12,11 +12,9 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -46,8 +44,6 @@ public class App extends Application {
     private TabPane reservationView;
     private TabPane adminPanelView;
     private RootController rootController;
-    private ReservationController reservationController;
-    private AdminPanelController adminPanelController;
     private final ObservableList<Book> booksData = FXCollections.observableArrayList();
     private final ObservableList<DVD> dvdData = FXCollections.observableArrayList();
     private final ObservableList<User> usersData = FXCollections.observableArrayList();
@@ -110,7 +106,6 @@ public class App extends Application {
             reservationView = loader.load();
             ReservationController controller = loader.getController();
             controller.setApp(this);
-            reservationController = controller;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -140,7 +135,6 @@ public class App extends Application {
             adminPanelView = loader.load();
             AdminPanelController controller = loader.getController();
             controller.setApp(this);
-            adminPanelController = controller;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -156,71 +150,15 @@ public class App extends Application {
         if (rootView.getCenter() != adminPanelView)
             rootView.setCenter(adminPanelView);
         updateData();
-        //refreshTables();
-    }
-
-    /**
-     * Show the login menu
-     */
-    public void showSettingsView() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/SettingsView.fxml"));
-            loader.setResources(I18n.getBundle());
-            BorderPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle(I18n.getBundle().getString("label.settings.title"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            SettingsController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setApp(this);
-
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Show the login dialog
-     */
-    public void showLoginDialog() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/LoginView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setResizable(false);
-            dialogStage.setTitle(I18n.getBundle().getString("label.login.title"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            LoginController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setApp(this);
-
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
      * Show the ResetPassword dialog
      */
-    public void showResetPasswordDialog() {
+    public void showPasswordResetDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ResetPasswordView.fxml"));
+            loader.setLocation(getClass().getResource("/view/PasswordResetView.fxml"));
             loader.setResources(I18n.getBundle());
             GridPane dialog = loader.load();
 
@@ -232,7 +170,7 @@ public class App extends Application {
             Scene scene = new Scene(dialog);
             dialogStage.setScene(scene);
 
-            ResetPasswordController controller = loader.getController();
+            PasswordResetController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setApp(this);
 
@@ -241,156 +179,6 @@ public class App extends Application {
             e.printStackTrace();
         }
 
-    }
-
-    /**
-     * Show the EditItem dialog according to what button has been clicked
-     * @param e The event
-     */
-    public void showEditItemView(ActionEvent e) {
-        try {
-            boolean noError = true;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/EditItemView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            EditItemController controller = loader.getController();
-
-            // The source of the event is the "Add book" button
-            if (((Button) e.getSource()).getId().equals(adminPanelController.getBookAddButton().getId())) {
-                controller.initializeAddBook();
-                dialogStage.setTitle(I18n.getBundle().getString("label.add.book"));
-            }
-            // The source of the event is the "Add DVD" button
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getDVDAddButton().getId())) {
-                controller.initializeAddDVD();
-                dialogStage.setTitle(I18n.getBundle().getString("label.add.dvd"));
-            }
-            // The source of the event is the "Edit book" button
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getBookEditButton().getId())) {
-                Book selected = adminPanelController.getSelectedBook();
-                if (selected != null) {
-                    controller.initializeEditBook(selected);
-                    dialogStage.setTitle(I18n.getBundle().getString("label.editing.title") + selected.getTitle());
-                } else {
-                    noError = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.initOwner(primaryStage);
-                    alert.setTitle(I18n.getBundle().getString("alert.noselection.book.title"));
-                    alert.setHeaderText(I18n.getBundle().getString("alert.noselection.book.title"));
-                    alert.setContentText(I18n.getBundle().getString("alert.noselection.book.edit.content"));
-                    alert.showAndWait();
-                }
-            }
-            // The source of the event is the "Edit DVD" button
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getDVDEditButton().getId())) {
-                DVD selected = adminPanelController.getSelectedDVD();
-                if (selected != null) {
-                    controller.initializeEditDVD(selected);
-                    dialogStage.setTitle(I18n.getBundle().getString("label.editing.title") + selected.getTitle());
-                } else {
-                    noError = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.initOwner(primaryStage);
-                    alert.setTitle(I18n.getBundle().getString("alert.noselection.dvd.title"));
-                    alert.setHeaderText(I18n.getBundle().getString("alert.noselection.dvd.title"));
-                    alert.setContentText(I18n.getBundle().getString("alert.noselection.dvd.edit.content"));
-                    alert.showAndWait();
-                }
-            }
-
-            if (noError) {
-                controller.setDialogStage(dialogStage);
-                controller.setApp(this);
-
-                dialogStage.showAndWait();
-            }
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    /**
-     * Show the EditUser dialog according to what button has been clicked
-     * @param e The event
-     */
-    public void showEditUserView(ActionEvent e) {
-        try {
-            boolean noError = true;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/EditUserView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            EditUserController controller = loader.getController();
-
-            if (((Button) e.getSource()).getId().equals(adminPanelController.getUserAddButton().getId())) {
-                controller.initializeAddUser();
-                dialogStage.setTitle(I18n.getBundle().getString("label.add.user"));
-            }
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getUserEditButton().getId())) {
-                User selected = adminPanelController.getSelectedUser();
-                if (selected != null) {
-                    controller.initializeEditUser(selected);
-                    dialogStage.setTitle(I18n.getBundle().getString("label.editing.title") + selected.getUsername());
-                } else {
-                    noError = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.initOwner(primaryStage);
-                    alert.setTitle(I18n.getBundle().getString("alert.noselection.user.title"));
-                    alert.setHeaderText(I18n.getBundle().getString("alert.noselection.user.title"));
-                    alert.setContentText(I18n.getBundle().getString("alert.noselection.user.edit.content"));
-                    alert.showAndWait();
-                }
-            }
-
-            if (noError) {
-                controller.setDialogStage(dialogStage);
-                controller.setApp(this);
-
-                dialogStage.showAndWait();
-            }
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    public void showReservationOverview() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ReservationOverviewView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setResizable(false);
-            dialogStage.setTitle(I18n.getBundle().getString("label.reservations"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            ReservationOverviewController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setApp(this);
-
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**

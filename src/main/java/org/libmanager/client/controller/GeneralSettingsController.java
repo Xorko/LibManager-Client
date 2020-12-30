@@ -2,12 +2,11 @@ package org.libmanager.client.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import org.libmanager.client.App;
-import org.libmanager.client.util.I18n;
 import org.libmanager.client.enums.Language;
 import org.libmanager.client.util.Converter;
+import org.libmanager.client.util.I18n;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,15 +15,8 @@ public class GeneralSettingsController implements Initializable {
 
     @FXML
     private ComboBox<Language> languageCBox;
-    @FXML
-    private Button confirmBtn;
-    @FXML
-    private Button applyBtn;
-    @FXML
-    private Button cancelBtn;
 
     private SettingsController parentController;
-    private App app;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,7 +34,7 @@ public class GeneralSettingsController implements Initializable {
     @FXML
     private void handleApply() {
         if (!languageCBox.valueProperty().get().toString().equals(I18n.getLocale().toString())) {
-            app.changeLanguage(languageCBox.valueProperty().get().getLocale());
+            parentController.getApp().changeLanguage(languageCBox.valueProperty().get().getLocale());
             parentController.loadGeneral();
         }
     }
@@ -50,10 +42,6 @@ public class GeneralSettingsController implements Initializable {
     @FXML
     private void handleCancel() {
         parentController.getDialogStage().close();
-    }
-
-    public void setApp(App app) {
-        this.app = app;
     }
 
     public void setParentController(SettingsController parentController) {

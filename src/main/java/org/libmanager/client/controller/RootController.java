@@ -2,7 +2,9 @@ package org.libmanager.client.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -10,13 +12,20 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.libmanager.client.App;
 import org.libmanager.client.model.User;
+import org.libmanager.client.util.I18n;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
+
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -33,12 +42,6 @@ public class RootController implements Initializable {
     private MenuItem logoutMenuItem;
     @FXML
     private Menu adminMenu;
-    @FXML
-    private MenuItem adminPanelMenuItem;
-    @FXML
-    private MenuItem reservationMenuItem;
-    @FXML
-    private MenuItem aboutMenuItem;
 
     private App app;
 
@@ -59,36 +62,54 @@ public class RootController implements Initializable {
         adminMenu.setVisible(false);
     }
 
+    /**
+     * Show the admin panel
+     */
     @FXML
     private void handleGotoAdminPanel() {
         app.showAdminPanelView();
     }
 
+    /**
+     * Show the reservation panel
+     */
     @FXML
     private void handleGotoReservation() {
         app.showReservationView();
     }
 
     @FXML
-    private void handlePreferences() {
-        app.showSettingsView();
+    private void handleSettings() {
+        showSettingsView();
     }
 
+    /**
+     * Quit the application
+     */
     @FXML
     private void handleQuit() {
         System.exit(0);
     }
 
+    /**
+     * Show the reservation overview for the currently logged in user
+     */
     @FXML
     private void handleReservations() {
-        app.showReservationOverview();
+        showReservationOverview();
     }
 
+    /**
+     * Log in a user
+     */
     @FXML
     private void handleLogin() {
-        app.showLoginDialog();
+        showLoginDialog();
     }
 
+    /**
+     * Log out the currently logged in user
+     */
     @FXML
     private void handleLogout() {
         if (app.getLoggedInUser().isAdmin()) {
@@ -102,9 +123,105 @@ public class RootController implements Initializable {
         app.setLoggedInUser(null);
     }
 
+    /**
+     * Show the password reset dialog
+     */
     @FXML
     private void handleResetPassword() {
-        app.showResetPasswordDialog();
+        app.showPasswordResetDialog();
+    }
+
+    /**
+     * Show an alert with information on the software
+     */
+    @FXML
+    private void handleAbout() {
+        Alert about = new Alert(Alert.AlertType.INFORMATION);
+        about.initOwner(app.getPrimaryStage());
+        about.setTitle("LibManager");
+        about.setHeaderText("LibManager");
+        about.setContentText("Version 0.1");
+        about.showAndWait();
+    }
+
+    /**
+     * Show the login dialog
+     */
+    public void showLoginDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/LoginView.fxml"));
+            loader.setResources(I18n.getBundle());
+            GridPane dialog = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.setTitle(I18n.getBundle().getString("label.login.title"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(app.getPrimaryStage());
+            Scene scene = new Scene(dialog);
+            dialogStage.setScene(scene);
+
+            LoginController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setApp(app);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Show the settings menu
+     */
+    public void showSettingsView() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/SettingsView.fxml"));
+            loader.setResources(I18n.getBundle());
+            BorderPane dialog = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(I18n.getBundle().getString("label.settings.title"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(app.getPrimaryStage());
+            Scene scene = new Scene(dialog);
+            dialogStage.setScene(scene);
+
+            SettingsController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setApp(app);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showReservationOverview() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ReservationOverviewView.fxml"));
+            loader.setResources(I18n.getBundle());
+            GridPane dialog = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setResizable(false);
+            dialogStage.setTitle(I18n.getBundle().getString("label.reservations"));
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(app.getPrimaryStage());
+            Scene scene = new Scene(dialog);
+            dialogStage.setScene(scene);
+
+            ReservationOverviewController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setApp(app);
+
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -124,6 +241,9 @@ public class RootController implements Initializable {
         usernameMenuItem.setVisible(!usernameMenuItem.isVisible());
     }
 
+    /**
+     * Toggle the visibility of the reservation overview menu item
+     */
     public void toggleReservationMenuItem() {
         reservationOverviewMenuItem.setVisible(!reservationOverviewMenuItem.isVisible());
     }
@@ -140,16 +260,6 @@ public class RootController implements Initializable {
      */
     public void toggleLogoutMenuItem() {
         logoutMenuItem.setVisible(!logoutMenuItem.isVisible());
-    }
-
-    @FXML
-    private void handleAbout() {
-        Alert about = new Alert(Alert.AlertType.INFORMATION);
-        about.initOwner(app.getPrimaryStage());
-        about.setTitle("LibManager");
-        about.setHeaderText("LibManager");
-        about.setContentText("Version 0.1\nhttps://github.com/Xorko/LibManager-Client");
-        about.showAndWait();
     }
 
     public void setApp(App app) {

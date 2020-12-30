@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ResetPasswordController implements Initializable {
+public class PasswordResetController implements Initializable {
 
     @FXML
     private GridPane resetRoot;

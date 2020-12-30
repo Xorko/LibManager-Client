@@ -12,7 +12,7 @@
         <menus>
           <Menu fx:id="fileMenu" mnemonicParsing="false" text="%menubar.file">
             <items>
-                <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#handlePreferences" text="%menubar.file.preferences">
+                <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#handleSettings" text="%menubar.file.preferences">
                     <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                     </accelerator>
