@@ -15,11 +15,6 @@ public enum DVDGenre implements Genre {
     CRIMINAL,
     SUPERHERO;
 
-    @Override
-    public String toString() {
-        return name().charAt(0) + name().substring(1).toLowerCase();
-    }
-
     public String getName() {
         return Converter.getDvdGenreConverter().toString(this);
     }

@@ -5,17 +5,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import org.libmanager.client.enums.Genre;
 
 import java.time.LocalDate;
 
 public abstract class Item {
 
-    private final SimpleIntegerProperty id;
+    private final SimpleLongProperty id;
     private final SimpleStringProperty title;
     private final SimpleStringProperty author;
     private final SimpleObjectProperty<Genre> genre;
@@ -28,7 +25,7 @@ public abstract class Item {
     private final SimpleIntegerProperty totalCopies;
 
     public Item() {
-        id = new SimpleIntegerProperty(0);
+        id = new SimpleLongProperty(0L);
         title = new SimpleStringProperty(null);
         author = new SimpleStringProperty(null);
         genre = new SimpleObjectProperty<>(null);
@@ -40,8 +37,8 @@ public abstract class Item {
         availableCopies.addListener(((observable, oldValue, newValue) -> this.setStatus(newValue.intValue() > 0)));
     }
 
-    public Item(int id, String title, String author, Genre genre, LocalDate releaseDate, int availableCopies, int totalCopies) {
-        this.id = new SimpleIntegerProperty(id);
+    public Item(long id, String title, String author, Genre genre, LocalDate releaseDate, int availableCopies, int totalCopies) {
+        this.id = new SimpleLongProperty(id);
         this.title = new SimpleStringProperty(title);
         this.author = new SimpleStringProperty(author);
         this.genre = new SimpleObjectProperty<>(genre);
@@ -64,11 +61,11 @@ public abstract class Item {
         }
     }
 
-    public SimpleIntegerProperty idProperty() {
+    public SimpleLongProperty idProperty() {
         return id;
     }
 
-    public int getId() {
+    public long getId() {
         return id.get();
     }
 

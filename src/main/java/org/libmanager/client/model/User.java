@@ -41,13 +41,13 @@ public class User {
         this.admin = new SimpleBooleanProperty(admin);
     }
 
-    public User(String username, String token, boolean admin) {
+    public User(String username, String token, boolean admin, LocalDate birthday, LocalDate registrationDate) {
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(null);
         this.lastName = new SimpleStringProperty(null);
         this.address = new SimpleStringProperty(null);
-        this.birthday = new SimpleObjectProperty<>(null);
-        this.registrationDate = new SimpleObjectProperty<>(null);
+        this.birthday = new SimpleObjectProperty<>(birthday);
+        this.registrationDate = new SimpleObjectProperty<>(registrationDate);
         this.email = new SimpleStringProperty(null);
         this.token = new SimpleStringProperty(token);
         this.admin = new SimpleBooleanProperty(admin);

@@ -1,4 +1,4 @@
-package org.libmanager.client;
+package org.libmanager.client.util;
 
 import javafx.beans.property.SimpleObjectProperty;
 

@@ -1,8 +1,7 @@
 package org.libmanager.client.enums;
 
 public enum AdminSettings implements Settings {
-    SERVER,
-    MAIL;
+    SERVER;
 
     @Override
     public String toString() {

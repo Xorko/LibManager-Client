@@ -29,6 +29,7 @@ public class Requests {
     private static String GET_DVD;
     private static String GET_USER;
     private static String GET_RESERVATION;
+    private static String GET_USER_RESERVATIONS;
     private static String SEARCH_BOOK;
     private static String SEARCH_DVD;
     private static String SEARCH_USER;
@@ -49,38 +50,35 @@ public class Requests {
 
     static {
         // Initialize all the endpoints
-        try {
-            String server = Config.getProperty("server.protocol") + "://" + Config.getProperty("server.host")
-                    + ":" + Config.getProperty("server.port");
+        String server = Config.getServerProtocol() + "://" + Config.getServerAddress()
+                + ":" + Config.getServerPort();
 
-            GET_ALL_BOOKS       = server + "/item/book/all";
-            GET_ALL_DVDS        = server + "/item/dvd/all";
-            GET_ALL_USERS       = server + "/user/all";
-            GET_ALL_RESERVATIONS= server + "/reservation/all";
-            GET_BOOK            = server + "/item/book/get/";
-            GET_DVD             = server + "/item/dvd/get/";
-            GET_USER            = server + "/user/get/";
-            GET_RESERVATION     = server + "/reservation/get/";
-            SEARCH_BOOK         = server + "/item/book/search";
-            SEARCH_DVD          = server + "/item/dvd/search";
-            SEARCH_USER         = server + "/user/search";
-            SEARCH_RESERVATION  = server + "/reservation/search";
-            ADD_BOOK            = server + "/item/book/add";
-            ADD_DVD             = server + "/item/dvd/add";
-            ADD_USER            = server + "/user/add";
-            ADD_RESERVATION     = server + "/reservation/add";
-            EDIT_BOOK           = server + "/item/book/edit/";
-            EDIT_DVD            = server + "/item/dvd/edit/";
-            EDIT_USER           = server + "/user/edit/";
-            DELETE_ITEM         = server + "/item/delete/";
-            DELETE_USER         = server + "/user/delete/";
-            DELETE_RESERVATION  = server + "/reservation/delete/";
-            LOGIN               = server + "/account/login";
-            RESET_PASSWORD      = server + "/account/reset_password";
-            CHECK_USERNAME      = server + "/user/check_username/";
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        GET_ALL_BOOKS           = server + "/item/book/all";
+        GET_ALL_DVDS            = server + "/item/dvd/all";
+        GET_ALL_USERS           = server + "/user/all";
+        GET_ALL_RESERVATIONS    = server + "/reservation/all";
+        GET_BOOK                = server + "/item/book/get/";
+        GET_DVD                 = server + "/item/dvd/get/";
+        GET_USER                = server + "/user/get/";
+        GET_RESERVATION         = server + "/reservation/get/";
+        GET_USER_RESERVATIONS   = server + "/reservation/get_user_reservations";
+        SEARCH_BOOK             = server + "/item/book/search";
+        SEARCH_DVD              = server + "/item/dvd/search";
+        SEARCH_USER             = server + "/user/search";
+        SEARCH_RESERVATION      = server + "/reservation/search";
+        ADD_BOOK                = server + "/item/book/add";
+        ADD_DVD                 = server + "/item/dvd/add";
+        ADD_USER                = server + "/user/add";
+        ADD_RESERVATION         = server + "/reservation/add";
+        EDIT_BOOK               = server + "/item/book/edit/";
+        EDIT_DVD                = server + "/item/dvd/edit/";
+        EDIT_USER               = server + "/user/edit/";
+        DELETE_ITEM             = server + "/item/delete/";
+        DELETE_USER             = server + "/user/delete/";
+        DELETE_RESERVATION      = server + "/reservation/delete/";
+        LOGIN                   = server + "/account/login";
+        RESET_PASSWORD          = server + "/account/reset_password";
+        CHECK_USERNAME          = server + "/user/check_username/";
     }
 
     /**
@@ -187,6 +185,12 @@ public class Requests {
         return sendPOST(GET_RESERVATION + id, urlParameters);
     }
 
+    public static String callGetReservationsByUser(String token) {
+        List<NameValuePair> urlParameters = new ArrayList<>();
+        urlParameters.add(new BasicNameValuePair("token", token));
+        return sendPOST(GET_USER_RESERVATIONS, urlParameters);
+    }
+
     /**
      * Call the SEARCH_BOOK endpoint
      * @param isbn          The ISBN of the searched book
@@ -252,15 +256,16 @@ public class Requests {
      * @param address   The address of the searched user
      * @return          The server response
      */
-    public static String callSearchUser(String token, String username, String email, String firstName, String lastName, String birthday, String address) {
+    public static String callSearchUser(String token, String username, String email, String firstName, String lastName, String address, String birthday, String registrationDate) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
-        if (username != null)   urlParameters.add(new BasicNameValuePair("username", username));
-        if (email != null)      urlParameters.add(new BasicNameValuePair("email", email));
-        if (firstName != null)  urlParameters.add(new BasicNameValuePair("firstName", firstName));
-        if (lastName != null)   urlParameters.add(new BasicNameValuePair("lastName", lastName));
-        if (birthday != null)   urlParameters.add(new BasicNameValuePair("birthday", birthday));
-        if (address != null)    urlParameters.add(new BasicNameValuePair("address", address));
+        if (username != null)         urlParameters.add(new BasicNameValuePair("username", username));
+        if (email != null)            urlParameters.add(new BasicNameValuePair("email", email));
+        if (firstName != null)        urlParameters.add(new BasicNameValuePair("firstName", firstName));
+        if (lastName != null)         urlParameters.add(new BasicNameValuePair("lastName", lastName));
+        if (birthday != null)         urlParameters.add(new BasicNameValuePair("birthday", birthday));
+        if (address != null)          urlParameters.add(new BasicNameValuePair("address", address));
+        if (registrationDate != null) urlParameters.add(new BasicNameValuePair("registrationDate", registrationDate));
         return sendPOST(SEARCH_USER, urlParameters);
     }
 
@@ -272,12 +277,13 @@ public class Requests {
      * @param title     The title of the searched reservation
      * @return          The server response
      */
-    public static String callSearchReservation(String token, String id, String username, String title) {
+    public static String callSearchReservation(String token, String id, String username, String title, String itemType) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
         if (id != null)       urlParameters.add(new BasicNameValuePair("id", id));
         if (username != null) urlParameters.add(new BasicNameValuePair("username", username));
         if (title != null)    urlParameters.add(new BasicNameValuePair("title", title));
+        if (itemType != null) urlParameters.add(new BasicNameValuePair("itemType", itemType));
         return sendPOST(SEARCH_RESERVATION, urlParameters);
     }
 
@@ -382,11 +388,10 @@ public class Requests {
      * @param totalCopies   The number of copies of the DVD
      * @return              The server response
      */
-    public static String callEditBook(String token, int id, String isbn, String author, String title, String publisher,
+    public static String callEditBook(String token, String id, String isbn, String author, String title, String publisher,
                                       String releaseDate, String genre, int totalCopies) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
-        urlParameters.add(new BasicNameValuePair("id", Integer.toString(id)));
         urlParameters.add(new BasicNameValuePair("isbn", isbn));
         urlParameters.add(new BasicNameValuePair("author", author));
         urlParameters.add(new BasicNameValuePair("title", title));
@@ -394,7 +399,7 @@ public class Requests {
         urlParameters.add(new BasicNameValuePair("releaseDate", releaseDate));
         urlParameters.add(new BasicNameValuePair("genre", genre));
         urlParameters.add(new BasicNameValuePair("totalCopies", Integer.toString(totalCopies)));
-        return sendPOST(EDIT_BOOK, urlParameters);
+        return sendPOST(EDIT_BOOK + id, urlParameters);
     }
 
     /**

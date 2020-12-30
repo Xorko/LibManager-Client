@@ -8,14 +8,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
-import org.libmanager.client.I18n;
-import org.libmanager.client.api.ServerAPI;
+import org.libmanager.client.util.I18n;
+import org.libmanager.client.service.Requests;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.util.Converter;
 import org.libmanager.client.util.DateUtil;
+import org.libmanager.client.util.ResponseUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -100,9 +101,9 @@ public class ReservationController implements Initializable {
             btn.setMaxWidth(100);
 
             if (cellData.getValue().getStatus()) {
-                btn.setText(I18n.getBundle().getString("reservation.button.status.available"));
+                btn.setText(I18n.getBundle().getString("button.borrow"));
             } else {
-                btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
+                btn.setText(I18n.getBundle().getString("button.unavailable"));
                 btn.setDisable(true);
             }
 
@@ -114,19 +115,13 @@ public class ReservationController implements Initializable {
                     confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirmation.borrowing.title"));
                     confirmationAlert.setHeaderText(I18n.getBundle().getString("alert.confirmation.borrowing.book.header"));
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
-                    if (answer.isPresent() && answer.get() == ButtonType.YES) {
-                        //TODO: Send a request to the server to borrow the book
-                        cellData.getValue().decrementCopies();
-                        if (cellData.getValue().getAvailableCopies() <= 0) {
-                            btn.setDisable(true);
-                            btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
-                        }
-                    }
+                    if (answer.isPresent() && answer.get() == ButtonType.YES)
+                        handleAddReservation(cellData.getValue().getId());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
-                    alert.setTitle(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
-                    alert.setHeaderText(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
+                    alert.setTitle(I18n.getBundle().getString("alert.notloggedin"));
+                    alert.setHeaderText(I18n.getBundle().getString("alert.notloggedin"));
                     alert.setContentText(I18n.getBundle().getString("alert.warning.borrowing.book.notloggedin"));
                     alert.showAndWait();
                 }
@@ -173,9 +168,9 @@ public class ReservationController implements Initializable {
             btn.setMaxWidth(100);
 
             if (cellData.getValue().getStatus()) {
-                btn.setText(I18n.getBundle().getString("reservation.button.status.available"));
+                btn.setText(I18n.getBundle().getString("button.borrow"));
             } else {
-                btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
+                btn.setText(I18n.getBundle().getString("button.unavailable"));
                 btn.setDisable(true);
             }
 
@@ -187,19 +182,13 @@ public class ReservationController implements Initializable {
                     confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirmation.borrowing.title"));
                     confirmationAlert.setHeaderText(I18n.getBundle().getString("alert.confirmation.borrowing.dvd.header"));
                     Optional<ButtonType> answer = confirmationAlert.showAndWait();
-                    if (answer.isPresent() && answer.get() == ButtonType.YES) {
-                        //TODO: Send a request to the server to borrow the dvd
-                        cellData.getValue().decrementCopies();
-                        if (cellData.getValue().getAvailableCopies() <= 0) {
-                            btn.setDisable(true);
-                            btn.setText(I18n.getBundle().getString("reservation.button.status.unavailable"));
-                        }
-                    }
+                    if (answer.isPresent() && answer.get() == ButtonType.YES)
+                        handleAddReservation(cellData.getValue().getId());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.initOwner(app.getPrimaryStage());
-                    alert.setTitle(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
-                    alert.setHeaderText(I18n.getBundle().getString("reservation.alert.label.notloggedin"));
+                    alert.setTitle(I18n.getBundle().getString("alert.notloggedin"));
+                    alert.setHeaderText(I18n.getBundle().getString("alert.notloggedin"));
                     alert.setContentText(I18n.getBundle().getString("alert.warning.borrowing.dvd.notloggedin"));
                     alert.showAndWait();
                 }
@@ -238,13 +227,13 @@ public class ReservationController implements Initializable {
         Task<Void> searchBooks = new Task<>() {
             @Override
             protected Void call() {
-                    String response = ServerAPI.callSearchBooks(
+                    String response = Requests.callSearchBooks(
                             bookIsbnField.getText().length() == 0 ? null : bookIsbnField.getText(),
                             bookAuthorField.getText().length() == 0 ? null : bookAuthorField.getText(),
                             bookTitleField.getText().length() == 0 ? null : bookTitleField.getText(),
                             bookPublisherField.getText().length() == 0 ? null : bookPublisherField.getText(),
                             !DateUtil.validDate(bookReleaseDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(bookReleaseDateDPicker.getEditor().getText())),
-                            bookGenreCBox.valueProperty().get().toString().length() == 0 ? null : bookGenreCBox.valueProperty().get().toString(),
+                            bookGenreCBox.valueProperty().get() == BookGenre.ANY ? null : bookGenreCBox.valueProperty().get().toString(),
                             null
                     );
                     app.loadBooksFromJSON(response);
@@ -259,14 +248,14 @@ public class ReservationController implements Initializable {
         Task<Void> searchDVDs = new Task<>() {
             @Override
             protected Void call() {
-                String response = ServerAPI.callSearchDVD(
+                String response = Requests.callSearchDVD(
                         dvdDirectorField.getText().length() == 0 ? null : dvdDirectorField.getText(),
                         dvdTitleField.getText().length() == 0 ? null : dvdTitleField.getText(),
                         !DateUtil.validDate(dvdReleaseDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(dvdReleaseDateDPicker.getEditor().getText())),
-                        dvdGenreCBox.valueProperty().get().toString().length() == 0 ? null : dvdGenreCBox.valueProperty().get().toString(),
+                        dvdGenreCBox.valueProperty().get() == DVDGenre.ANY ? null : dvdGenreCBox.valueProperty().get().toString(),
                         null
                 );
-                app.loadDVDFromJSON(response);
+                app.loadDVDsFromJSON(response);
                 return null;
             }
         };
@@ -281,8 +270,7 @@ public class ReservationController implements Initializable {
         bookGenreCBox.valueProperty().set(BookGenre.ANY);
         bookReleaseDateDPicker.getEditor().setText("");
         bookIsbnField.setText("");
-        app.getBooksFromDB();
-        app.refreshTables();
+        app.loadAllBooks();
     }
 
     @FXML
@@ -291,8 +279,17 @@ public class ReservationController implements Initializable {
         dvdDirectorField.setText("");
         dvdGenreCBox.valueProperty().set(DVDGenre.ANY);
         dvdReleaseDateDPicker.getEditor().setText("");
-        app.getDVDFromDB();
-        app.refreshTables();
+        app.loadAllDVDs();
+    }
+
+    /**
+     * Create a reservation of the item for the logged in user
+     * @param id  The item to borrow
+     */
+    private void handleAddReservation(long id) {
+            String response = Requests.callAddReservation(app.getLoggedInUser().getToken(), Long.toString(id));
+            ResponseUtil.analyze(response, app.getPrimaryStage());
+            app.updateData();
     }
 
     public void setApp(App app) {

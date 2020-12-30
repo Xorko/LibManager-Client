@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import org.libmanager.client.App;
-import org.libmanager.client.I18n;
+import org.libmanager.client.util.I18n;
 import org.libmanager.client.enums.Language;
 import org.libmanager.client.util.Converter;
 

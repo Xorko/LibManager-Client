@@ -13,10 +13,11 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
-import org.libmanager.client.I18n;
+import org.libmanager.client.util.I18n;
 import org.libmanager.client.model.User;
-import org.libmanager.client.api.ServerAPI;
+import org.libmanager.client.service.Requests;
 import org.libmanager.client.util.DateUtil;
+import org.libmanager.client.util.ResponseUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -121,30 +122,58 @@ public class EditUserController implements Initializable {
             generateUsername(firstNameField.getText(), lastNameField.getText());
         }
         if (fieldsAreValid(true)) {
-            User u = new User();
-            u.setUsername(usernameField.getText());
-            u.setFirstName(firstNameField.getText());
-            u.setLastName(lastNameField.getText());
-            u.setAddress(addressField.getText());
-            u.setBirthday(DateUtil.parse(birthdayDPicker.getEditor().getText()));
-            u.setEmail(emailAddressField.getText());
-            u.setRegistrationDate(LocalDate.now());
-            app.getUsersData().add(u);
-            app.refreshTables();
-            dialogStage.close();
+            String response = Requests.callAddUser(
+                    app.getLoggedInUser().getToken(),
+                    usernameField.getText(),
+                    emailAddressField.getText(),
+                    passwordField.getText(),
+                    firstNameField.getText(),
+                    lastNameField.getText(),
+                    DateUtil.formatDB(DateUtil.parse(birthdayDPicker.getEditor().getText())),
+                    addressField.getText()
+            );
+            if (ResponseUtil.analyze(response, dialogStage)) {
+                app.loadAllUsers();
+                dialogStage.close();
+            }
         }
     }
 
     private void handleEditUserConfirm(User u) {
         if (fieldsAreValid(false)) {
-            u.setFirstName(firstNameField.getText());
-            u.setLastName(lastNameField.getText());
-            u.setAddress(addressField.getText());
-            u.setBirthday(DateUtil.parse(birthdayDPicker.getEditor().getText()));
-            u.setEmail(emailAddressField.getText());
-            app.refreshTables();
-            dialogStage.close();
+            String response = Requests.callEditUser(
+                    app.getLoggedInUser().getToken(),
+                    u.getUsername(),
+                    emailAddressField.getText(),
+                    firstNameField.getText(),
+                    lastNameField.getText(),
+                    DateUtil.formatDB(DateUtil.parse(birthdayDPicker.getEditor().getText())),
+                    addressField.getText()
+            );
+
+            if (ResponseUtil.analyze(response, dialogStage)) {
+                app.loadAllUsers();
+                dialogStage.close();
+            }
         }
+    }
+
+    @FXML
+    private void handleReset() {
+        firstNameField.setText("");
+        lastNameField.setText("");
+        addressField.setText("");
+        birthdayDPicker.getEditor().setText("");
+        emailAddressField.setText("");
+        passwordField.setText("");
+    }
+
+    /**
+     * Handles click on cancel button
+     */
+    @FXML
+    private void handleCancel() {
+        dialogStage.close();
     }
 
     /**
@@ -167,7 +196,7 @@ public class EditUserController implements Initializable {
 
                     username += firstName[0].toLowerCase() + ".";
                     username += lastName[0].toLowerCase();
-                    username += (new Random().nextInt(200));
+                    username += (new Random().nextInt(200) + 1);
                 } while (!usernameIsUnique(username));
                 return username;
             }
@@ -186,7 +215,7 @@ public class EditUserController implements Initializable {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = null;
         try {
-            String content =ServerAPI.callCheckUsername(username);
+            String content = Requests.callCheckUsername(username);
             if (content != null) {
                 root = mapper.readTree(content);
             } else {
@@ -199,11 +228,8 @@ public class EditUserController implements Initializable {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        if (root != null) {
-            if (root.get("code").asText().equals("OK")) {
-                return !root.get("content").asBoolean();
-            }
-        }
+        if (root != null)
+                return root.get("content").asBoolean();
         return false;
     }
 
@@ -214,25 +240,25 @@ public class EditUserController implements Initializable {
                 .matcher(passwordField.getText());
         String errMessage = "";
         if (usernameField.getText() == null || usernameField.getText().length() == 0) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.no.username");
+            errMessage += I18n.getBundle().getString("alert.no.username");
         }
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.firstname") + "\n";
+            errMessage += I18n.getBundle().getString("alert.invalid.firstname") + "\n";
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.lastname") + "\n";
+            errMessage += I18n.getBundle().getString("alert.invalid.lastname") + "\n";
         }
         if (addressField.getText() == null || addressField.getText().length() == 0) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.address") + "\n";
+            errMessage += I18n.getBundle().getString("alert.invalid.address") + "\n";
         }
         if (birthdayDPicker.getEditor().getText() == null || !DateUtil.validDate(birthdayDPicker.getEditor().getText())) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.birthday") + "\n";
+            errMessage += I18n.getBundle().getString("alert.invalid.birthday") + "\n";
         }
         if (emailAddressField.getText() == null || emailAddressField.getText().length() == 0 || !emailMatcher.matches()) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.email") + "\n";
+            errMessage += I18n.getBundle().getString("alert.invalid.email") + "\n";
         }
-        if (add && (passwordField.getText() == null || !passwordMatcher.matches())) {
-            errMessage += I18n.getBundle().getString("edit.user.alert.invalid.password") + "\n";
+        if (add && (passwordField.getText() == null || passwordField.getText().length() == 0 || !passwordMatcher.matches())) {
+            errMessage += I18n.getBundle().getString("alert.invalid.password") + "\n";
         }
         if (errMessage.length() == 0) {
             return true;
@@ -240,32 +266,14 @@ public class EditUserController implements Initializable {
             // There's at least one error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle(I18n.getBundle().getString("login.label.invalidfields"));
-            alert.setHeaderText(I18n.getBundle().getString("edit.alert.incorrectfields.header"));
+            alert.setTitle(I18n.getBundle().getString("label.invalidfields"));
+            alert.setHeaderText(I18n.getBundle().getString("alert.incorrectfields.header"));
             alert.setContentText(errMessage);
 
             alert.showAndWait();
 
             return false;
         }
-    }
-
-    @FXML
-    private void handleReset() {
-        firstNameField.setText("");
-        lastNameField.setText("");
-        addressField.setText("");
-        birthdayDPicker.getEditor().setText("");
-        emailAddressField.setText("");
-        passwordField.setText("");
-    }
-
-    /**
-     * Handles click on cancel button
-     */
-    @FXML
-    private void handleCancel() {
-        dialogStage.close();
     }
 
     public void setApp(App app) {this.app = app;}

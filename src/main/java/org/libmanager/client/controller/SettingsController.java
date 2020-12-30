@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -14,10 +12,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.libmanager.client.App;
-import org.libmanager.client.I18n;
+import org.libmanager.client.util.I18n;
 import org.libmanager.client.enums.AdminSettings;
 import org.libmanager.client.enums.GlobalSettings;
-import org.libmanager.client.enums.Language;
 import org.libmanager.client.enums.Settings;
 import org.libmanager.client.util.Converter;
 
@@ -34,6 +31,7 @@ public class SettingsController implements Initializable {
     private ListView<Settings> settingsListView;
 
     private GridPane generalSettings;
+    private GridPane serverSettings;
 
     ObservableList<Settings> settings;
 
@@ -53,15 +51,15 @@ public class SettingsController implements Initializable {
         settingsListView.getSelectionModel().getSelectedItems();
         settingsListView.getSelectionModel().select(0);
         settingsListView.getSelectionModel().selectedItemProperty().addListener(event -> {
-            if (settingsListView.getSelectionModel().selectedItemProperty().get().getKey().equals(GlobalSettings.GENERAL.getKey())) {
-                if (generalSettings == null) {
-                    loadGeneral();
-                }
-                root.setCenter(generalSettings);
+            String selected = settingsListView.getSelectionModel().selectedItemProperty().get().getKey();
+            if (selected.equals(GlobalSettings.GENERAL.getKey())) {
+                showGeneral();
             }
-            else {
+            else if (selected.equals(AdminSettings.SERVER.getKey())) {
+                showServer();
+            }
+            else
                 root.setCenter(null);
-            }
         });
     }
 
@@ -72,7 +70,19 @@ public class SettingsController implements Initializable {
             loader.setResources(I18n.getBundle());
             generalSettings = loader.load();
             GeneralSettingsController controller = loader.getController();
-            controller.setApp(app);
+            controller.setParentController(this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void loadServer() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/ServerSettingsView.fxml"));
+            loader.setResources(I18n.getBundle());
+            serverSettings = loader.load();
+            ServerSettingsController controller = loader.getController();
             controller.setParentController(this);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -80,10 +90,15 @@ public class SettingsController implements Initializable {
     }
 
     public void showGeneral() {
-        if (generalSettings == null) {
+        if (generalSettings == null)
             loadGeneral();
-        }
         root.setCenter(generalSettings);
+    }
+
+    public void showServer() {
+        if (serverSettings == null)
+            loadServer();
+        root.setCenter(serverSettings);
     }
 
     public void setApp(App app) {

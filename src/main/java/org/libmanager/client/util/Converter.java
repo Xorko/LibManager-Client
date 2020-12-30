@@ -1,7 +1,6 @@
 package org.libmanager.client.util;
 
 import javafx.util.StringConverter;
-import org.libmanager.client.I18n;
 import org.libmanager.client.enums.*;
 
 public final class Converter {
@@ -12,6 +11,7 @@ public final class Converter {
     private static final StringConverter<Status>    statusConverter;
     private static final StringConverter<Settings>  settingConverter;
     private static final StringConverter<Language>  languageConverter;
+    private static final StringConverter<ItemType>      typeConverter;
 
     /**
      * Return the StringConverter for Genre enums
@@ -61,77 +61,63 @@ public final class Converter {
         return languageConverter;
     }
 
+    /**
+     * Return the StringConverter for Type enum
+     * @return The StringConverter for Type enum
+     */
+    public static StringConverter<ItemType> getTypeConverter() {
+        return typeConverter;
+    }
+
     static {
         genreConverter = new StringConverter<>() {
             @Override
             public String toString(Genre object) {
-                if (object.toString().equals(BookGenre.POETRY.toString())) {
+                if (object.toString().equals(BookGenre.POETRY.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.poetry");
-                }
-                if (object.toString().equals(BookGenre.NOVEL.toString())) {
+                if (object.toString().equals(BookGenre.NOVEL.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.novel");
-                }
-                if (object.toString().equals(BookGenre.SCIENCEFICTION.toString())) {
+                if (object.toString().equals(BookGenre.SCIENCEFICTION.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.sciencefiction");
-                }
-                if (object.toString().equals(BookGenre.FANTASY.toString())) {
+                if (object.toString().equals(BookGenre.FANTASY.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.fantasy");
-                }
-                if (object.toString().equals(BookGenre.FANTASTIC.toString())) {
+                if (object.toString().equals(BookGenre.FANTASTIC.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.fantastic");
-                }
-                if (object.toString().equals(BookGenre.BIOGRAPHY.toString())) {
+                if (object.toString().equals(BookGenre.BIOGRAPHY.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.biography");
-                }
-                if (object.toString().equals(BookGenre.TALE.toString())) {
+                if (object.toString().equals(BookGenre.TALE.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.tale");
-                }
-                if (object.toString().equals(BookGenre.COMICSTRIP.toString())) {
+                if (object.toString().equals(BookGenre.COMICSTRIP.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.comicstrip");
-                }
-                if (object.toString().equals(BookGenre.DRAMA.toString())) {
+                if (object.toString().equals(BookGenre.DRAMA.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.drama");
-                }
-                if (object.toString().equals(BookGenre.ESSAY.toString())) {
+                if (object.toString().equals(BookGenre.ESSAY.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.essay");
-                }
-                if (object.toString().equals(BookGenre.CRIMINAL.toString())) {
+                if (object.toString().equals(BookGenre.CRIMINAL.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.criminal");
-                }
-                if (object.toString().equals(BookGenre.THEATER.toString())) {
+                if (object.toString().equals(BookGenre.THEATER.toString()))
                     return I18n.getBundle().getString("enum.bookgenre.theater");
-                }
-                if (object.toString().equals(DVDGenre.SCIENCEFICTION.toString())) {
+                if (object.toString().equals(DVDGenre.SCIENCEFICTION.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.sciencefiction");
-                }
-                if (object.toString().equals(DVDGenre.ADVENTURE.toString())) {
+                if (object.toString().equals(DVDGenre.ADVENTURE.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.adventure");
-                }
-                if (object.toString().equals(DVDGenre.WESTERN.toString())) {
+                if (object.toString().equals(DVDGenre.WESTERN.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.western");
-                }
-                if (object.toString().equals(DVDGenre.DOCUMENTARY.toString())) {
+                if (object.toString().equals(DVDGenre.DOCUMENTARY.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.documentary");
-                }
-                if (object.toString().equals(DVDGenre.SPYING.toString())) {
+                if (object.toString().equals(DVDGenre.SPYING.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.spying");
-                }
-                if (object.toString().equals(DVDGenre.SUPERHERO.toString())) {
+                if (object.toString().equals(DVDGenre.SUPERHERO.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.superhero");
-                }
-                if (object.toString().equals(DVDGenre.CRIMINAL.toString())) {
+                if (object.toString().equals(DVDGenre.CRIMINAL.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.criminal");
-                }
-                if (object.toString().equals(DVDGenre.DRAMA.toString())) {
+                if (object.toString().equals(DVDGenre.DRAMA.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.drama");
-                }
-                if (object.toString().equals(DVDGenre.FANTASY.toString())) {
+                if (object.toString().equals(DVDGenre.FANTASY.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.fantasy");
-                }
-                if (object.toString().equals(DVDGenre.FANTASTIC.toString())) {
+                if (object.toString().equals(DVDGenre.FANTASTIC.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.fantastic");
-                }
-                return null;
+                return I18n.getBundle().getString("enum.unknown");
             }
 
             @Override
@@ -145,7 +131,7 @@ public final class Converter {
             public String toString(BookGenre object) {
                 switch (object) {
                     case ANY:
-                        return I18n.getBundle().getString("enum.genre.any");
+                        return I18n.getBundle().getString("enum.any");
                     case POETRY:
                         return I18n.getBundle().getString("enum.bookgenre.poetry");
                     case NOVEL:
@@ -169,9 +155,8 @@ public final class Converter {
                     case CRIMINAL:
                         return I18n.getBundle().getString("enum.bookgenre.criminal");
                     default:
-                        break;
+                        return I18n.getBundle().getString("enum.unknown");
                 }
-                return null;
             }
 
             @Override
@@ -185,7 +170,7 @@ public final class Converter {
             public String toString(DVDGenre object) {
                 switch (object) {
                     case ANY:
-                        return I18n.getBundle().getString("enum.genre.any");
+                        return I18n.getBundle().getString("enum.any");
                     case SCIENCEFICTION:
                         return I18n.getBundle().getString("enum.dvdgenre.sciencefiction");
                     case ADVENTURE:
@@ -207,9 +192,8 @@ public final class Converter {
                     case FANTASTIC:
                         return I18n.getBundle().getString("enum.dvdgenre.fantastic");
                     default:
-                        break;
+                        return I18n.getBundle().getString("enum.unknown");
                 }
-                return null;
             }
 
             @Override
@@ -223,15 +207,14 @@ public final class Converter {
             public String toString(Status object) {
                 switch (object) {
                     case ANY:
-                        return I18n.getBundle().getString("enum.status.any");
+                        return I18n.getBundle().getString("enum.any");
                     case AVAILABLE:
                         return I18n.getBundle().getString("enum.status.available");
                     case UNAVAILABLE:
                         return I18n.getBundle().getString("enum.status.unavailable");
                     default:
-                        break;
+                        return I18n.getBundle().getString("enum.unknown");
                 }
-                return null;
             }
 
             @Override
@@ -243,15 +226,10 @@ public final class Converter {
         settingConverter = new StringConverter<>() {
             @Override
             public String toString(Settings object) {
-                if (object.getKey().equals(GlobalSettings.GENERAL.getKey())) {
+                if (object.getKey().equals(GlobalSettings.GENERAL.getKey()))
                     return I18n.getBundle().getString("enum.settings.global.general");
-                }
-                if (object.getKey().equals(AdminSettings.SERVER.getKey())) {
+                if (object.getKey().equals(AdminSettings.SERVER.getKey()))
                     return I18n.getBundle().getString("enum.settings.admin.server");
-                }
-                if (object.getKey().equals(AdminSettings.MAIL.getKey())) {
-                    return I18n.getBundle().getString("enum.settings.admin.mail");
-                }
                 return null;
             }
 
@@ -270,13 +248,33 @@ public final class Converter {
                     case fr_FR:
                         return I18n.getBundle().getString("enum.language.francais.france");
                     default:
-                        break;
+                        return I18n.getBundle().getString("enum.unknown");
                 }
-                return null;
             }
 
             @Override
             public Language fromString(String string) {
+                return null;
+            }
+        };
+
+        typeConverter = new StringConverter<ItemType>() {
+            @Override
+            public String toString(ItemType object) {
+                switch (object) {
+                    case ANY:
+                        return I18n.getBundle().getString("enum.any");
+                    case BOOK:
+                        return I18n.getBundle().getString("label.book");
+                    case DVD:
+                        return I18n.getBundle().getString("label.dvd");
+                    default:
+                        return I18n.getBundle().getString("enum.unknown");
+                }
+            }
+
+            @Override
+            public ItemType fromString(String string) {
                 return null;
             }
         };

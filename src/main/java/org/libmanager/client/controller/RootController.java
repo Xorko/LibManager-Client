@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import org.libmanager.client.App;
+import org.libmanager.client.model.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +24,11 @@ public class RootController implements Initializable {
     @FXML
     private MenuItem quitMenuItem;
     @FXML
+    private MenuItem usernameMenuItem;
+    @FXML
     private MenuItem loginMenuItem;
+    @FXML
+    private MenuItem reservationOverviewMenuItem;
     @FXML
     private MenuItem logoutMenuItem;
     @FXML
@@ -34,8 +39,6 @@ public class RootController implements Initializable {
     private MenuItem reservationMenuItem;
     @FXML
     private MenuItem aboutMenuItem;
-    @FXML
-    private MenuItem reservationOverviewMenuItem;
 
     private App app;
 
@@ -48,11 +51,12 @@ public class RootController implements Initializable {
             quitMenuItem.acceleratorProperty().set(new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN));
         }
 
-        // Since the user will not be logged in at program startup, logout is disabled.
+        // Since the user will not be logged in at program startup, these are invisible.
         // In the case where the view is reloaded, the check will be done in setApp
+        usernameMenuItem.setVisible(false);
+        reservationOverviewMenuItem.setVisible(false);
         logoutMenuItem.setVisible(false);
         adminMenu.setVisible(false);
-        reservationOverviewMenuItem.setVisible(false);
     }
 
     @FXML
@@ -76,6 +80,11 @@ public class RootController implements Initializable {
     }
 
     @FXML
+    private void handleReservations() {
+        app.showReservationOverview();
+    }
+
+    @FXML
     private void handleLogin() {
         app.showLoginDialog();
     }
@@ -86,9 +95,10 @@ public class RootController implements Initializable {
             toggleAdminMenu();
             app.showReservationView();
         }
+        toggleUsernameMenuItem(null);
+        app.toggleReservationOverview();
         toggleLogoutMenuItem();
         toggleLoginMenuItem();
-        toggleReservationOverviewMenuItem();
         app.setLoggedInUser(null);
     }
 
@@ -105,6 +115,20 @@ public class RootController implements Initializable {
     }
 
     /**
+     * Toggle the visibility of the username of the currently logged in user
+     * @param user  The currently logged in user
+     */
+    public void toggleUsernameMenuItem(User user) {
+        if (!usernameMenuItem.isVisible())
+            usernameMenuItem.setText(user.getUsername());
+        usernameMenuItem.setVisible(!usernameMenuItem.isVisible());
+    }
+
+    public void toggleReservationMenuItem() {
+        reservationOverviewMenuItem.setVisible(!reservationOverviewMenuItem.isVisible());
+    }
+
+    /**
      * Toggle the visibility of login in the account menu
      */
     public void toggleLoginMenuItem() {
@@ -116,15 +140,6 @@ public class RootController implements Initializable {
      */
     public void toggleLogoutMenuItem() {
         logoutMenuItem.setVisible(!logoutMenuItem.isVisible());
-    }
-
-    /**
-     * toggle the visibility of reservation overview in the account menu
-     */
-    public void toggleReservationOverviewMenuItem() {reservationOverviewMenuItem.setVisible(!reservationOverviewMenuItem.isVisible());}
-
-    public void handleReservationOverview() {
-        app.showReservationOverview();
     }
 
     @FXML
@@ -143,7 +158,9 @@ public class RootController implements Initializable {
             if (app.getLoggedInUser().isAdmin()) {
                 app.toggleAdminMenu();
             }
-            app.toggleLoginMenu();
+            app.toggleUsernameMenuItem();
+            app.toggleReservationOverview();
+            app.toggleLoginMenuItem();
             app.toggleLogoutMenuItem();
         }
     }

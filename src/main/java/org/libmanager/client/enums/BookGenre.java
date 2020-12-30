@@ -17,11 +17,6 @@ public enum BookGenre implements Genre {
     CRIMINAL,
     THEATER;
 
-    @Override
-    public String toString() {
-        return name().charAt(0) + name().substring(1).toLowerCase();
-    }
-
     public String getName() {
         return Converter.getBookGenreConverter().toString(this);
     }
