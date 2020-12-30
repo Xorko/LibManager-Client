@@ -31,7 +31,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%edit.user.label.title" GridPane.columnSpan="2147483647">
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.edit.user.title" GridPane.columnSpan="2147483647">
          <font>
             <Font size="18.0" />
          </font>

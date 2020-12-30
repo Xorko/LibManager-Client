@@ -24,12 +24,12 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label text="%settings.global.general.title" GridPane.columnIndex="1">
+      <Label text="%label.settings.general.title" GridPane.columnIndex="1">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label text="%settings.global.general.language.label" GridPane.rowIndex="1">
+      <Label text="%label.settings.general.language" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="20.0" />
          </GridPane.margin>

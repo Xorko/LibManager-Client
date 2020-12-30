@@ -145,7 +145,7 @@
             </GridPane>
          </content>
     </Tab>
-    <Tab text="%label.dvd">
+    <Tab text="%label.dvds">
          <content>
             <GridPane prefHeight="690.0" prefWidth="1280.0">
                <columnConstraints>

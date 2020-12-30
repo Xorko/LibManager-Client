@@ -1,5 +1,10 @@
 package org.libmanager.client.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -8,15 +13,21 @@ import java.time.LocalDate;
 
 public class User {
 
-    private SimpleStringProperty username;
-    private SimpleStringProperty firstName;
-    private SimpleStringProperty lastName;
-    private SimpleStringProperty address;
-    private SimpleStringProperty email;
-    private SimpleObjectProperty<LocalDate> birthday;
-    private SimpleObjectProperty<LocalDate> registrationDate;
-    private SimpleStringProperty token;
-    private SimpleBooleanProperty admin;
+    private final SimpleStringProperty username;
+    private final SimpleStringProperty firstName;
+    private final SimpleStringProperty lastName;
+    private final SimpleStringProperty address;
+    private final SimpleStringProperty email;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private final SimpleObjectProperty<LocalDate> birthday;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private final SimpleObjectProperty<LocalDate> registrationDate;
+    private final SimpleStringProperty token;
+    private final SimpleBooleanProperty admin;
 
     public User(String username, String firstName, String lastName, String address, String email, LocalDate birthday, LocalDate registrationDate, String token, boolean admin) {
         this.username = new SimpleStringProperty(username);
@@ -30,13 +41,13 @@ public class User {
         this.admin = new SimpleBooleanProperty(admin);
     }
 
-    public User(String username, String token, boolean admin) {
+    public User(String username, String token, boolean admin, LocalDate birthday, LocalDate registrationDate) {
         this.username = new SimpleStringProperty(username);
         this.firstName = new SimpleStringProperty(null);
         this.lastName = new SimpleStringProperty(null);
         this.address = new SimpleStringProperty(null);
-        this.birthday = new SimpleObjectProperty<>(null);
-        this.registrationDate = new SimpleObjectProperty<>(null);
+        this.birthday = new SimpleObjectProperty<>(birthday);
+        this.registrationDate = new SimpleObjectProperty<>(registrationDate);
         this.email = new SimpleStringProperty(null);
         this.token = new SimpleStringProperty(token);
         this.admin = new SimpleBooleanProperty(admin);

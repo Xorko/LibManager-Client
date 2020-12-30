@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.libmanager.client.controller.ServerSettingsController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="45.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="%label.settings.server.title" GridPane.columnIndex="1">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label text="%label.settings.server.protocol" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </Label>
+       <Label text="%label.settings.server.address" GridPane.rowIndex="2">
+           <GridPane.margin>
+               <Insets left="20.0" />
+           </GridPane.margin>
+       </Label>
+       <Label text="%label.settings.server.port" GridPane.rowIndex="3">
+           <GridPane.margin>
+               <Insets left="20.0" />
+           </GridPane.margin>
+       </Label>
+      <TextField fx:id="protocolField" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.rowSpan="2147483647">
+        <buttons>
+          <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#handleCancel" text="%button.cancel" />
+            <Button fx:id="applyBtn" mnemonicParsing="false" onAction="#handleApply" text="%button.apply" />
+            <Button fx:id="confirmBtn" mnemonicParsing="false" onAction="#handleConfirm" text="%button.confirm" />
+        </buttons>
+         <GridPane.margin>
+            <Insets left="-70.0" />
+         </GridPane.margin>
+      </ButtonBar>
+      <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="portField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+   </children>
+</GridPane>

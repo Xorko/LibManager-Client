@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<Tab text="%label.items"
+     xmlns="http://javafx.com/javafx"
+     xmlns:fx="http://javafx.com/fxml"
+     fx:controller="org.libmanager.client.controller.AdminPanelItemsController">
+    <content>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="%label.books">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="192.0" layoutY="235.0" prefHeight="691.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <TableView fx:id="booksTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                            <columns>
+                                                <TableColumn fx:id="bookTitleColumn" prefWidth="75.0" text="%label.title" />
+                                                <TableColumn fx:id="bookAuthorColumn" prefWidth="75.0" text="%label.author" />
+                                                <TableColumn fx:id="bookGenreColumn" prefWidth="75.0" text="%label.genre" />
+                                                <TableColumn fx:id="bookReleaseDateColumn" prefWidth="123.0" text="%label.releasedate" />
+                                                <TableColumn fx:id="bookPublisherColumn" minWidth="0.0" prefWidth="73.0" text="%label.publisher" />
+                                                <TableColumn fx:id="bookIsbnColumn" prefWidth="66.0" text="%label.isbn" />
+                                                <TableColumn fx:id="bookAvailableCopiesColumn" prefWidth="66.0" text="%label.copies.available" />
+                                                <TableColumn fx:id="bookTotalCopiesColumn" prefWidth="66.0" text="%label.copies.total" />
+                                            </columns>
+                                        </TableView>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <GridPane>
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.search.books" GridPane.columnSpan="2147483647">
+                                                            <GridPane.margin>
+                                                                <Insets />
+                                                            </GridPane.margin>
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label text="%label.title" GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.author" GridPane.rowIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.publisher" GridPane.rowIndex="3">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.genre" GridPane.rowIndex="4">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.releasedate" GridPane.rowIndex="5">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.status" GridPane.rowIndex="7">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.isbn" GridPane.rowIndex="6">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <TextField fx:id="bookTitleField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <TextField fx:id="bookAuthorField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <TextField fx:id="bookPublisherField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <ComboBox fx:id="bookGenreCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </ComboBox>
+                                                        <DatePicker fx:id="bookReleaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="%date.format" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </DatePicker>
+                                                        <TextField fx:id="bookIsbnField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <ComboBox fx:id="bookStatusCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="7">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </ComboBox>
+                                                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="8">
+                                                            <buttons>
+                                                                <Button mnemonicParsing="false" onAction="#handleResetBook" text="%button.reset" />
+                                                                <Button mnemonicParsing="false" onAction="#handleBookSearch" text="%button.search" />
+                                                            </buttons>
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </ButtonBar>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane GridPane.rowIndex="1">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.edit.books" GridPane.rowIndex="1">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                                            <buttons>
+                                                                <Button id="addBook" fx:id="bookAddButton" mnemonicParsing="false" onAction="#handleItemManagementButtons" text="%button.add" ButtonBar.buttonData="LEFT" />
+                                                                <Button id="editBook" fx:id="bookEditButton" mnemonicParsing="false" onAction="#handleItemManagementButtons" text="%button.edit" ButtonBar.buttonData="LEFT" />
+                                                                <Button id="deleteBook" fx:id="bookDeleteButton" mnemonicParsing="false" onAction="#handleDeleteBook" text="%button.delete" ButtonBar.buttonData="LEFT" />
+                                                            </buttons>
+                                                        </ButtonBar>
+                                                    </children>
+                                                </GridPane>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="%label.dvds">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <GridPane layoutX="192.0" layoutY="235.0" prefHeight="691.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                        <TableView fx:id="dvdTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                            <columns>
+                                                <TableColumn fx:id="dvdTitleColumn" prefWidth="75.0" text="%label.title" />
+                                                <TableColumn fx:id="dvdDirectorColumn" prefWidth="75.0" text="%label.director" />
+                                                <TableColumn fx:id="dvdGenreColumn" prefWidth="75.0" text="%label.genre" />
+                                                <TableColumn fx:id="dvdDurationColumn" prefWidth="65.0" text="%label.duration" />
+                                                <TableColumn fx:id="dvdReleaseDateColumn" prefWidth="124.0" text="%label.releasedate" />
+                                                <TableColumn fx:id="dvdAvailableCopiesColumn" prefWidth="124.0" text="%label.copies.available" />
+                                                <TableColumn fx:id="dvdTotalCopiesColumn" prefWidth="124.0" text="%label.copies.total" />
+                                            </columns>
+                                        </TableView>
+                                        <GridPane>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                            <children>
+                                                <GridPane>
+                                                    <columnConstraints>
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.search.dvd" GridPane.columnSpan="2147483647">
+                                                            <GridPane.margin>
+                                                                <Insets />
+                                                            </GridPane.margin>
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <Label text="%label.title" GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.director" GridPane.rowIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.genre" GridPane.rowIndex="3">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.releasedate" GridPane.rowIndex="4">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <Label text="%label.status" GridPane.rowIndex="5">
+                                                            <GridPane.margin>
+                                                                <Insets left="10.0" />
+                                                            </GridPane.margin>
+                                                        </Label>
+                                                        <TextField fx:id="dvdTitleField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <TextField fx:id="dvdDirectorField" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </TextField>
+                                                        <ComboBox fx:id="dvdGenreCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </ComboBox>
+                                                        <DatePicker fx:id="dvdReleaseDateDPicker" maxWidth="1.7976931348623157E308" promptText="%date.format" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </DatePicker>
+                                                        <ComboBox fx:id="dvdStatusCBox" maxWidth="1.7976931348623157E308" prefWidth="150.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="5">
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </ComboBox>
+                                                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="6">
+                                                            <buttons>
+                                                                <Button mnemonicParsing="false" onAction="#handleResetDVD" text="%button.reset" />
+                                                                <Button mnemonicParsing="false" onAction="#handleDVDSearch" text="%button.search" />
+                                                            </buttons>
+                                                            <GridPane.margin>
+                                                                <Insets right="10.0" />
+                                                            </GridPane.margin>
+                                                        </ButtonBar>
+                                                    </children>
+                                                </GridPane>
+                                                <GridPane GridPane.rowIndex="1">
+                                                    <columnConstraints>
+                                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    </columnConstraints>
+                                                    <rowConstraints>
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        <RowConstraints minHeight="10.0" percentHeight="60.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    </rowConstraints>
+                                                    <children>
+                                                        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.edit.dvd" GridPane.rowIndex="1">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </Label>
+                                                        <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="2">
+                                                            <buttons>
+                                                                <Button id="addDVD" fx:id="dvdAddButton" mnemonicParsing="false" onAction="#handleItemManagementButtons" text="%button.add" ButtonBar.buttonData="LEFT" />
+                                                                <Button id="editDVD" fx:id="dvdEditButton" mnemonicParsing="false" onAction="#handleItemManagementButtons" text="%button.edit" ButtonBar.buttonData="LEFT" />
+                                                                <Button id="deleteDVD" fx:id="dvdDeleteButton" mnemonicParsing="false" onAction="#handleDeleteDVD" text="%button.delete" ButtonBar.buttonData="LEFT" />
+                                                            </buttons>
+                                                        </ButtonBar>
+                                                    </children>
+                                                </GridPane>
+                                            </children>
+                                        </GridPane>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </content>
+</Tab>

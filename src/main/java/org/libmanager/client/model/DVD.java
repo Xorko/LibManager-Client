@@ -7,14 +7,14 @@ import java.time.LocalDate;
 
 public class DVD extends Item {
 
-    private SimpleStringProperty duration;
+    private final SimpleStringProperty duration;
 
     public DVD() {
         duration = new SimpleStringProperty(null);
     }
 
-    public DVD(String title, String author, Genre genre, LocalDate releaseDate, boolean status, String duration) {
-        super(title, author, genre, releaseDate, status);
+    public DVD(int id, String title, String author, Genre genre, LocalDate releaseDate, int copies, int totalCopies, String duration) {
+        super(id, title, author, genre, releaseDate, copies, totalCopies);
         this.duration = new SimpleStringProperty(duration);
     }
 

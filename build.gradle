@@ -11,8 +11,8 @@ version '1.0-SNAPSHOT'
  * Workaround to compile JavaFX custom components for importation in Scene Builder:
  * Uncomment these lines, then build the jar (with the jar task), then it can be imported into SceneBuilder
  */
-// sourceCompatibility = 1.11
-// targetCompatibility = 1.11
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
 
 mainClassName = "org.libmanager.client.App"
 
@@ -21,11 +21,11 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'com.fasterxml.jackson.core:jackson-core:2.12.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.0'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.0'
-    implementation 'org.mindrot:jbcrypt:0.4'
-    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.3'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.6.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'

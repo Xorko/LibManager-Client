@@ -1,40 +1,57 @@
 package org.libmanager.client;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.libmanager.client.model.Reservation;
+import org.libmanager.client.service.Requests;
 import org.libmanager.client.controller.*;
+import org.libmanager.client.enums.BookGenre;
+import org.libmanager.client.enums.DVDGenre;
+import org.libmanager.client.enums.Genre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.model.User;
+import org.libmanager.client.util.Config;
+import org.libmanager.client.util.I18n;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Locale;
 
 public class App extends Application {
+
     private Stage primaryStage;
     private User loggedInUser;
     private BorderPane rootView;
     private TabPane reservationView;
     private TabPane adminPanelView;
     private RootController rootController;
-    private ReservationController reservationController;
-    private AdminPanelController adminPanelController;
-    private ObservableList<Book> booksData = FXCollections.observableArrayList();
-    private ObservableList<DVD> dvdData = FXCollections.observableArrayList();
-    private ObservableList<User> usersData = FXCollections.observableArrayList();
+    private final ObservableList<Book> booksData = FXCollections.observableArrayList();
+    private final ObservableList<DVD> dvdData = FXCollections.observableArrayList();
+    private final ObservableList<User> usersData = FXCollections.observableArrayList();
+    private final ObservableList<Reservation> reservationsData = FXCollections.observableArrayList();
 
     public static void main(String[] args) {
+        if (args.length > 0 && args[0].equals("--reset-configuration"))
+            Config.reloadConfig();
         launch(args);
     }
 
@@ -42,6 +59,9 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("LibManager");
+
+        updateData();
+
         initRootView();
         showReservationView();
         primaryStage.show();
@@ -82,10 +102,10 @@ public class App extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/ReservationView.fxml"));
             loader.setResources(I18n.getBundle());
+
             reservationView = loader.load();
             ReservationController controller = loader.getController();
             controller.setApp(this);
-            reservationController = controller;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -100,8 +120,7 @@ public class App extends Application {
             }
             if (rootView.getCenter() != reservationView) {
                 rootView.setCenter(reservationView);
-                reservationController.getBooksTable().refresh();
-                reservationController.getDvdTable().refresh();
+                updateData();
             }
     }
 
@@ -116,7 +135,6 @@ public class App extends Application {
             adminPanelView = loader.load();
             AdminPanelController controller = loader.getController();
             controller.setApp(this);
-            adminPanelController = controller;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -129,86 +147,30 @@ public class App extends Application {
         if (adminPanelView == null) {
             loadAdminPanelView();
         }
-        if (rootView.getCenter() != adminPanelView) {
+        if (rootView.getCenter() != adminPanelView)
             rootView.setCenter(adminPanelView);
-            refreshTables();
-        }
-    }
-
-    /**
-     * Show the login menu
-     */
-    public void showSettingsView() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/SettingsView.fxml"));
-            loader.setResources(I18n.getBundle());
-            BorderPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle(I18n.getBundle().getString("settings.title"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            SettingsController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setApp(this);
-
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Show the login dialog
-     */
-    public void showLoginDialog() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/LoginView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setResizable(false);
-            dialogStage.setTitle(I18n.getBundle().getString("login.label.title"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            LoginController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setApp(this);
-
-            dialogStage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        updateData();
     }
 
     /**
      * Show the ResetPassword dialog
      */
-    public void showResetPasswordDialog() {
+    public void showPasswordResetDialog() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ResetPasswordView.fxml"));
+            loader.setLocation(getClass().getResource("/view/PasswordResetView.fxml"));
             loader.setResources(I18n.getBundle());
             GridPane dialog = loader.load();
 
             Stage dialogStage = new Stage();
             dialogStage.setResizable(false);
-            dialogStage.setTitle(I18n.getBundle().getString("resetpassword.label.title"));
+            dialogStage.setTitle(I18n.getBundle().getString("label.resetpassword.title"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(dialog);
             dialogStage.setScene(scene);
 
-            ResetPasswordController controller = loader.getController();
+            PasswordResetController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setApp(this);
 
@@ -220,159 +182,248 @@ public class App extends Application {
     }
 
     /**
-     * Show the EditItem dialog according to what button has been clicked
-     * @param e The event
+     * Update lists content
      */
-    public void showEditItemView(ActionEvent e) {
-        try {
-            boolean noError = true;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/EditItemView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            EditItemController controller = loader.getController();
-
-            if (((Button) e.getSource()).getId().equals(adminPanelController.getBookAddButton().getId())) {
-                controller.initializeAddBook();
-                dialogStage.setTitle(I18n.getBundle().getString("edit.title.add.book"));
-            }
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getDVDAddButton().getId())) {
-                controller.initializeAddDVD();
-                dialogStage.setTitle(I18n.getBundle().getString("edit.title.add.dvd"));
-            }
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getBookEditButton().getId())) {
-                Book selected = adminPanelController.getSelectedBook();
-                if (selected != null) {
-                    controller.initializeEditBook(selected);
-                    dialogStage.setTitle(I18n.getBundle().getString("edit.title.editing") + selected.getTitle());
-                } else {
-                    noError = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.initOwner(primaryStage);
-                    alert.setTitle(I18n.getBundle().getString("alert.noselection.book.title"));
-                    alert.setHeaderText(I18n.getBundle().getString("alert.noselection.book.title"));
-                    alert.setContentText(I18n.getBundle().getString("alert.noselection.book.edit.content"));
-                    alert.showAndWait();
+    public void updateData() {
+        final Task<Void> updateDataFromDB = new Task<>() {
+            @Override
+            protected Void call() {
+                loadAllBooks();
+                loadAllDVDs();
+                if (getLoggedInUser().isAdmin()) {
+                    loadAllUsers();
+                    loadAllReservations();
                 }
+                return null;
             }
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getDVDEditButton().getId())) {
-                DVD selected = adminPanelController.getSelectedDVD();
-                if (selected != null) {
-                    controller.initializeEditDVD(selected);
-                    dialogStage.setTitle(I18n.getBundle().getString("edit.title.editing") + selected.getTitle());
-                } else {
-                    noError = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.initOwner(primaryStage);
-                    alert.setTitle(I18n.getBundle().getString("alert.noselection.dvd.title"));
-                    alert.setHeaderText(I18n.getBundle().getString("alert.noselection.dvd.title"));
-                    alert.setContentText(I18n.getBundle().getString("alert.noselection.dvd.edit.content"));
-                    alert.showAndWait();
-                }
-            }
+        };
 
-            if (noError) {
-                controller.setDialogStage(dialogStage);
-                controller.setApp(this);
-
-                dialogStage.showAndWait();
-            }
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        new Thread(updateDataFromDB).start();
     }
 
     /**
-     * Show the EditUser dialog according to what button has been clicked
-     * @param e The event
+     * Load the books from a JSON server response
+     * @param response  The server response (JSON)
      */
-    public void showEditUserView(ActionEvent e) {
+    public void loadBooksFromJSON(String response) {
+        JsonNode root = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // Add a module so that Jackson uses the right class for Genre
+        SimpleModule module = new SimpleModule();
+        module.setAbstractTypes(new SimpleAbstractTypeResolver().addMapping(Genre.class, BookGenre.class));
+        mapper.registerModule(module);
+
         try {
-            boolean noError = true;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/EditUserView.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            EditUserController controller = loader.getController();
-
-            if (((Button) e.getSource()).getId().equals(adminPanelController.getUserAddButton().getId())) {
-                controller.initializeAddUser();
-                dialogStage.setTitle(I18n.getBundle().getString("edit.title.add.user"));
-            }
-            else if (((Button) e.getSource()).getId().equals(adminPanelController.getUserEditButton().getId())) {
-                User selected = adminPanelController.getSelectedUser();
-                if (selected != null) {
-                    controller.initializeEditUser(selected);
-                    dialogStage.setTitle(I18n.getBundle().getString("edit.title.editing") + selected.getUsername());
-                } else {
-                    noError = false;
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.initOwner(primaryStage);
-                    alert.setTitle(I18n.getBundle().getString("alert.noselection.user.title"));
-                    alert.setHeaderText(I18n.getBundle().getString("alert.noselection.user.title"));
-                    alert.setContentText(I18n.getBundle().getString("alert.noselection.user.edit.content"));
-                    alert.showAndWait();
-                }
-            }
-
-            if (noError) {
-                controller.setDialogStage(dialogStage);
-                controller.setApp(this);
-
-                dialogStage.showAndWait();
-            }
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    /**
-     * Show the Overview of reserved items of the logged in user
-     */
-    public void showReservationOverview() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/view/ReservationsOverview.fxml"));
-            loader.setResources(I18n.getBundle());
-            GridPane dialog = loader.load();
-
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle(I18n.getBundle().getString("reservationoverview.label.title"));
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
-            Scene scene = new Scene(dialog);
-            dialogStage.setScene(scene);
-
-            ReservationOverviewController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setApp(this);
-
-            dialogStage.show();
-        } catch (IOException e) {
+            root = mapper.readTree(response);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        if (root == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(primaryStage);
+            alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+            alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+            alert.showAndWait();
+        } else {
+            if (root.get("code").asText().equals("OK")) {
+                List<Book> books = null;
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, Book.class);
+                try {
+                    String collection = mapper.writeValueAsString(root.get("content"));
+                    books = mapper.readValue(collection, type);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                getBooksData().setAll(books);
+            }
+        }
     }
 
     /**
-     * Show and hide the reservation overview menu in menu bar
+     * Load the DVDs from a JSON server response
+     * @param response  The server response (JSON)
      */
-    public void toggleReservationOverviewMenuItem() {
-        if(loggedInUser != null) {
-            rootController.toggleReservationOverviewMenuItem();
+    public void loadDVDsFromJSON(String response) {
+        JsonNode root = null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        // Add a module so that Jackson uses the right class for Genre
+        SimpleModule module = new SimpleModule();
+        module.setAbstractTypes(new SimpleAbstractTypeResolver().addMapping(Genre.class, DVDGenre.class));
+        mapper.registerModule(module);
+
+        try {
+            root = mapper.readTree(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (root == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(primaryStage);
+            alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+            alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+            alert.showAndWait();
+        } else {
+            if (root.get("code").asText().equals("OK")) {
+                List<DVD> dvds = null;
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, DVD.class);
+                try {
+                    String content = mapper.writeValueAsString(root.get("content"));
+                    dvds = mapper.readValue(content, type);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                getDVDData().setAll(dvds);
+            }
+        }
+    }
+
+    /**
+     * Load the users from a JSON server response
+     * @param response  The server response (JSON)
+     */
+    public void loadUsersFromJSON(String response) {
+        JsonNode root = null;
+        ObjectMapper mapper = new ObjectMapper();
+
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        try {
+            root = mapper.readTree(response);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if (root == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(primaryStage);
+            alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+            alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+            alert.showAndWait();
+        } else {
+            if (root.get("code").asText().equals("OK")) {
+                List<User> users = null;
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, User.class);
+                try {
+                    String content = mapper.writeValueAsString(root.get("content"));
+                    users = mapper.readValue(content, type);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                getUsersData().setAll(users);
+            }
+        }
+    }
+
+    /**
+     * Load the reservations from a JSON server response
+     * @param response  The server response (JSON)
+     */
+    public void loadReservationsFromJSON(String response) {
+        JsonNode root = null;
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            root = mapper.readTree(response);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if (root == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(primaryStage);
+            alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
+            alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
+            alert.showAndWait();
+        } else {
+            if (root.get("code").asText().equals("OK")) {
+                List<Reservation> reservations = null;
+                CollectionType type = mapper.getTypeFactory().constructCollectionType(List.class, Reservation.class);
+                try {
+                    String content = mapper.writeValueAsString(root.get("content"));
+                    reservations = mapper.readValue(content, type);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                getReservationsData().setAll(reservations);
+            }
+        }
+    }
+
+    /**
+     * Load the complete book list from the server
+     */
+    public void loadAllBooks() {
+        loadBooksFromJSON(Requests.callGetAllBooks());
+    }
+
+    /**
+     * Load the complete DVD list from the server
+     */
+    public void loadAllDVDs() {
+        loadDVDsFromJSON(Requests.callGetAllDVDs());
+    }
+
+    /**
+     * Load the complete user list from the server
+     */
+    public void loadAllUsers() {
+        loadUsersFromJSON(Requests.callGetAllUsers(loggedInUser.getToken()));
+    }
+
+    /**
+     * Load the complete reservation list from the server
+     */
+    public void loadAllReservations() {
+        loadReservationsFromJSON(Requests.callGetAllReservations(loggedInUser.getToken()));
+    }
+
+
+    /**
+     * Get the primary stage
+     * @return  the primary stage
+     */
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    /**
+     * Show or hide the admin menu in the menu bar
+     */
+    public void toggleAdminMenu() {
+        if (loggedInUser != null && loggedInUser.isAdmin())
+            rootController.toggleAdminMenu();
+    }
+
+    public void toggleUsernameMenuItem() {
+        if (loggedInUser != null)
+            rootController.toggleUsernameMenuItem(loggedInUser);
+    }
+
+    public void toggleReservationOverview() {
+        if (loggedInUser != null)
+            rootController.toggleReservationMenuItem();
+    }
+
+    /**
+     * Show or hide login in the account menu
+     */
+    public void toggleLoginMenuItem() {
+        if (loggedInUser != null) {
+            rootController.toggleLoginMenuItem();
+        }
+    }
+
+    /**
+     * Show or hide logout in the account menu
+     */
+    public void toggleLogoutMenuItem() {
+        if (loggedInUser != null) {
+            rootController.toggleLogoutMenuItem();
         }
     }
 
@@ -380,6 +431,7 @@ public class App extends Application {
      * Reload the 3 main views
      */
     public void reloadViews() {
+        updateData();
         loadRootView();
         loadReservationView();
         loadAdminPanelView();
@@ -404,48 +456,6 @@ public class App extends Application {
     }
 
     /**
-     * Get the primary stage
-     * @return  the primary stage
-     */
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    /**
-     * Show or hide the admin menu in the menu bar
-     */
-    public void toggleAdminMenu() {
-        if (loggedInUser != null && loggedInUser.isAdmin())
-            rootController.toggleAdminMenu();
-    }
-
-    /**
-     * Show or hide login in the account menu
-     */
-    public void toggleLoginMenu() {
-        if (loggedInUser != null) {
-            rootController.toggleLoginMenuItem();
-        }
-    }
-
-    /**
-     * Show or hide logout in the account menu
-     */
-    public void toggleLogoutMenuItem() {
-        if (loggedInUser != null) {
-            rootController.toggleLogoutMenuItem();
-        }
-    }
-
-    /**
-     * Set the logged in user
-     * @param loggedInUser  The logged in user
-     */
-    public void setLoggedInUser(User loggedInUser) {
-        this.loggedInUser = loggedInUser;
-    }
-
-    /**
      * Get the logged in user
      * @return  the logged in user
      */
@@ -454,68 +464,43 @@ public class App extends Application {
     }
 
     /**
-     * Get the books list
-     * @return  the books list
+     * Set the logged in user
+     * @param loggedInUser  The logged in user
      */
-    public ObservableList<Book> getBooksData() {
-        return booksData;
+    public synchronized void setLoggedInUser(User loggedInUser) {
+        this.loggedInUser = loggedInUser;
     }
 
     /**
-     * Set the book list
-     * @param booksData the book list
+     * Get the books list
+     * @return  the books list
      */
-    public void setBooksData(ObservableList<Book> booksData) {
-        this.booksData = booksData;
+    public synchronized ObservableList<Book> getBooksData() {
+        return booksData;
     }
 
     /**
      * Get the DVD list
      * @return  the DVD list
      */
-    public ObservableList<DVD> getDVDData() {
+    public synchronized ObservableList<DVD> getDVDData() {
         return dvdData;
-    }
-
-    /**
-     * Set the DVD list
-     * @param dvdData the DVD list
-     */
-    public void setDVDData(ObservableList<DVD> dvdData) {
-        this.dvdData = dvdData;
     }
 
     /**
      * Get the user list
      * @return  the user list
      */
-    public ObservableList<User> getUsersData() {
+    public synchronized ObservableList<User> getUsersData() {
         return usersData;
     }
 
     /**
-     * Set the user list
-     * @param usersData the user list
+     * Get the reservation list
+     * @return  The reservation list
      */
-    public void setUsersData(ObservableList<User> usersData) {
-        this.usersData = usersData;
+    public synchronized ObservableList<Reservation> getReservationsData() {
+        return reservationsData;
     }
 
-    /**
-     * Refresh tables content
-     */
-    public void refreshTables() {
-        reservationController.getBooksTable().refresh();
-        reservationController.getDvdTable().refresh();
-        adminPanelController.getBooksTable().refresh();
-        adminPanelController.getDVDTable().refresh();
-        adminPanelController.getUsersTable().refresh();
-    }
-
-    /**
-     * Update lists content
-     */
-    public void updateData() {
-        //TODO
-    }
 }

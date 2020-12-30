@@ -1,14 +1,14 @@
 package org.libmanager.client.model;
 
 import javafx.beans.property.SimpleStringProperty;
-import org.libmanager.client.enums.Genre;
+import org.libmanager.client.enums.BookGenre;
 
 import java.time.LocalDate;
 
 public class Book extends Item {
 
-    private SimpleStringProperty publisher;
-    private SimpleStringProperty isbn;
+    private final SimpleStringProperty publisher;
+    private final SimpleStringProperty isbn;
 
     public Book() {
         super();
@@ -16,8 +16,8 @@ public class Book extends Item {
         isbn = new SimpleStringProperty(null);
     }
 
-    public Book(String title, String author, Genre genre, LocalDate releaseDate, boolean status, String publisher, String isbn) {
-        super(title, author, genre, releaseDate, status);
+    public Book(int id, String title, String author, String genre, LocalDate releaseDate, int availableCopies, int totalCopies, String publisher, String isbn) {
+        super(id, title, author, BookGenre.getEnum(genre), releaseDate, availableCopies, totalCopies);
         this.publisher = new SimpleStringProperty(publisher);
         this.isbn = new SimpleStringProperty(isbn);
     }

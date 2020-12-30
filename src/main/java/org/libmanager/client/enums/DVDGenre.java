@@ -1,5 +1,7 @@
 package org.libmanager.client.enums;
 
+import org.libmanager.client.util.Converter;
+
 public enum DVDGenre implements Genre {
     ANY,
     SCIENCEFICTION,
@@ -13,9 +15,8 @@ public enum DVDGenre implements Genre {
     CRIMINAL,
     SUPERHERO;
 
-    @Override
-    public String toString() {
-        return name().charAt(0) + name().substring(1).toLowerCase();
+    public String getName() {
+        return Converter.getDvdGenreConverter().toString(this);
     }
 
     public static DVDGenre getEnum(String value) {
