@@ -43,6 +43,7 @@ public class ResponseUtil {
     private static void handleErrorCode(String code, Stage initOwner) {
         if (code != null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(initOwner);
             switch (code) {
                 case "INVALID_TOKEN":
@@ -76,6 +77,10 @@ public class ResponseUtil {
                 case "INVALID_TOTAL_COPIES":
                     alert.setHeaderText(I18n.getBundle().getString("alert.invalid.copies.header"));
                     alert.setContentText(I18n.getBundle().getString("alert.invalid.copies.content"));
+                    break;
+                case "INTEGRITY_VIOLATION":
+                    alert.setHeaderText(I18n.getBundle().getString("alert.integrity.header"));
+                    alert.setContentText(I18n.getBundle().getString("alert.integrity.content"));
                     break;
             }
             alert.showAndWait();
