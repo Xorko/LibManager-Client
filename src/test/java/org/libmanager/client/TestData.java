@@ -27,8 +27,8 @@ public class TestData {
     private static final AuthenticatedUser INVALID_USER = new AuthenticatedUser(false, null, null, false, null, null);
     private static final AuthenticatedUser VALID_USER = new AuthenticatedUser(true, "username", "token", false, LocalDate.EPOCH.toString(), LocalDate.EPOCH.toString());
 
-    private static final Reservation RESERVATION = new Reservation(1, "username", "book", "Book");
-    private static final Reservation RESERVATION_1 = new Reservation(2, "username1", "dvd", "Dvd");
+    private static final Reservation RESERVATION = new Reservation(1, "username", "book", "BOOK", LocalDate.now());
+    private static final Reservation RESERVATION_1 = new Reservation(2, "username1", "dvd", "DVD", LocalDate.now());
 
     public static User getUser() {
         return USER;

@@ -6,16 +6,19 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 import org.libmanager.client.App;
 import org.libmanager.client.enums.ItemType;
 import org.libmanager.client.model.Reservation;
 import org.libmanager.client.service.Requests;
 import org.libmanager.client.util.Config;
 import org.libmanager.client.util.Converter;
+import org.libmanager.client.util.DateUtil;
 import org.libmanager.client.util.I18n;
 import org.libmanager.client.util.ResponseUtil;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -28,6 +31,8 @@ public class AdminPanelReservationsController implements Initializable {
     @FXML
     private TextField reservationTitleField;
     @FXML
+    private DatePicker reservationDateDPicker;
+    @FXML
     private ComboBox<ItemType> reservationTypeCBox;
     @FXML
     private TableView<Reservation> reservationsTable;
@@ -39,6 +44,8 @@ public class AdminPanelReservationsController implements Initializable {
     private TableColumn<Reservation, String> reservationUsernameColumn;
     @FXML
     private TableColumn<Reservation, String> reservationTitleColumn;
+    @FXML
+    private TableColumn<Reservation, String> reservationDateColumn;
     @FXML
     private TableColumn<Reservation, Button> reservationDeleteColumn;
 
@@ -53,6 +60,7 @@ public class AdminPanelReservationsController implements Initializable {
         // --- RESERVATIONS TABLE ---
         reservationIdColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
         reservationUsernameColumn.setCellValueFactory(cellData -> cellData.getValue().usernameProperty());
+        reservationDateColumn.setCellValueFactory(cellData ->  new SimpleStringProperty(DateUtil.format(cellData.getValue().getReservationDate())));
         reservationTitleColumn.setCellValueFactory(cellData -> cellData.getValue().titleProperty());
         reservationTypeColumn.setCellValueFactory(cellData -> {
             SimpleStringProperty typeProperty = new SimpleStringProperty(null);
@@ -83,9 +91,22 @@ public class AdminPanelReservationsController implements Initializable {
         // --- Reservations table columns dimensions ---
         reservationIdColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.09));
         reservationTypeColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.1));
-        reservationUsernameColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.33));
+        reservationUsernameColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.2));
+        reservationDateColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.13));
         reservationTitleColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.33));
         reservationDeleteColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.15));
+
+        reservationDateDPicker.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocalDate date) {
+                return DateUtil.format(date);
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                return DateUtil.parse(string);
+            }
+        });
     }
 
     /**
@@ -118,7 +139,8 @@ public class AdminPanelReservationsController implements Initializable {
                         reservationIdField.getText().length() == 0 ? null : reservationIdField.getText(),
                         reservationUsernameField.getText().length() == 0 ? null: reservationUsernameField.getText(),
                         reservationUsernameField.getText().length() == 0 ? null : reservationUsernameField.getText(),
-                        reservationTypeCBox.valueProperty().get() == ItemType.ANY ? null : reservationTypeCBox.valueProperty().get().toString()
+                        reservationTypeCBox.valueProperty().get() == ItemType.ANY ? null : reservationTypeCBox.valueProperty().get().toString(),
+                        !DateUtil.validDate(reservationDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(reservationDateDPicker.getEditor().getText()))
                 );
                 app.loadReservationsFromJSON(response);
                 return null;

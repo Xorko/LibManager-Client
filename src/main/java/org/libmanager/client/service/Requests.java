@@ -271,19 +271,22 @@ public class Requests {
 
     /**
      * Call the SEARCH_RESERVATION endpoint
-     * @param token     The token of the logged in user (must be admin)
-     * @param id        The id of the searched reservation
-     * @param username  The username of the searched reservation
-     * @param title     The title of the searched reservation
-     * @return          The server response
+     * @param token                 The token of the logged in user (must be admin)
+     * @param id                    The id of the searched reservation
+     * @param username              The username of the searched reservation
+     * @param title                 The title of the searched reservation
+     * @param reservationDate       The date of the reservation
+     * @param itemType              The type of the borrowed item
+     * @return                      The server response
      */
-    public static String callSearchReservation(String token, String id, String username, String title, String itemType) {
+    public static String callSearchReservation(String token, String id, String username, String title, String itemType, String reservationDate) {
         List<NameValuePair> urlParameters = new ArrayList<>();
         urlParameters.add(new BasicNameValuePair("token", token));
         if (id != null)       urlParameters.add(new BasicNameValuePair("id", id));
         if (username != null) urlParameters.add(new BasicNameValuePair("username", username));
         if (title != null)    urlParameters.add(new BasicNameValuePair("title", title));
         if (itemType != null) urlParameters.add(new BasicNameValuePair("itemType", itemType));
+        if (reservationDate != null) urlParameters.add(new BasicNameValuePair("reservationDate", reservationDate));
         return sendPOST(SEARCH_RESERVATION, urlParameters);
     }
 
