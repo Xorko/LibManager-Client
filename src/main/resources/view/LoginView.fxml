@@ -12,68 +12,68 @@
 
 <?import javafx.scene.control.Hyperlink?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="loginRoot" fx:controller="org.libmanager.client.controller.LoginController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.login.title" GridPane.columnSpan="2147483647">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label text="%label.username" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <Label text="%label.password" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets left="10.0" />
-         </GridPane.margin>
-      </Label>
-      <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <GridPane.margin>
-            <Insets right="20.0" />
-         </GridPane.margin>
-      </TextField>
-      <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <GridPane.margin>
-            <Insets right="20.0" />
-         </GridPane.margin>
-      </PasswordField>
-      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button mnemonicParsing="false" onAction="#handleLogin" text="%button.login" GridPane.columnIndex="1">
-               <GridPane.margin>
-                  <Insets right="20.0" />
-               </GridPane.margin>
-            </Button>
-         </children>
-      </GridPane>
-      <Label fx:id="errorMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.allfieldsmustbecompleted" textFill="RED" visible="false" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
-      <Hyperlink onAction="#handleForgottenPassword" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%label.forgottenpassword" GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets right="10.0" />
-         </GridPane.margin>
-      </Hyperlink>
-   </children>
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    </rowConstraints>
+    <children>
+        <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.login.title" GridPane.columnSpan="2147483647">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label text="%label.username" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="%label.password" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets left="10.0" />
+            </GridPane.margin>
+        </Label>
+        <TextField fx:id="username" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets right="20.0" />
+            </GridPane.margin>
+        </TextField>
+        <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets right="20.0" />
+            </GridPane.margin>
+        </PasswordField>
+        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button fx:id="login" mnemonicParsing="false" onAction="#handleLogin" text="%button.login" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets right="20.0" />
+                    </GridPane.margin>
+                </Button>
+            </children>
+        </GridPane>
+        <Label fx:id="errorMessage" alignment="CENTER" maxWidth="1.7976931348623157E308" text="%label.allfieldsmustbecompleted" textFill="RED" visible="false" GridPane.columnSpan="2147483647" GridPane.rowIndex="4" />
+        <Hyperlink onAction="#handleForgottenPassword" alignment="CENTER_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%label.forgottenpassword" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets right="10.0" />
+            </GridPane.margin>
+        </Hyperlink>
+    </children>
 </GridPane>

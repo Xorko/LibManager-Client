@@ -15,6 +15,7 @@ import javafx.util.StringConverter;
 import org.libmanager.client.App;
 import org.libmanager.client.model.User;
 import org.libmanager.client.service.Requests;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.DateUtil;
 import org.libmanager.client.util.I18n;
 import org.libmanager.client.util.ResponseUtil;
@@ -124,6 +125,7 @@ public class AdminPanelUsersController implements Initializable {
         User selected = getSelectedUser();
         if (selected != null) {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.getDialogPane().getStylesheets().add(Config.getTheme());
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
             confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirm.deletion.title"));
@@ -137,6 +139,7 @@ public class AdminPanelUsersController implements Initializable {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(app.getPrimaryStage());
             alert.setTitle(I18n.getBundle().getString("alert.noselection.user.title"));
             alert.setHeaderText(I18n.getBundle().getString("alert.noselection.user.title"));
@@ -209,6 +212,7 @@ public class AdminPanelUsersController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(app.getPrimaryStage());
             Scene scene = new Scene(dialog);
+            scene.getStylesheets().add(Config.getTheme());
             dialogStage.setScene(scene);
 
             EditUserController controller = loader.getController();
@@ -225,6 +229,7 @@ public class AdminPanelUsersController implements Initializable {
                 } else {
                     noError = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.getDialogPane().getStylesheets().add(Config.getTheme());
                     alert.initOwner(app.getPrimaryStage());
                     alert.setTitle(I18n.getBundle().getString("alert.noselection.user.title"));
                     alert.setHeaderText(I18n.getBundle().getString("alert.noselection.user.title"));

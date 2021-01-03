@@ -10,6 +10,7 @@ import org.libmanager.client.App;
 import org.libmanager.client.enums.ItemType;
 import org.libmanager.client.model.Reservation;
 import org.libmanager.client.service.Requests;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.Converter;
 import org.libmanager.client.util.I18n;
 import org.libmanager.client.util.ResponseUtil;
@@ -80,10 +81,10 @@ public class AdminPanelReservationsController implements Initializable {
         });
 
         // --- Reservations table columns dimensions ---
-        reservationIdColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.25));
+        reservationIdColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.09));
         reservationTypeColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.1));
-        reservationUsernameColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.25));
-        reservationTitleColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.25));
+        reservationUsernameColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.33));
+        reservationTitleColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.33));
         reservationDeleteColumn.prefWidthProperty().bind(reservationsTable.widthProperty().multiply(0.15));
     }
 
@@ -94,6 +95,7 @@ public class AdminPanelReservationsController implements Initializable {
     private void handleDeleteReservation(Reservation reservation) {
         if (app.getLoggedInUser() != null && app.getLoggedInUser().isAdmin()) {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.getDialogPane().getStylesheets().add(Config.getTheme());
             confirmationAlert.initOwner(app.getPrimaryStage());
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.setHeaderText(I18n.getBundle().getString("alert.confirm.return"));

@@ -13,6 +13,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.I18n;
 import org.libmanager.client.model.User;
 import org.libmanager.client.service.Requests;
@@ -220,6 +221,7 @@ public class EditUserController implements Initializable {
                 root = mapper.readTree(content);
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.getDialogPane().getStylesheets().add(Config.getTheme());
                 alert.initOwner(dialogStage);
                 alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
                 alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
@@ -229,7 +231,7 @@ public class EditUserController implements Initializable {
             e.printStackTrace();
         }
         if (root != null)
-                return root.get("content").asBoolean();
+            return root.get("content").asBoolean();
         return false;
     }
 

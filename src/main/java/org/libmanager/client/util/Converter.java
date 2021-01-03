@@ -11,7 +11,8 @@ public final class Converter {
     private static final StringConverter<Status>    statusConverter;
     private static final StringConverter<Settings>  settingConverter;
     private static final StringConverter<Language>  languageConverter;
-    private static final StringConverter<ItemType>      typeConverter;
+    private static final StringConverter<ItemType>  typeConverter;
+    private static final StringConverter<Theme>     themeConverter;
 
     /**
      * Return the StringConverter for Genre enums
@@ -67,6 +68,14 @@ public final class Converter {
      */
     public static StringConverter<ItemType> getTypeConverter() {
         return typeConverter;
+    }
+
+    /**
+     * Return the StringConverter for Type enum
+     * @return The StringConverter for Type enum
+     */
+    public static StringConverter<Theme> getThemeConverter() {
+        return themeConverter;
     }
 
     static {
@@ -275,6 +284,25 @@ public final class Converter {
 
             @Override
             public ItemType fromString(String string) {
+                return null;
+            }
+        };
+
+        themeConverter = new StringConverter<Theme>() {
+            @Override
+            public String toString(Theme object) {
+                switch (object) {
+                    case DARK:
+                        return I18n.getBundle().getString("label.dark");
+                    case LIGHT:
+                        return I18n.getBundle().getString("label.light");
+                    default:
+                        return I18n.getBundle().getString("enum.unknown");
+                }
+            }
+
+            @Override
+            public Theme fromString(String string) {
                 return null;
             }
         };

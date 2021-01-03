@@ -18,6 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.libmanager.client.App;
 import org.libmanager.client.model.User;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.I18n;
 
 import java.io.IOException;
@@ -137,6 +138,7 @@ public class RootController implements Initializable {
     @FXML
     private void handleAbout() {
         Alert about = new Alert(Alert.AlertType.INFORMATION);
+        about.getDialogPane().getStylesheets().add(Config.getTheme());
         about.initOwner(app.getPrimaryStage());
         about.setTitle("LibManager");
         about.setHeaderText("LibManager");
@@ -160,6 +162,7 @@ public class RootController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(app.getPrimaryStage());
             Scene scene = new Scene(dialog);
+            scene.getStylesheets().add(Config.getTheme());
             dialogStage.setScene(scene);
 
             LoginController controller = loader.getController();
@@ -187,6 +190,7 @@ public class RootController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(app.getPrimaryStage());
             Scene scene = new Scene(dialog);
+            scene.getStylesheets().add(Config.getTheme());
             dialogStage.setScene(scene);
 
             SettingsController controller = loader.getController();
@@ -212,6 +216,7 @@ public class RootController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(app.getPrimaryStage());
             Scene scene = new Scene(dialog);
+            scene.getStylesheets().add(Config.getTheme());
             dialogStage.setScene(scene);
 
             ReservationOverviewController controller = loader.getController();

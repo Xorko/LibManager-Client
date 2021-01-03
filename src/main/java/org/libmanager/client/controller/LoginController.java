@@ -46,6 +46,9 @@ public class LoginController implements Initializable {
             if (event.getCode() == KeyCode.ESCAPE)
                 dialogStage.close();
         });
+
+        errorMessage.setStyle("-fx-text-fill: red");
+
     }
 
     public void setApp(App app) {
