@@ -11,7 +11,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
-import org.libmanager.client.util.I18n;
+import org.libmanager.client.util.*;
 import org.libmanager.client.component.DurationSpinner;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
@@ -19,9 +19,6 @@ import org.libmanager.client.enums.Genre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.service.Requests;
-import org.libmanager.client.util.Converter;
-import org.libmanager.client.util.DateUtil;
-import org.libmanager.client.util.ResponseUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -221,7 +218,7 @@ public class EditItemController implements Initializable {
                     DateUtil.formatDB(DateUtil.parse(releaseDateDPicker.getEditor().getText())),
                     genreCBox.valueProperty().get().toString(),
                     copiesSpinner.getValue()
-                );
+            );
             if (ResponseUtil.analyze(response, dialogStage)) {
                 app.loadAllDVDs();
                 dialogStage.close();
@@ -305,7 +302,7 @@ public class EditItemController implements Initializable {
      * @return  true if fields are valid, false otherwise
      */
     private boolean fieldsAreValid(boolean book) {
-        // TODO: 12/20/20 Add max length verification 
+        // TODO: 12/20/20 Add max length verification
         String errMessage = "";
         if (titleField.getText() == null || titleField.getText().length() == 0) {
             errMessage += I18n.getBundle().getString("alert.invalid.title") + "\n";
@@ -339,6 +336,7 @@ public class EditItemController implements Initializable {
         }
         // There's at least one error
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.getDialogPane().getStylesheets().add(Config.getTheme());
         alert.initOwner(dialogStage);
         alert.setTitle(I18n.getBundle().getString("label.invalidfields"));
         alert.setHeaderText(I18n.getBundle().getString("alert.incorrectfields.header"));

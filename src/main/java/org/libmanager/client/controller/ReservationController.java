@@ -5,18 +5,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.util.StringConverter;
 import org.libmanager.client.App;
-import org.libmanager.client.util.I18n;
+import org.libmanager.client.util.*;
 import org.libmanager.client.service.Requests;
 import org.libmanager.client.enums.BookGenre;
 import org.libmanager.client.enums.DVDGenre;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
-import org.libmanager.client.util.Converter;
-import org.libmanager.client.util.DateUtil;
-import org.libmanager.client.util.ResponseUtil;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -100,6 +98,7 @@ public class ReservationController implements Initializable {
 
             btn.setMaxWidth(100);
 
+
             if (cellData.getValue().getStatus()) {
                 btn.setText(I18n.getBundle().getString("button.borrow"));
             } else {
@@ -110,6 +109,7 @@ public class ReservationController implements Initializable {
             btn.setOnAction(event -> {
                 if (app.getLoggedInUser() != null) {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.getDialogPane().getStylesheets().add(Config.getTheme());
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
                     confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirmation.borrowing.title"));
@@ -119,6 +119,7 @@ public class ReservationController implements Initializable {
                         handleAddReservation(cellData.getValue().getId());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.getDialogPane().getStylesheets().add(Config.getTheme());
                     alert.initOwner(app.getPrimaryStage());
                     alert.setTitle(I18n.getBundle().getString("alert.notloggedin"));
                     alert.setHeaderText(I18n.getBundle().getString("alert.notloggedin"));
@@ -177,6 +178,7 @@ public class ReservationController implements Initializable {
             btn.setOnAction(event -> {
                 if (app.getLoggedInUser() != null) {
                     Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.getDialogPane().getStylesheets().add(Config.getTheme());
                     confirmationAlert.initOwner(app.getPrimaryStage());
                     confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
                     confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirmation.borrowing.title"));
@@ -186,6 +188,7 @@ public class ReservationController implements Initializable {
                         handleAddReservation(cellData.getValue().getId());
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.getDialogPane().getStylesheets().add(Config.getTheme());
                     alert.initOwner(app.getPrimaryStage());
                     alert.setTitle(I18n.getBundle().getString("alert.notloggedin"));
                     alert.setHeaderText(I18n.getBundle().getString("alert.notloggedin"));
@@ -227,16 +230,16 @@ public class ReservationController implements Initializable {
         Task<Void> searchBooks = new Task<>() {
             @Override
             protected Void call() {
-                    String response = Requests.callSearchBooks(
-                            bookIsbnField.getText().length() == 0 ? null : bookIsbnField.getText(),
-                            bookAuthorField.getText().length() == 0 ? null : bookAuthorField.getText(),
-                            bookTitleField.getText().length() == 0 ? null : bookTitleField.getText(),
-                            bookPublisherField.getText().length() == 0 ? null : bookPublisherField.getText(),
-                            !DateUtil.validDate(bookReleaseDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(bookReleaseDateDPicker.getEditor().getText())),
-                            bookGenreCBox.valueProperty().get() == BookGenre.ANY ? null : bookGenreCBox.valueProperty().get().toString(),
-                            null
-                    );
-                    app.loadBooksFromJSON(response);
+                String response = Requests.callSearchBooks(
+                        bookIsbnField.getText().length() == 0 ? null : bookIsbnField.getText(),
+                        bookAuthorField.getText().length() == 0 ? null : bookAuthorField.getText(),
+                        bookTitleField.getText().length() == 0 ? null : bookTitleField.getText(),
+                        bookPublisherField.getText().length() == 0 ? null : bookPublisherField.getText(),
+                        !DateUtil.validDate(bookReleaseDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(bookReleaseDateDPicker.getEditor().getText())),
+                        bookGenreCBox.valueProperty().get() == BookGenre.ANY ? null : bookGenreCBox.valueProperty().get().toString(),
+                        null
+                );
+                app.loadBooksFromJSON(response);
                 return null;
             }
         };
@@ -287,9 +290,9 @@ public class ReservationController implements Initializable {
      * @param id  The item to borrow
      */
     private void handleAddReservation(long id) {
-            String response = Requests.callAddReservation(app.getLoggedInUser().getToken(), Long.toString(id));
-            ResponseUtil.analyze(response, app.getPrimaryStage());
-            app.updateData();
+        String response = Requests.callAddReservation(app.getLoggedInUser().getToken(), Long.toString(id));
+        ResponseUtil.analyze(response, app.getPrimaryStage());
+        app.updateData();
     }
 
     public void setApp(App app) {

@@ -19,10 +19,7 @@ import org.libmanager.client.enums.Status;
 import org.libmanager.client.model.Book;
 import org.libmanager.client.model.DVD;
 import org.libmanager.client.service.Requests;
-import org.libmanager.client.util.Converter;
-import org.libmanager.client.util.DateUtil;
-import org.libmanager.client.util.I18n;
-import org.libmanager.client.util.ResponseUtil;
+import org.libmanager.client.util.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -137,7 +134,7 @@ public class AdminPanelItemsController implements Initializable {
         bookTotalCopiesColumn.setCellValueFactory(cellData -> cellData.getValue().totalCopiesProperty().asObject());
 
         // Books table columns dimensions
-        bookTitleColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.25));
+        bookTitleColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.235));
         bookAuthorColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.16));
         bookGenreColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.12));
         bookReleaseDateColumn.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.1));
@@ -159,10 +156,10 @@ public class AdminPanelItemsController implements Initializable {
         dvdTitleColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.25));
         dvdDirectorColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.20));
         dvdGenreColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.15));
-        dvdDurationColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.09));
+        dvdDurationColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
         dvdReleaseDateColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
-        dvdAvailableCopiesColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.05));
-        dvdTotalCopiesColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.05));
+        dvdAvailableCopiesColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
+        dvdTotalCopiesColumn.prefWidthProperty().bind(dvdTable.widthProperty().multiply(0.1));
 
         // --- DATE PICKERS ---
         bookReleaseDateDPicker.setConverter(new StringConverter<>() {
@@ -204,6 +201,7 @@ public class AdminPanelItemsController implements Initializable {
         Book selected = getSelectedBook();
         if (selected != null) {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.getDialogPane().getStylesheets().add(Config.getTheme());
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
             confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirm.deletion.title"));
@@ -217,6 +215,7 @@ public class AdminPanelItemsController implements Initializable {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(app.getPrimaryStage());
             alert.setTitle(I18n.getBundle().getString("alert.confirm.deletion.title"));
             alert.setHeaderText(I18n.getBundle().getString("alert.noselection.book.title"));
@@ -230,6 +229,7 @@ public class AdminPanelItemsController implements Initializable {
         DVD selected = getSelectedDVD();
         if (selected != null) {
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.getDialogPane().getStylesheets().add(Config.getTheme());
             confirmationAlert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
             confirmationAlert.initOwner(app.getPrimaryStage());
             confirmationAlert.setTitle(I18n.getBundle().getString("alert.confirm.deletion.title"));
@@ -243,6 +243,7 @@ public class AdminPanelItemsController implements Initializable {
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(app.getPrimaryStage());
             alert.setTitle(I18n.getBundle().getString("alert.noselection.dvd.title"));
             alert.setHeaderText(I18n.getBundle().getString("alert.noselection.dvd.title"));
@@ -345,6 +346,7 @@ public class AdminPanelItemsController implements Initializable {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(app.getPrimaryStage());
             Scene scene = new Scene(dialog);
+            scene.getStylesheets().add(Config.getTheme());
             dialogStage.setScene(scene);
 
             EditItemController controller = loader.getController();
@@ -368,6 +370,7 @@ public class AdminPanelItemsController implements Initializable {
                 } else {
                     noError = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.getDialogPane().getStylesheets().add(Config.getTheme());
                     alert.initOwner(app.getPrimaryStage());
                     alert.setTitle(I18n.getBundle().getString("alert.noselection.book.title"));
                     alert.setHeaderText(I18n.getBundle().getString("alert.noselection.book.title"));
@@ -384,6 +387,7 @@ public class AdminPanelItemsController implements Initializable {
                 } else {
                     noError = false;
                     Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.getDialogPane().getStylesheets().add(Config.getTheme());
                     alert.initOwner(app.getPrimaryStage());
                     alert.setTitle(I18n.getBundle().getString("alert.noselection.dvd.title"));
                     alert.setHeaderText(I18n.getBundle().getString("alert.noselection.dvd.title"));

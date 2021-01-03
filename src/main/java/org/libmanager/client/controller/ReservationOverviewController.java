@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 import org.libmanager.client.App;
 import org.libmanager.client.model.Reservation;
 import org.libmanager.client.service.Requests;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.I18n;
 
 import java.net.URL;
@@ -83,6 +84,7 @@ public class ReservationOverviewController implements Initializable {
                 }
                 if (root == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.getDialogPane().getStylesheets().add(Config.getTheme());
                     alert.initOwner(dialogStage);
                     alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
                     alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));

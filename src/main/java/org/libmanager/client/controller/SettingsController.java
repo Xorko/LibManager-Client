@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.libmanager.client.App;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.I18n;
 import org.libmanager.client.enums.AdminSettings;
 import org.libmanager.client.enums.GlobalSettings;
@@ -69,6 +70,7 @@ public class SettingsController implements Initializable {
             loader.setLocation(getClass().getResource("/view/GeneralSettingsView.fxml"));
             loader.setResources(I18n.getBundle());
             generalSettings = loader.load();
+            root.getStylesheets().add(Config.getTheme());
             GeneralSettingsController controller = loader.getController();
             controller.setParentController(this);
         } catch (IOException e) {
@@ -82,6 +84,7 @@ public class SettingsController implements Initializable {
             loader.setLocation(getClass().getResource("/view/ServerSettingsView.fxml"));
             loader.setResources(I18n.getBundle());
             serverSettings = loader.load();
+            root.getStylesheets().add(Config.getTheme());
             ServerSettingsController controller = loader.getController();
             controller.setParentController(this);
         } catch (IOException e) {
@@ -119,5 +122,9 @@ public class SettingsController implements Initializable {
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    public BorderPane getRoot() {
+        return root;
     }
 }

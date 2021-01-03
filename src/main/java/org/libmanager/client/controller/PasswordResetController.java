@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.libmanager.client.App;
 import org.libmanager.client.service.Requests;
+import org.libmanager.client.util.Config;
 import org.libmanager.client.util.I18n;
 import org.libmanager.client.util.ResponseUtil;
 
@@ -99,6 +100,7 @@ public class PasswordResetController implements Initializable {
                 button.setOnAction((event) -> handleResetPassword());
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.getDialogPane().getStylesheets().add(Config.getTheme());
                 alert.initOwner(dialogStage);
                 alert.setHeaderText(I18n.getBundle().getString("alert.token.sent.header"));
                 alert.setContentText(I18n.getBundle().getString("alert.token.sent.content"));
@@ -119,6 +121,7 @@ public class PasswordResetController implements Initializable {
             String response = Requests.callPostResetPassword(clearTokenField.getText(), passwordField.getText());
             if (ResponseUtil.analyze(response, dialogStage)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.getDialogPane().getStylesheets().add(Config.getTheme());
                 alert.initOwner(dialogStage);
                 alert.setHeaderText(I18n.getBundle().getString("alert.password.changed.header"));
                 alert.showAndWait();
@@ -144,6 +147,7 @@ public class PasswordResetController implements Initializable {
         if (errMessage.length() == 0)
             return true;
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.getDialogPane().getStylesheets().add(Config.getTheme());
         alert.initOwner(dialogStage);
         alert.setHeaderText(I18n.getBundle().getString("alert.invalidfields.header"));
         alert.setContentText(errMessage);

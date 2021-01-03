@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.libmanager.client.enums.Theme;
 import org.libmanager.client.model.Reservation;
 import org.libmanager.client.service.Requests;
 import org.libmanager.client.controller.*;
@@ -76,6 +77,7 @@ public class App extends Application {
             loader.setLocation(getClass().getResource("/view/RootView.fxml"));
             loader.setResources(I18n.getBundle());
             rootView = loader.load();
+            rootView.getStylesheets().add(Config.getTheme());
 
             RootController controller = loader.getController();
             rootController = controller;
@@ -115,13 +117,13 @@ public class App extends Application {
      * Shows the reservation panel
      */
     public void showReservationView() {
-            if (reservationView == null) {
-                loadReservationView();
-            }
-            if (rootView.getCenter() != reservationView) {
-                rootView.setCenter(reservationView);
-                updateData();
-            }
+        if (reservationView == null) {
+            loadReservationView();
+        }
+        if (rootView.getCenter() != reservationView) {
+            rootView.setCenter(reservationView);
+            updateData();
+        }
     }
 
     /**
@@ -168,6 +170,7 @@ public class App extends Application {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(dialog);
+            scene.getStylesheets().add(Config.getTheme());
             dialogStage.setScene(scene);
 
             PasswordResetController controller = loader.getController();
@@ -223,6 +226,7 @@ public class App extends Application {
         }
         if (root == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(primaryStage);
             alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
             alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
@@ -264,6 +268,7 @@ public class App extends Application {
         }
         if (root == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(primaryStage);
             alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
             alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
@@ -301,6 +306,7 @@ public class App extends Application {
         }
         if (root == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(primaryStage);
             alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
             alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
@@ -335,6 +341,7 @@ public class App extends Application {
         }
         if (root == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(Config.getTheme());
             alert.initOwner(primaryStage);
             alert.setTitle(I18n.getBundle().getString("server.connection.failed.alert"));
             alert.setHeaderText(I18n.getBundle().getString("server.connection.failed"));
@@ -503,4 +510,19 @@ public class App extends Application {
         return reservationsData;
     }
 
+    /**
+     * Get the root view
+     * @return the root view
+     */
+    public BorderPane getRootView() {
+        return rootView;
+    }
+
+    /**
+     * Set the primary stage
+     * @param primaryStage the primary stage
+     */
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 }

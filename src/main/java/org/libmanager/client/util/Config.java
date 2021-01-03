@@ -13,8 +13,8 @@ public class Config {
     private static final String defaultConfigFile = "defaultconfig.properties";
 
     static {
-        if (getServerProtocol() == null || getServerPort().length() == 0 ||getServerAddress() == null ||
-                getServerPort().length() == 0 ||getServerPort() == null || getServerPort().length() == 0)
+        if (getServerProtocol() == null || getServerPort().length() == 0 || getServerAddress() == null ||
+                getServerPort().length() == 0 || getServerPort() == null || getServerPort().length() == 0)
             reloadConfig();
     }
 
@@ -65,6 +65,20 @@ public class Config {
     public static void setServerPort(String port) {
         prefs.put("server_port", port);
     }
+
+    /**
+     * Set the theme in the preferences
+     * @param theme The theme
+     */
+    public static void setTheme(String theme) {
+        prefs.put("css", theme);
+    }
+
+    /**
+     * Get the theme from the preferences
+     * @return The theme path
+     */
+    public static String getTheme() {return prefs.get("css", "/css/lighttheme.css");}
 
     public static void reloadConfig() {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(defaultConfigFile);
