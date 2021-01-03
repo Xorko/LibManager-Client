@@ -126,7 +126,7 @@ public final class Converter {
                     return I18n.getBundle().getString("enum.dvdgenre.fantasy");
                 if (object.toString().equals(DVDGenre.FANTASTIC.toString()))
                     return I18n.getBundle().getString("enum.dvdgenre.fantastic");
-                return I18n.getBundle().getString("enum.unknown");
+                return null;
             }
 
             @Override
@@ -163,9 +163,8 @@ public final class Converter {
                         return I18n.getBundle().getString("enum.bookgenre.essay");
                     case CRIMINAL:
                         return I18n.getBundle().getString("enum.bookgenre.criminal");
-                    default:
-                        return I18n.getBundle().getString("enum.unknown");
                 }
+                return null;
             }
 
             @Override
@@ -200,9 +199,8 @@ public final class Converter {
                         return I18n.getBundle().getString("enum.dvdgenre.fantasy");
                     case FANTASTIC:
                         return I18n.getBundle().getString("enum.dvdgenre.fantastic");
-                    default:
-                        return I18n.getBundle().getString("enum.unknown");
                 }
+                return null;
             }
 
             @Override
