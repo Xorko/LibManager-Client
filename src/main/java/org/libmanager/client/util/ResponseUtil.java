@@ -82,6 +82,10 @@ public class ResponseUtil {
                     alert.setHeaderText(I18n.getBundle().getString("alert.integrity.header"));
                     alert.setContentText(I18n.getBundle().getString("alert.integrity.content"));
                     break;
+                case "FORBIDDEN":
+                    alert.setHeaderText(I18n.getBundle().getString("alert.forbidden.header"));
+                    alert.setContentText(I18n.getBundle().getString("alert.forbidden.content"));
+                    break;
             }
             alert.showAndWait();
         }
