@@ -153,7 +153,9 @@ public class AdminPanelReservationsController implements Initializable {
     private void handleResetReservation() {
         reservationIdField.setText("");
         reservationUsernameField.setText("");
+        reservationDateDPicker.getEditor().setText("");
         reservationTitleField.setText("");
+        reservationTypeCBox.valueProperty().set(ItemType.ANY);
 
         Task<Void> getData = new Task<Void>() {
             @Override
