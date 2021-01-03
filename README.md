@@ -18,6 +18,10 @@ Your configuration will be loaded in the app preferences.
 ### Add custom components to Scene Builder
 Import `lib/LibManager-components.jar` into Scene Builder (Scene Builder 11 or higher required)
 
+### Tests
+* To run the tests you must have the port 8080 of localhost free
+
+There is a problem with our use of mockserver, you have to run class test separately.
 ### Authors
 * [Thibault LE GOFF](https://www.github.com/Xorko)
 * [Benoit AGOGUE](https://github.com/BzhNouille)

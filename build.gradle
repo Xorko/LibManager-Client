@@ -35,6 +35,14 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.18.1'
     testImplementation 'org.mockito:mockito-core:3.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testCompile 'org.slf4j:slf4j-jdk14:1.7.30'
+    testCompile'org.mock-server:mockserver-junit-jupiter:5.11.2'
+    testCompile 'org.mock-server:mockserver-netty:5.11.2'
+    testCompile 'org.mock-server:mockserver-client-java:5.11.2'
+
+
+
+
 }
 
 test {
