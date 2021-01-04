@@ -138,7 +138,7 @@ public class AdminPanelReservationsController implements Initializable {
                         app.getLoggedInUser().getToken(),
                         reservationIdField.getText().length() == 0 ? null : reservationIdField.getText(),
                         reservationUsernameField.getText().length() == 0 ? null: reservationUsernameField.getText(),
-                        reservationUsernameField.getText().length() == 0 ? null : reservationUsernameField.getText(),
+                        reservationTitleField.getText().length() == 0 ? null : reservationTitleField.getText(),
                         reservationTypeCBox.valueProperty().get() == ItemType.ANY ? null : reservationTypeCBox.valueProperty().get().toString(),
                         !DateUtil.validDate(reservationDateDPicker.getEditor().getText()) ? null : DateUtil.formatDB(DateUtil.parse(reservationDateDPicker.getEditor().getText()))
                 );
