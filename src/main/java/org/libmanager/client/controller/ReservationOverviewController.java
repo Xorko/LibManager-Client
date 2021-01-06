@@ -3,7 +3,9 @@ package org.libmanager.client.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,6 +78,8 @@ public class ReservationOverviewController implements Initializable {
             protected Void call() {
                 JsonNode root = null;
                 ObjectMapper mapper = new ObjectMapper();
+                mapper.registerModule(new JavaTimeModule());
+                mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
                 String response = Requests.callGetReservationsByUser(app.getLoggedInUser().getToken());
                 try {
                     root = mapper.readTree(response);
